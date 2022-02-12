@@ -1,3 +1,4 @@
+
 ! Define colors, Nord by default.
 
 #define nord0 #2E3440
@@ -39,6 +40,10 @@
 *.color13: nord15
 *.color14: nord7
 *.color15: nord6
+
+
+
+! Configure DWM.
 
 dwm.normbordercolor: nord4
 dwm.normbgcolor: nord0
