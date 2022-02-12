@@ -1284,6 +1284,9 @@ tsetchar(Rune u, const Glyph *attr, int x, int y)
 	term.dirty[y] = 1;
 	term.line[y][x] = *attr;
 	term.line[y][x].u = u;
+
+	if (isboxdraw(u))
+		term.line[y][x].mode |= ATTR_BOXDRAW;
 }
 
 void
@@ -2745,7 +2748,8 @@ draw(void)
 	drawregion(0, 0, term.col, term.row);
 	if (term.scr == 0)
 		xdrawcursor(cx, term.c.y, term.line[term.c.y][cx],
-				term.ocx, term.ocy, term.line[term.ocy][term.ocx]);
+				term.ocx, term.ocy, term.line[term.ocy][term.ocx],
+				term.line[term.ocy], term.col);
 	term.ocx = cx;
 	term.ocy = term.c.y;
 	xfinishdraw();
