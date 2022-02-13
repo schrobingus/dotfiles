@@ -2,6 +2,9 @@ For Dynamic Window Manager (dwm):
 https://dwm.suckless.org/patches/actualfullscreen/
 https://dwm.suckless.org/patches/attachbelow/
 https://dwm.suckless.org/patches/autostart/
+https://dwm.suckless.org/patches/bar_height/
+https://dwm.suckless.org/patches/centeredwindowname/
+https://dwm.suckless.org/patches/dragmfact/
 https://dwm.suckless.org/patches/fullgaps/
 https://dwm.suckless.org/patches/movestack/
 https://dwm.suckless.org/patches/xrdb/
