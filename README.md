@@ -22,3 +22,4 @@ For ST:
 
 - The Cascadia Code Nerd Font (Caskaydia Cove) is used in these dotfiles.
 - Credit to Lewis for the ZSH configuration, you can find it in his dotfiles [here](https://github.com/smartsyncing/dotfiles).
+- All wallpapers were sourced from [Nord Theme Wallpapers](https://nordthemewallpapers.com/All/).
