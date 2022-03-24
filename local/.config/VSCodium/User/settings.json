@@ -1,0 +1,16 @@
+{
+    "workbench.colorTheme": "Nord",
+    "workbench.iconTheme": "easy-icons",
+
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+    "typescript.suggest.paths": false,
+    "javascript.suggest.paths": false,
+
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.scrollbar.vertical": "hidden",
+
+    "editor.disableMonospaceOptimizations": true,
+
+    "vim.useSystemClipboard": true,
+}
