@@ -26,7 +26,6 @@ static char *colors[][3] = {
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4" };
-
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -43,7 +42,6 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int attachbelow = 1;    /* 1 means attach after the currently active window */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
-
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "TILE",      tile },    /* first entry is default */
@@ -72,7 +70,11 @@ static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%"
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
 static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
 
+/* post-references */
 #include "movestack.c"
+#include "selfrestart.c"
+
+/* bindings */
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
@@ -82,8 +84,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_u,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_o,      incnmaster,     {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_j,      setmfact,       {.f = -0.05} },
-	{ MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY|ShiftMask,             XK_j,      setmfact,       {.f = -0.025} },
+	{ MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = +0.025} },
 	{ MODKEY,                       XK_i,      movestack,      {.i = +1 } },
 	{ MODKEY,                       XK_k,      movestack,      {.i = -1 } },
 	//{ MODKEY|ShiftMask,           XK_Return, zoom,           {0} },
@@ -117,6 +119,7 @@ static Key keys[] = {
 	//TAGKEYS(                      XK_7,                      6)
 	//TAGKEYS(                      XK_8,                      7)
 	//TAGKEYS(                      XK_9,                      8)
+	{ MODKEY|ShiftMask,		XK_r,	   self_restart,   {0} },
 	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} },
 };
 
@@ -136,4 +139,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-

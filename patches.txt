@@ -7,6 +7,7 @@ https://dwm.suckless.org/patches/centeredwindowname/
 https://dwm.suckless.org/patches/dragmfact/
 https://dwm.suckless.org/patches/fullgaps/
 https://dwm.suckless.org/patches/movestack/
+https://dwm.suckless.org/patches/selfrestart/
 https://dwm.suckless.org/patches/xrdb/
 
 For Simple Terminal (st):

@@ -1,1 +1,1 @@
-xrdb ~/.Xresources
+xrdb merge ~/.Xresources

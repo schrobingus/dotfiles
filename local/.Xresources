@@ -48,6 +48,6 @@
 dwm.normbordercolor: nord4
 dwm.normbgcolor: nord0
 dwm.normfgcolor: nord4
-dwm.selbordercolor: nord11
+dwm.selbordercolor: nord9
 dwm.selbgcolor: nord0
-dwm.selfgcolor: nord11
+dwm.selfgcolor: nord9
