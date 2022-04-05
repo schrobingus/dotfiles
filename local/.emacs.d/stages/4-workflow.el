@@ -19,20 +19,22 @@
   (ivy-explorer-mode 1)
   (counsel-mode 1))
 
-;; Install Sublimity for Smooth Scrolling effects, a Minimap, and Zen.
-(use-package sublimity
-  :config
-  (require 'sublimity)
-  (setq sublimity-scroll-weight 100
-      sublimity-scroll-drift-length 1000)
-  (require 'sublimity-scroll)
-  ;;(require 'sublimity-map)
-  ;;(require 'sublimity-attractive)
-  (sublimity-mode 1))
-
 ;; Configure for precision scrolling.
-;;(setq scroll-step            1
-;;      scroll-conservatively  10000)
+(setq scroll-step            1
+      scroll-conservatively  10000)
+
+;; Install Projectile and Neotree, and integrate them with each other.
+(use-package neotree
+  :init
+  (use-package projectile
+    :config
+    (projectile-mode +1)
+    :bind ("C-x C-S-f" . projectile-switch-project))
+  :config
+  (setq-default neo-show-hidden-files t)
+  (setq neo-theme nil)
+  (setq-default neo-window-fixed-size nil)
+  (setq projectile-switch-project-action 'neotree-projectile-action))
 
 ;; Install Git Gutter Mode.
 (use-package git-gutter
