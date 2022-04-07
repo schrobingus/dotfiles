@@ -8,7 +8,7 @@ This repository includes forks of DWM and ST, as well as configuration files for
 
 You can check the READMEs of each subdirectory for installation, but here are some commands for reference.
 - To install the Stowed Dotfiles, run `git clone https://github.com/BrentBoyMeBob/dot-main ~/.dotfiles && cd ~/.dotfiles && stow ~/.dotfiles/local`.
-- To install the Suckless forks afterwards, install the dependencies (command on Arch is `sudo pacman -S base-devel xorg dmenu feh xorg-xrdb xorg-xsetroot pulseaudio picom`), and then run `cd ~/.dotfiles/dwm && make && sudo make install && cd ~/.dotfiles/st && make && sudo make install`.
+- To install the Suckless forks afterwards, install the dependencies (command on Arch is `sudo pacman -S base-devel xorg dmenu feh xorg-xrdb xorg-xsetroot ttf-symbola pulseaudio picom`), and then run `cd ~/.dotfiles/dwm && make && sudo make install && cd ~/.dotfiles/st && make && sudo make install`.
 
 
 ## Credits
