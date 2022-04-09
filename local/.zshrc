@@ -1,13 +1,14 @@
 # Install and load zplug.
-if [ -d "~/.zplug" ]; then
-    git clone https://github.com/zplug/zplug ~/.zplug
-fi
+git clone https://github.com/zplug/zplug ~/.zplug > /dev/null 2>&1 || true
 source ~/.zplug/init.zsh
 
 # Configure the ZSH history.
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
+
+# Load colors.
+autoload -U colors && colors
 
 # Enable syntax highlighting and checking.
 zplug "zsh-users/zsh-syntax-highlighting"
@@ -22,12 +23,12 @@ setopt PROMPT_SUBST
 setprompt() {
     setpromptgit() {
 	if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-	    echo " +$(git status | grep 'new file:' | wc -l)/-$(git status | grep 'modified:' | wc -l)"
+	    echo " %{$fg[green]%}+$(git status | grep 'new file:' | wc -l)%{$reset_color%}/%{$fg[red]%}-$(git status | grep 'modified:' | wc -l)%{$reset_color%}"
 	fi
     }
     
-    export PROMPT=">> "
-    export RPROMPT='${PWD##*/}$(setpromptgit)'
+    export PROMPT="%{$fg[cyan]%}>> %{$reset_color%}"
+    export RPROMPT='%{$fg[blue]%}${PWD##*/}$(setpromptgit)'
 }
 setprompt
 

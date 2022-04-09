@@ -19,6 +19,12 @@
   (ivy-explorer-mode 1)
   (counsel-mode 1))
 
+;; Enable flycheck for code checking.
+(use-package flycheck
+  :config
+  (global-flycheck-mode)
+  (flycheck-disable-checker 'emacs-lisp))
+
 ;; Configure for precision scrolling.
 (setq scroll-step            1
       scroll-conservatively  10000)

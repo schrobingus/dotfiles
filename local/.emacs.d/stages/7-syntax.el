@@ -10,6 +10,14 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode)))
 
+;; Implement Rust Mode with Cargo.el.
+(use-package rust-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+  (use-package cargo
+    :config
+    (add-hook 'rust-mode-hook 'cargo-minor-mode)))
+
 ;; Implement YAML mode.
 (use-package yaml-mode
   :config
