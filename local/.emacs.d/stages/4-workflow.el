@@ -20,10 +20,11 @@
   (counsel-mode 1))
 
 ;; Enable flycheck for code checking.
-(use-package flycheck
-  :config
-  (global-flycheck-mode)
-  (flycheck-disable-checker 'emacs-lisp))
+;;(use-package flycheck
+;;  :config
+;;  (setq flycheck-indication-mode 'right-fringe)
+;;  (add-hook 'after-init-hook (global-flycheck-mode))
+;;  (add-hook 'after-init-hook (flycheck-disable-checker 'emacs-lisp)))
 
 ;; Configure for precision scrolling.
 (setq scroll-step            1
