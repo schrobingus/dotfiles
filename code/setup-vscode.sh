@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-# Define and install the packages that should be installed declaratively. 
+# Define and install the packages that should be installed declaratively.
 codium --install-extension jamesmaj.easy-icons || true                       # Simplistic Icons
 codium --install-extension abusaidm.html-snippets || true                    # Snippets for HTML
 codium --install-extension xabikos.JavaScriptSnippets || true                # Snippets for JS

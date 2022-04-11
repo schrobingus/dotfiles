@@ -1,0 +1,26 @@
+#- defaults:
+#    link:
+#      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.config/Code: code/
+    ~/.config/VSCodium: code/
+    ~/.dwm: dwm/.dwm/
+    ~/.fonts: extra/.fonts/
+    ~/.config/picom.conf: picom.conf
+    ~/.vimrc: vimrc
+    ~/.wallpapers: extra/.wallpapers/
+    ~/.Xresources: Xresources
+    ~/.emacs.d: emacs/
+    ~/.config/zsh: zsh/
+    ~/.zshrc: zsh/.zshrc
+
+#- create:
+#    - ~/.zsh_history
+
+- shell:
+    - [cd dwm && make && sudo make install && cd .., Installing dwm]
+    - [cd st && make && sudo make install && cd .., Installing st]
+    - [git submodule update --init --recursive, Installing Git submodules]

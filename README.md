@@ -1,3 +1,4 @@
+## Dotfiles are currently in the process of being switched from bare GNU Stow to Dotbot. README will be updated soon...
 
 # Brent's Suckless Forks
 
