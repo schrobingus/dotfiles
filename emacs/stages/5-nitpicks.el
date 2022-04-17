@@ -15,3 +15,6 @@
 (toggle-scroll-bar -1)
 (tooltip-mode -1)
 (tool-bar-mode -1)
+
+;; Disable the annoying suspend binding.
+(global-unset-key (kbd "C-z"))

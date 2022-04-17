@@ -6,11 +6,13 @@
 ;; Set the font. (Default font is the Nerd Font variant of Cascadia Code.)
 (set-face-attribute 'default nil :font "CaskaydiaCove Nerd Font Mono" :height 107)
 
-;; Install the Nord theme for Emacs.
-(straight-use-package 'nord-theme)
+;; Install the Doom themes and reference the custom themes folder.
+(straight-use-package 'doom-themes)
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
 ;; Load designated theme. 
-(load-theme 'nord t)
+;;(load-theme 'doom-nord t)
+(load-theme 'doom-mountain t)
 
 ;; Add padding to the sides.
 (require 'frame)
@@ -27,7 +29,7 @@
 (setq-default frame-resize-pixelwise t)
 (set-face-attribute 'vertical-border
                     nil
-                     :foreground "#2E3440")
+                     :foreground "#0f0f0f")
 
 ;; Install the simplistic mood-line.
 ;;(straight-use-package '(mood-line :type git :host gitlab

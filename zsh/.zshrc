@@ -18,19 +18,25 @@ zplug "zsh-users/zsh-history-substring-search"
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-# Set the prompt.
-setopt PROMPT_SUBST
-setprompt() {
-    setpromptgit() {
-	if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-	    echo " %{$fg[green]%}+$(git status | grep 'new file:' | wc -l)%{$reset_color%}/%{$fg[red]%}-$(git status | grep 'modified:' | wc -l)%{$reset_color%}"
-	fi
-    }
-    
-    export PROMPT="%{$fg[cyan]%}>> %{$reset_color%}"
-    export RPROMPT='%{$fg[blue]%}${PWD##*/}$(setpromptgit)'
-}
-setprompt
+# Set a custom prompt.
+#setopt PROMPT_SUBST
+#setprompt() {
+#    setpromptgit() {
+#	if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+#	    echo " %{$fg[green]%}+$(git status | grep 'new file:' | wc -l)%{$reset_color%}/%{$fg[red]%}-$(git status | grep 'modified:' | wc -l)%{$reset_color%}"
+#	fi
+#    }
+#    
+#    export PROMPT="%{$fg[cyan]%}>> %{$reset_color%}"
+#    export RPROMPT='%{$fg[blue]%}${PWD##*/}$(setpromptgit)'
+#}
+#setprompt
+
+# Load the Typewritten prompt.
+git clone https://github.com/reobin/typewritten.git "$HOME/.zsh/typewritten" > /dev/null 2>&1 || true
+fpath+=$HOME/.zsh/typewritten
+autoload -U promptinit; promptinit
+prompt typewritten
 
 # Set the aliases for existing binutils.
 alias ls="ls --color=auto"

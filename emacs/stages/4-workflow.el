@@ -46,7 +46,7 @@
 ;; Install Git Gutter Mode.
 (use-package git-gutter
   :config
-  (set-face-foreground 'git-gutter:added "#A3BE8C")
-  (set-face-foreground 'git-gutter:modified "#88C0D0")
-  (set-face-foreground 'git-gutter:deleted "#81A1C1")
+  (set-face-foreground 'git-gutter:added "#8aac8b")
+  (set-face-foreground 'git-gutter:modified "#8f8aac")
+  (set-face-foreground 'git-gutter:deleted "#ac8a8c")
   (global-git-gutter-mode +1))
