@@ -5,11 +5,15 @@
 - clean: ['~']
 
 - link:
+    ~/.local/bin: bin/
     ~/.config/Code: code/
     ~/.config/VSCodium: code/
     ~/.dwm: dwm/.dwm/
     ~/.fonts: extra/.fonts/
     ~/.config/picom.conf: picom.conf
+    ~/.bash_profile: profile
+    ~/.profile: profile
+    ~/.zprofile: profile
     ~/.vimrc: vimrc
     ~/.wallpapers: extra/.wallpapers/
     ~/.Xresources: Xresources
@@ -21,6 +25,7 @@
 #    - ~/.zsh_history
 
 - shell:
-    - [cd dwm && make && sudo make install && cd .., Installing dwm]
-    - [cd st && make && sudo make install && cd .., Installing st]
+    - [cd dwm && make && make install && cd .., Installing dwm]
+    - [cd st && make && make install && cd .., Installing st]
+    - [cd tabbed && make && make install && cd .., Installing tabbed]
     - [git submodule update --init --recursive, Installing Git submodules]
