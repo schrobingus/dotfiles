@@ -4,7 +4,7 @@
 ;;    (all-the-icons-install-fonts t))
 
 ;; Set the font. (Default font is the Nerd Font variant of Cascadia Code.)
-(set-face-attribute 'default nil :font "CaskaydiaCove Nerd Font Mono" :height 107)
+;;(set-face-attribute 'default nil :font "CaskaydiaCove Nerd Font Mono" :height 107)
 
 ;; Install the Doom themes and reference the custom themes folder.
 (straight-use-package 'doom-themes)
@@ -12,6 +12,7 @@
 
 ;; Load designated theme. 
 ;;(load-theme 'doom-nord t)
+(load-theme 'doom-nord t)
 (load-theme 'doom-mountain t)
 
 ;; Add padding to the sides.

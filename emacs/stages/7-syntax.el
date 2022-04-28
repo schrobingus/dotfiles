@@ -20,6 +20,10 @@
     :config
     (add-hook 'rust-mode-hook 'cargo-minor-mode)))
 
+;; Implement Vim script mode.
+(use-package vimrc-mode
+  :mode "\\.vim\\(rc\\)?\\'")
+
 ;; Implement YAML mode.
 (use-package yaml-mode
   :mode "\\.yml\\'")

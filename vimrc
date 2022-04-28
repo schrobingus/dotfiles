@@ -12,6 +12,9 @@ endif
 call plug#begin()
 	" Themes for Vim.
 	Plug 'jeffkreeftmeijer/vim-dim'
+
+	" Install Nix support for Vim.
+	Plug 'LnL7/vim-nix'
 call plug#end()
 
 " Set the theme (default is Dim, since it's the most agnostic).

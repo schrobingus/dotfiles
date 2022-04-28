@@ -1,3 +1,15 @@
+;; Install Projectile for project management.
+(use-package projectile
+    :config
+    (projectile-mode +1))
+;    (defun smart-find-file ()
+;      (interactive)
+;      (fset 'projectile-project-p 'nil)
+;      (if (not (fboundp 'projectile-project-p))
+;	  (find-file)
+;	(projectile-find-file)))
+;    (global-set-key (kbd "C-x C-f") 'smart-find-file)
+
 ;; Install utilities for managing brackets.
 (use-package smartparens
   :config
@@ -8,7 +20,10 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; Install Counsel and Ivy for better Minibuffer navigation.
-(use-package counsel)
+(use-package counsel
+  :config
+  (use-package counsel-projectile
+    :bind ("C-x C-S-f" . projectile-switch-project)))
 ;;(use-package ivy :demand
 ;;      :config
 ;;      (setq ivy-use-virtual-buffers t
@@ -30,13 +45,8 @@
 (setq scroll-step            1
       scroll-conservatively  10000)
 
-;; Install Projectile and Neotree, and integrate them with each other.
+;; Install Neotree, and integrate it with Projectile.
 (use-package neotree
-  :init
-  (use-package projectile
-    :config
-    (projectile-mode +1)
-    :bind ("C-x C-S-f" . projectile-switch-project))
   :config
   (setq-default neo-show-hidden-files t)
   (setq neo-theme nil)
