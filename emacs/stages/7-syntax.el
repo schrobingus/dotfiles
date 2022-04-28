@@ -2,23 +2,24 @@
 
 ;; Implement C# mode.
 (use-package csharp-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-mode)))
+  :mode "\\.cs\\'")
 
 ;; Implement Markdown mode.
 (use-package markdown-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode)))
+  :mode "\\.md\\'")
 
-;; Implement Rust Mode with Cargo.el.
+;; Implement Nix integration.
+(use-package nix-mode
+  :mode "\\.nix\\'")
+
+;; Implement Rust Mode with Cargo.el.4
 (use-package rust-mode
+  :mode "\\.rs\\'"
   :config
-  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
   (use-package cargo
     :config
     (add-hook 'rust-mode-hook 'cargo-minor-mode)))
 
 ;; Implement YAML mode.
 (use-package yaml-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
+  :mode "\\.yml\\'")

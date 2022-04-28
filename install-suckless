@@ -1,0 +1,12 @@
+#!/bin/sh -e
+cd suckless/dwm
+make
+make install
+ln -sf .dwm ~/.dwm
+cd ../st
+make
+make install
+cd ../tabbed
+make
+make install
+cd ../..
