@@ -1,0 +1,68 @@
+# BrentBoyMeBob's NixOS Hardware Configuration
+## This might not be what you're looking for; this is simply a file that
+## configures my hardware in particular. Check the "bbmb-nixos" directory
+## right next to this file for my NixOS setup. Note that it does not use
+## Suckless anymore, I have switched to GNOME on Wayland. 
+
+{ config, pkgs, ... }:
+
+{
+  imports =
+    [ # Include the results of the hardware scan.
+      /etc/nixos/hardware-configuration.nix
+
+      # Import my Nix system configuration.
+      /home/brent/Git/dotfiles/nix/bbmb-nixos/1-basis.nix
+      /home/brent/Git/dotfiles/nix/bbmb-nixos/2-services.nix
+      /home/brent/Git/dotfiles/nix/bbmb-nixos/3-software.nix
+    ];
+
+  # Configure external overlays and packages.
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
+    }))
+  ];
+
+  # Use the latest kernel.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # Use the GRUB-EFI boot loader.
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
+    };
+    grub = {
+      devices = [ "nodev" ];
+      efiSupport = true;
+      enable = true;
+      version = 2;
+    };
+  };
+
+  # Apply the kernel parameters. This AMD parameter is specific to my primary
+  # laptop, the Dell G5 15 SE.
+  boot.kernelParams = [ "amdgpu.runpm=0" ];
+
+  networking.hostName = "reflections"; # Define your hostname.
+  networking.wireless.enable = false; # Disable declarative networking.
+  networking.networkmanager.enable = true; # Enable imperative networking.
+
+  # Set your time zone.
+  time.timeZone = "America/Los_Angeles";
+
+  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
+  # Per-interface useDHCP will be mandatory in the future, so this generated config
+  # replicates the default behaviour.
+  networking.useDHCP = false;
+  networking.interfaces.enp5s0.useDHCP = true;
+  networking.interfaces.wlp6s0.useDHCP = true;
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.brent = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+  };
+}
+
