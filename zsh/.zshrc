@@ -1,11 +1,19 @@
-# Install and load zplug.
+# Load zplug.
 git clone https://github.com/zplug/zplug ~/.zplug > /dev/null 2>&1 || true
 source ~/.zplug/init.zsh
+
+# Load the home-manager PATH.
+if [ -x "$(command -v home-manager)" ]; then
+	export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
+fi
 
 # Configure the ZSH history.
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
+
+# Allow interactive comments.
+setopt interactive_comments
 
 # Disable case sensitivity in autocompletion.
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
@@ -46,18 +54,18 @@ prompt typewritten
 alias ls="ls --color=auto"
 
 # Find the Sudo or Sudo-like command.
-if command -v "doas" > /dev/null 2>&1; then
+if [ -x "$(command -v doas)" ]; then
      export SUDO="doas"
-elif command -v "sudo" > /dev/null 2>&1; then
+elif [ -x "$(command -v sudo)" ]; then
      export SUDO="sudo"
 else
      export SUDO="su -c"
 fi
 
 # Alias specific shortcuts for Arch.
-if command -v "paru" > /dev/null 2>&1; then
+if [ -x "$(command -v paru)" ]; then
     export ARCHFRONTEND="paru"
-elif command -v "yay" > /dev/null 2>&1; then
+elif [ -x "$(command -v yay)" ]; then
     export ARCHFRONTEND="yay"
 else
     export ARCHFRONTEND="$SUDO pacman"
@@ -68,7 +76,7 @@ alias pu="$ARCHFRONTEND -Syu"
 alias prfm="sudo reflector -f 5 --country 'United States' --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 
 # Alias specific shortcuts for the worst distro.
-if command -v "nala" > /dev/null 2>&1; then
+if [ -x "$(command -v nala)" ]; then
     export DEBIANFRONTEND="$SUDO nala"
 else
     export DEBIANFRONTEND="$SUDO apt"

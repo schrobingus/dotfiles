@@ -6,6 +6,18 @@
   services.xserver.desktopManager.gnome.enable = true;
   services.gnome.core-utilities.enable = false;
 
+  # Configure external overlays and packages.
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
+    }))
+  ];
+
+  # Configure Ungoogled Chromium and Discord to use Wayland.
+  nixpkgs.config.ungoogled-chromium.commandLineArgs = "--enable-features=WebRTCPipeWireCapturer,UseOzonePlatform --ozone-platform=wayland";
+  nixpkgs.config.discord.commandLineArgs = "--enable-features=WebRTCPipeWireCapturer,UseOzonePlatform --ozone-platform=wayland
+";
+
   # Install some packages.
   environment.systemPackages = with pkgs; [
     apple-music-electron # Apple Music Client
@@ -28,6 +40,7 @@
 
     git # Universal VCS
     htop # System Monitor
+    killall # Process Killer
     neofetch pfetch # System Info
     vim # Minimal Editor
     wget # Minimal File Fetcher
