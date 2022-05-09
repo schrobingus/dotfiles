@@ -27,3 +27,8 @@
 ;; Implement YAML mode.
 (use-package yaml-mode
   :mode "\\.yml\\'")
+
+;; Implement Zencoding mode for quicker HTML writing.
+(use-package zencoding-mode
+  :config
+  (add-hook 'sgml-mode-hook 'zencoding-mode))

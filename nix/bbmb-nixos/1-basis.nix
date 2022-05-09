@@ -8,5 +8,5 @@
   services.xserver.enable = true;
 
   # Define the NixOS version.
-  system.stateVersion = "unstable";
+  system.stateVersion = "22.05";
 }

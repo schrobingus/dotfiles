@@ -62,6 +62,12 @@ else
      export SUDO="su -c"
 fi
 
+# Alias shortcuts for Nix and Home Manager.
+alias ns="nix-channel --update && $SUDO nixos-rebuild switch"
+alias nu="nix-channel --update"
+alias nhs="nix-channel --update && home-manager switch"
+alias nc="nix-collect-garbage -d && nix-store --gc"
+
 # Alias specific shortcuts for Arch.
 if [ -x "$(command -v paru)" ]; then
     export ARCHFRONTEND="paru"
@@ -81,17 +87,17 @@ if [ -x "$(command -v nala)" ]; then
 else
     export DEBIANFRONTEND="$SUDO apt"
 fi
-ai="$DEBIANFRONTEND update && $DEBIANFRONTEND install"
-ar="$DEBIANFRONTEND purge --auto-remove"
-au="$DEBIANFRONTEND update && $DEBIANFRONTEND upgrade"
+alias ai="$DEBIANFRONTEND update && $DEBIANFRONTEND install"
+alias ar="$DEBIANFRONTEND purge --auto-remove"
+alias au="$DEBIANFRONTEND update && $DEBIANFRONTEND upgrade"
 
 # Alias specific shortcuts for DNF and Zypper.
-di="$SUDO dnf install"
-dr="$SUDO dnf remove"
-du="$SUDO dnf update"
-zi="$SUDO zypper in"
-zr="$SUDO zypper rm"
-zu="$SUDO zypper dup"
+alias di="$SUDO dnf install"
+alias dr="$SUDO dnf remove"
+alias du="$SUDO dnf update"
+alias zi="$SUDO zypper in"
+alias zr="$SUDO zypper rm"
+alias zu="$SUDO zypper dup"
 
 # Instantiate zplug.
 if zplug check || zplug install; then

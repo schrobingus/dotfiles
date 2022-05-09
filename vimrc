@@ -12,13 +12,21 @@ endif
 call plug#begin()
 	" Themes for Vim.
 	Plug 'jeffkreeftmeijer/vim-dim'
+	Plug 'pradyungn/Mountain', {'rtp': 'vim'}
+
+	" Sensible defaults for Vim.
+	Plug 'tpope/vim-sensible'
 
 	" Install Nix support for Vim.
 	Plug 'LnL7/vim-nix'
 call plug#end()
 
 " Set the theme (default is Dim, since it's the most agnostic).
-colorscheme dim
+"colorscheme dim
+colorscheme mountain
+
+" Optionally enable the Mountain statusline.
+"let g:enable_mountain_statusline=1
 
 " Enable the mouse.
 set mouse=a

@@ -8,21 +8,18 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
+      # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
+
+      # Import the cachix file.
+      ./cachix.nix
 
       # Import my Nix system configuration.
       /home/brent/Git/dotfiles/nix/bbmb-nixos/1-basis.nix
       /home/brent/Git/dotfiles/nix/bbmb-nixos/2-services.nix
       /home/brent/Git/dotfiles/nix/bbmb-nixos/3-software.nix
     ];
-
-  # Configure external overlays and packages.
-  nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
-    }))
-  ];
 
   # Use the latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -59,9 +56,15 @@
   networking.interfaces.enp5s0.useDHCP = true;
   networking.interfaces.wlp6s0.useDHCP = true;
 
+  # Utilize zsh as a shell.
+  environment.pathsToLink = [ "/share/zsh" ];
+  environment.shells = [ pkgs.zsh ];
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.brent = {
     isNormalUser = true;
+    shell = pkgs.zsh; # Enable zsh.
+    useDefaultShell = false;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 }

@@ -4,6 +4,7 @@
     ~/.local/bin: bin/
     ~/.config/Code: code/
     ~/.config/VSCodium: code/
+    ~/.emacs.d: emacs/
     ~/.fonts: fonts/
     ~/.config/picom.conf: picom.conf
     ~/.bash_profile: profile
@@ -12,7 +13,6 @@
     ~/.vimrc: vimrc
     ~/.local/share/backgrounds: wallpapers/
     ~/.Xresources: Xresources
-    ~/.emacs.d: emacs/
     ~/.config/zsh: zsh/
     ~/.zshrc: zsh/.zshrc
 

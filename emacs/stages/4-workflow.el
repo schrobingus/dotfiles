@@ -14,6 +14,7 @@
 (use-package smartparens
   :config
   (require 'smartparens-config)
+  (setq sp-highlight-pair-overlay nil)
   (smartparens-global-mode 1))
 (use-package rainbow-delimiters
   :config
@@ -40,6 +41,18 @@
 ;;  (setq flycheck-indication-mode 'right-fringe)
 ;;  (add-hook 'after-init-hook (global-flycheck-mode))
 ;;  (add-hook 'after-init-hook (flycheck-disable-checker 'emacs-lisp)))
+
+;; Add TODO highlighting.
+(use-package hl-todo
+  :config
+  (setq hl-todo-keyword-faces
+	'(("TODO"   . "#C6A679")
+	  ("NOTE"   . "#E7E7E7")
+	  ("FIXME"  . "#AC8A8C")
+	  ("DEBUG"  . "#8F8AAC")
+	  ("GOTCHA" . "#8AAC8B")
+	  ("STUB"   . "#9EC3C4")))
+  (global-hl-todo-mode))
 
 ;; Configure for precision scrolling.
 (setq scroll-step            1
