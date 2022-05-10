@@ -5,6 +5,7 @@ codium --install-extension jamesmaj.easy-icons || true                       # S
 codium --install-extension tuttieee.emacs-mcx || true                        # Emacs Emulation for VSCode
 codium --install-extension abusaidm.html-snippets || true                    # Snippets for HTML
 codium --install-extension xabikos.JavaScriptSnippets || true                # Snippets for JS
+codium --install-extension mattn.lisp || true                                # Lisp Syntax Support / Highlighting
 codium --install-extension DavidAnson.vscode-markdownlint || true            # Improvements for Markdown
 codium --install-extension MrAirport.mountain || true                        # Mountain Theme
 codium --install-extension arcticicestudio.nord-visual-studio-code || true   # Nord Theme
