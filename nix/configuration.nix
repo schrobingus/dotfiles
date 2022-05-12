@@ -12,13 +12,10 @@
       # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
 
-      # Import the cachix file.
-      ./cachix.nix
-
       # Import my Nix system configuration.
-      /home/brent/Git/dotfiles/nix/bbmb-nixos/1-basis.nix
-      /home/brent/Git/dotfiles/nix/bbmb-nixos/2-services.nix
-      /home/brent/Git/dotfiles/nix/bbmb-nixos/3-software.nix
+      ./system/1-basis.nix
+      ./system/2-services.nix
+      ./system/3-software.nix
     ];
 
   # Use the latest kernel.

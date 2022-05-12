@@ -1,19 +1,28 @@
-## Dotfiles are currently in the process of being switched from bare GNU Stow to Dotbot. README will be updated soon...
+# My Simple Dotfiles
+This includes a couple of pieces of software that are being used, including:
+- My relatively packed Emacs config.
+- A quick and simple ZSH config with some helpful features, avoiding what I don't need
+- My Emacs-binded VSCodium / VSCode configuration for my Duet.
+- Some local files for my GNOME setup (including settings for GNOME Terminal).
+- My small Vim config as a secondary editor alongside Emacs.
+- Some wallpapers from [Nord Theme Wallpapers](https://nordthemewallpapers.com/), as well as some fitting Mountain themed photos taken by `marauder#1639` on Discord.
 
-# Brent's Suckless Forks
-
-This repository includes forks of DWM and ST, as well as configuration files for several programs (including Vim, Emacs, VSCode, etc).
-
+Older dotfiles (including my Suckless forks) are stored in my own [dot-dump](https://github.com/BrentBoyMeBob/dot-dump) repository.
 
 ## Installation
 
-You can check the READMEs of each subdirectory for installation, but here are some commands for reference.
-- To install the Stowed Dotfiles, run `git clone https://github.com/BrentBoyMeBob/dot-main ~/.dotfiles && cd ~/.dotfiles && stow ~/.dotfiles/local`.
-- To install the Suckless forks afterwards, install the dependencies (command on Arch is `sudo pacman -S base-devel xorg dmenu feh xorg-xrdb xorg-xsetroot ttf-symbola pulseaudio picom`), and then run `cd ~/.dotfiles/dwm && make && sudo make install && cd ~/.dotfiles/st && make && sudo make install`.
+**For those using Nix**
 
+If you want to use my home-manager configuration, simply just symlink `nix/local` in my dotfiles to `~/.config/nixpkgs`, and edit the configuration to use your user rather than `brent`.
 
-## Credits
+If you want to install all of my dotfiles for NixOS, symlink `nix/system` to `/etc/nixos/system`, and then put this in your `/etc/nixos/configuration.nix` in the `imports` section.
 
-- The Cascadia Code Nerd Font (Caskaydia Cove) is used in these dotfiles.
-- Credit to Lewis for the ZSH configuration, you can find it in his dotfiles [here](https://github.com/smartsyncing/dotfiles).
-- All wallpapers were sourced from [Nord Theme Wallpapers](https://nordthemewallpapers.com/All/).
+```
+    ./system/1-basis.nix
+    ./system/2-services.nix
+    ./system/3-software.nix
+```
+
+**For those on other systems**
+
+To install my local dotfiles, just execute `install`. Keep in mind that you will have to imperatively install all of the software listed above, which can vary between distro.
