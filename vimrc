@@ -13,6 +13,7 @@ call plug#begin()
 	" Themes for Vim.
 	Plug 'jeffkreeftmeijer/vim-dim'
 	Plug 'pradyungn/Mountain', {'rtp': 'vim'}
+	Plug 'arcticicestudio/nord-vim'
 
 	" Sensible defaults for Vim.
 	Plug 'tpope/vim-sensible'
@@ -24,6 +25,7 @@ call plug#end()
 " Set the theme (default is Dim, since it's the most agnostic).
 "colorscheme dim
 colorscheme mountain
+"colorscheme nord
 
 " Optionally enable the Mountain statusline.
 "let g:enable_mountain_statusline=1
