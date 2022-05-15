@@ -13,7 +13,7 @@
 
   # Install some packages.
   home.packages = [
-    pkgs.jdk
+    pkgs.fet-sh
   ];
 
   # Start linking configs.

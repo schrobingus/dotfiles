@@ -1,18 +1,11 @@
 - clean: ['~']
 
 - link:
-    ~/.local/bin: bin/
     ~/.config/Code: code/
     ~/.config/VSCodium: code/
     ~/.emacs.d: emacs/
-    ~/.fonts: fonts/
-    ~/.config/picom.conf: picom.conf
-    ~/.bash_profile: profile
-    ~/.profile: profile
-    ~/.zprofile: profile
     ~/.vimrc: vimrc
     ~/.local/share/backgrounds: wallpapers/
-    ~/.Xresources: Xresources
     ~/.config/zsh: zsh/
     ~/.zshrc: zsh/.zshrc
 

@@ -48,6 +48,7 @@ bindkey '^[[B' history-substring-search-down
 git clone https://github.com/reobin/typewritten.git "$HOME/.zsh/typewritten" > /dev/null 2>&1 || true
 fpath+=$HOME/.zsh/typewritten
 autoload -U promptinit; promptinit
+TYPEWRITTEN_SYMBOL="#"
 prompt typewritten
 
 # Set the aliases for existing binutils.
