@@ -5,6 +5,13 @@ source ~/.zplug/init.zsh
 # Load the home-manager PATH.
 if [ -x "$(command -v home-manager)" ]; then
 	export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
+	export PATH=$PATH:$NIX_PATH
+fi
+
+# Load the Nix integration plugins.
+if [ -x "$(command -v nix-shell)" ]; then
+	zplug "spwhitt/nix-zsh-completions"
+	zplug "chisui/zsh-nix-shell"
 fi
 
 # Configure the ZSH history.
@@ -48,7 +55,12 @@ bindkey '^[[B' history-substring-search-down
 git clone https://github.com/reobin/typewritten.git "$HOME/.zsh/typewritten" > /dev/null 2>&1 || true
 fpath+=$HOME/.zsh/typewritten
 autoload -U promptinit; promptinit
-TYPEWRITTEN_SYMBOL="#"
+if [ "$IN_NIX_SHELL" = "" ]; then
+	TYPEWRITTEN_SYMBOL="#"
+else
+	TYPEWRITTEN_SYMBOL=">"
+fi
+#TYPEWRITTEN_SYMBOL="#"
 prompt typewritten
 
 # Set the aliases for existing binutils.
@@ -64,9 +76,10 @@ else
 fi
 
 # Alias shortcuts for Nix and Home Manager.
-alias ns="nix-channel --update && $SUDO nixos-rebuild switch"
 alias nu="nix-channel --update"
-alias nhs="nix-channel --update && home-manager switch"
+alias ns="nu && $SUDO nixos-rebuild switch"
+alias nhs="nu && home-manager switch"
+alias nsh="nix-shell"
 alias nc="nix-collect-garbage -d && nix-store --gc"
 
 # Alias specific shortcuts for Arch.
@@ -80,6 +93,7 @@ fi
 alias pi="$ARCHFRONTEND -S"
 alias pr="$ARCHFRONTEND -Rcns"
 alias pu="$ARCHFRONTEND -Syu"
+alias pc="$ARCHFRONTEND -Sc"
 alias prfm="sudo reflector -f 5 --country 'United States' --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 
 # Alias specific shortcuts for the worst distro.
@@ -91,6 +105,7 @@ fi
 alias ai="$DEBIANFRONTEND update && $DEBIANFRONTEND install"
 alias ar="$DEBIANFRONTEND purge --auto-remove"
 alias au="$DEBIANFRONTEND update && $DEBIANFRONTEND upgrade"
+alias ac="$DEBIANFRONTEND autoclean && $DEBIANFRONTEND clean"
 
 # Alias specific shortcuts for DNF and Zypper.
 alias di="$SUDO dnf install"

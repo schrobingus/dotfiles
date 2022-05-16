@@ -57,12 +57,6 @@
     neofetch pfetch # System Info
     vimHugeX # Minimal Editor with Clipboard
     wget # Minimal File Fetcher
-
-    gettext # Translation Tool
-    gnumake gcc # C Tools
-    cmake # Build System
-    meson ninja # Alternative Build Systems
-    sassc # SASS Frontend
     xdg-utils xdgmenumaker # XDG Utilities
     zip unzip # ZIP Archive Tools
   ];

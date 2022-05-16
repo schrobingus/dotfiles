@@ -24,8 +24,8 @@ call plug#end()
 
 " Set the theme (default is Dim, since it's the most agnostic).
 "colorscheme dim
-colorscheme mountain
-"colorscheme nord
+"colorscheme mountain
+colorscheme nord
 
 " Optionally enable the Mountain statusline.
 "let g:enable_mountain_statusline=1

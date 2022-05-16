@@ -12,8 +12,12 @@
   programs.zsh.enable = true;
 
   # Install some packages.
-  home.packages = [
-    pkgs.fet-sh
+  home.packages = with pkgs; [
+    # emacs # Advanced Editor
+    fet-sh pfetch # Minimal System Info
+    # vimHugeX # Minimal Editor
+    # vscodium code # Universal Editor
+    zsh # Minimal Shell
   ];
 
   # Start linking configs.
