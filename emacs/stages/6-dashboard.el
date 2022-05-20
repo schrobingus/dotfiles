@@ -12,3 +12,6 @@
 
 ;; Include nothing with the exception of recents.
 (setq dashboard-items '((recents . 7)))
+
+;; Disable the only icon.
+(setq dashboard-footer-icon "")

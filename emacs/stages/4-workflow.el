@@ -25,11 +25,15 @@
   :config
   (use-package counsel-projectile
     :bind ("C-x C-S-f" . projectile-switch-project)))
-;;(use-package ivy :demand
-;;      :config
-;;      (setq ivy-use-virtual-buffers t
-;;            ivy-count-format "%d/%d ")
-;;      (ivy-mode 1))
+(use-package ivy :demand
+      :config
+      (setq ivy-use-virtual-buffers t
+            ivy-count-format "%d/%d ")
+      (ivy-mode 1)
+      (use-package ivy-prescient
+	:config
+	(ivy-prescient-mode 1)
+	(prescient-persist-mode 1)))
 (use-package ivy-explorer
   :config
   (ivy-explorer-mode 1)
