@@ -60,7 +60,6 @@ if [ "$IN_NIX_SHELL" = "" ]; then
 else
 	TYPEWRITTEN_SYMBOL=">"
 fi
-#TYPEWRITTEN_SYMBOL="#"
 prompt typewritten
 
 # Set the aliases for existing binutils.
@@ -77,8 +76,9 @@ fi
 
 # Alias shortcuts for Nix and Home Manager.
 alias nu="nix-channel --update"
-alias ns="nu && $SUDO nixos-rebuild switch"
-alias nhs="nu && home-manager switch"
+alias ns="$SUDO nixos-rebuild switch"
+alias nb="$SUDO nixos-rebuild --upgrade boot"
+alias nhs="home-manager switch"
 alias nsh="nix-shell"
 alias nc="nix-collect-garbage -d && nix-store --gc"
 

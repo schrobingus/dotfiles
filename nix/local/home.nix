@@ -17,7 +17,7 @@
     fet-sh pfetch # Minimal System Info
     # vimHugeX # Minimal Editor
     # vscodium code # Universal Editor
-    zsh # Minimal Shell
+    # zsh # Minimal Shell
   ];
 
   # Start linking configs.
@@ -29,7 +29,7 @@
   home.file.".emacs.d/themes".source = ../../emacs/themes;
   home.file.".vimrc".source = ../../vimrc;
   home.file.".local/share/backgrounds/dotfiles".source = ../../wallpapers;
-  home.file.".zshrc".source = ../../zsh/.zshrc;
+  home.file.".zshrc".source = ../../zshrc;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

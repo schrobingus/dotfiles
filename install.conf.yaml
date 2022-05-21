@@ -6,8 +6,8 @@
     ~/.emacs.d: emacs/
     ~/.vimrc: vimrc
     ~/.local/share/backgrounds: wallpapers/
-    ~/.config/zsh: zsh/
-    ~/.zshrc: zsh/.zshrc
+    ~/.config/zsh/.zshrc: zshrc
+    ~/.zshrc: zshrc
 
 - shell:
     - [git submodule update --init --recursive, Installing Git submodules]

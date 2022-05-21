@@ -62,7 +62,7 @@
     isNormalUser = true;
     shell = pkgs.zsh; # Enable zsh.
     useDefaultShell = false;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "vboxusers" ]; # Enable ‘sudo’ for the user.
   };
 }
 
