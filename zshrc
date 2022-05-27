@@ -82,7 +82,7 @@ alias nu="nix-channel --update"
 alias ns="$SUDO nixos-rebuild switch"
 alias nb="$SUDO nixos-rebuild --upgrade boot"
 alias nhs="home-manager switch"
-alias nsh="nix-shell"
+alias nsh="nix-shell ~/.config/nixpkgs/shell.nix"
 alias nc="nix-collect-garbage -d && nix-store --gc"
 
 # Alias specific shortcuts for Arch.

@@ -5,6 +5,7 @@ pkgs.mkShell {
     cmake meson ninja # Build Systems
     gcc gnumake # C Tools
     gettext # Translation Tool
+    python39Full # Python Setup
     sassc # SASS Frontend
   ];
 
