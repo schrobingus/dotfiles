@@ -32,6 +32,9 @@ autoload -U colors && colors
 # Enable syntax highlighting and checking.
 zplug "zsh-users/zsh-syntax-highlighting"
 
+# Add Git completion and aliases.
+zplug "plugins/git", from:oh-my-zsh
+
 # Configure the tools for history substring searching.
 zplug "zsh-users/zsh-history-substring-search" 
 bindkey '^[[A' history-substring-search-up

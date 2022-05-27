@@ -24,24 +24,27 @@
   # Enable support for GNOME in Blink.
   services.gnome.chrome-gnome-shell.enable = true;
 
+  # Enable Virtualbox.
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+
   # Install some packages.
   environment.systemPackages = with pkgs; [
     apple-music-electron # Apple Music Client
     authy # 2FA Client
     bitwarden # Password Manager
     celluloid # MPV Frontend
-    dino # XMPP Client
     discord # Discord Client
     emacsPgtkNativeComp # Advanced Editor
     fondo # Wallpaper Fetcher
-    fragments # BitTorrent Client
     gnome.file-roller # Archive Tool
-    gnome.geary # Email Client
     gnome.gnome-disk-utility # Disk Checking Tool
     gnome.gnome-terminal # Terminal Emulator
     gnome.gnome-tweaks # Tweak Tool
     gnome.gnome-screenshot # Screenshot Tool
     gnome.nautilus # File Manager
+    gnomeExtensions.dash-to-panel # Customizable Panel for GNOME
+    gnomeExtensions.openweather # Weather on Top Bar
     gnomeExtensions.tray-icons-reloaded # GNOME Systray
     gnome-menus # Menu Specification
     gparted # Disk Partitioner
@@ -70,8 +73,13 @@
     noto-fonts-extra
   ];
 
-  # Set the default emoji.
-  fonts.fontconfig.defaultFonts.emoji = [ "Blobmoji" ];
+  # Set the default fonts.
+  fonts.fontconfig.defaultFonts = {
+    serif = [ "IBM Plex Sans" ];
+    sansSerif = [ "IBM Plex Sans" ];
+    monospace = [ "IBM Plex Mono" ];
+    emoji = [ "Blobmoji" ];
+  }
   
   # Allow some outdated packages.
   nixpkgs.config.permittedInsecurePackages = [

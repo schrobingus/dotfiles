@@ -10,6 +10,15 @@
 ;	(projectile-find-file)))
 ;    (global-set-key (kbd "C-x C-f") 'smart-find-file)
 
+;; Highlight the indents.
+;(use-package highlight-indent-guides
+;  :config
+;  (setq highlight-indent-guides-mode 'fill)
+;  (setq highlight-indent-guides-auto-enabled nil)
+;  (set-face-background 'highlight-indent-guides-odd-face "grey19")
+;  (set-face-background 'highlight-indent-guides-even-face "grey26")
+;  (add-hook 'prog-mode-hook #'highlight-indent-guides-mode))
+
 ;; Install utilities for managing brackets.
 (use-package smartparens
   :config
