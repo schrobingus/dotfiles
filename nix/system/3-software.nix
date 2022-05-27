@@ -79,7 +79,7 @@
     sansSerif = [ "IBM Plex Sans" ];
     monospace = [ "IBM Plex Mono" ];
     emoji = [ "Blobmoji" ];
-  }
+  };
   
   # Allow some outdated packages.
   nixpkgs.config.permittedInsecurePackages = [
