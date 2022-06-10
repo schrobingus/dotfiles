@@ -82,8 +82,8 @@
   services.gnome.chrome-gnome-shell.enable = true;
 
   # Enable Virtualbox.
-  #virtualisation.virtualbox.host.enable = true;
-  #virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
 
   # Install some packages.
   environment.systemPackages = with pkgs; [
@@ -106,6 +106,7 @@
     gnomeExtensions.tray-icons-reloaded # GNOME Systray
     gnome-menus # Menu Specification
     gparted # Disk Partitioner
+    kitty # Advanced Terminal Emulator
     pavucontrol # Audio Mixer
     papirus-icon-theme # Icon Theme
     phinger-cursors # Cursor Theme
