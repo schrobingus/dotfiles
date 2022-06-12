@@ -15,6 +15,7 @@
   home.packages = with pkgs; [
     # emacs # Advanced Editor
     fet-sh pfetch # Minimal System Info
+    python39Full python39Packages.pip python39Packages.build # Python + Tools
     # vimHugeX # Minimal Editor
     # vscodium code # Universal Editor
     # zsh # Minimal Shell

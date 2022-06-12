@@ -10,6 +10,9 @@ cursor_text_color #ffffff
 # Add padding to the terminal.
 window_padding_width 15.0
 
+# Set the cursor to a beam instead of a block.
+cursor_shape beam
+
 # Set the extra colors also to Mountain.
 # Black
 color8   #262626
