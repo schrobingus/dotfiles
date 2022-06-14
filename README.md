@@ -16,13 +16,7 @@ Older dotfiles (including my Suckless forks) are stored in my own [dot-dump](htt
 
 If you want to use my home-manager configuration, simply just symlink `nix/local` in my dotfiles to `~/.config/nixpkgs`, and edit the configuration to use your user rather than `brent`.
 
-If you want to install all of my dotfiles for NixOS, symlink `nix/system` to `/etc/nixos/system`, and then put this in your `/etc/nixos/configuration.nix` in the `imports` section.
-
-```
-    ./system/1-basis.nix
-    ./system/2-services.nix
-    ./system/3-software.nix
-```
+If you want to install all of my dotfiles for NixOS, symlink `nix/system.nix` to `/etc/nixos/system.nix`, and then import it in your `/etc/nixos/configuration.nix`.
 
 **For those on other systems**
 
