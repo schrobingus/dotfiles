@@ -85,6 +85,13 @@ alias nhs="home-manager switch"
 alias nsh="nix-shell ~/.config/nixpkgs/shell.nix"
 alias nc="nix-collect-garbage -d && nix-store --gc"
 
+# Alias shortcuts for Python modules and Pip.
+alias py="python3"
+alias pym="python3 -m"
+alias pyb="python3 -m build"
+alias pyi="python3 -m pip install --user"
+alias pyr="python3 -m pip uninstall"
+
 # Alias specific shortcuts for Arch.
 if [ -x "$(command -v paru)" ]; then
     export ARCHFRONTEND="paru"
