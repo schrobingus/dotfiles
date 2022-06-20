@@ -39,6 +39,16 @@ color14  #9ec3c4
 color15   #e7e7e7
 color7  #f0f0f0
 
+# Configure the tab bar.
+tab_bar_style slant
+tab_bar_background 	#000000
+active_tab_foreground   #c49ea0
+active_tab_background   #0f0f0f
+active_tab_font_style   bold-italic
+inactive_tab_foreground #f0f0f0
+inactive_tab_background #000000
+inactive_tab_font_style normal
+
 # Make the scrollback infinite.
 scrollback-lines -1
 

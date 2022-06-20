@@ -55,6 +55,11 @@
 ;;  (add-hook 'after-init-hook (global-flycheck-mode))
 ;;  (add-hook 'after-init-hook (flycheck-disable-checker 'emacs-lisp)))
 
+;; Highlight color codes with Rainbow Mode.
+(use-package rainbow-mode
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-mode))
+
 ;; Add TODO highlighting.
 (use-package hl-todo
   :config

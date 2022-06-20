@@ -78,9 +78,9 @@ else
 fi
 
 # Alias shortcuts for Nix and Home Manager.
-alias nu="nix-channel --update"
-alias ns="$SUDO nixos-rebuild switch"
-alias nb="$SUDO nixos-rebuild --upgrade boot"
+alias nu="nix-channel --update && $SUDO nix-channel --update || true"
+alias nrs="$SUDO nixos-rebuild switch"
+alias nrb="$SUDO nixos-rebuild --upgrade boot"
 alias nhs="home-manager switch"
 alias nsh="nix-shell ~/.config/nixpkgs/shell.nix"
 alias nc="nix-collect-garbage -d && nix-store --gc"

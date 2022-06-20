@@ -95,7 +95,6 @@
     fondo # Wallpaper Fetcher
     gnome.file-roller # Archive Tool
     gnome.gnome-disk-utility # Disk Checking Tool
-    gnome.gnome-terminal # Terminal Emulator
     gnome.gnome-tweaks # Tweak Tool
     gnome.gnome-screenshot # Screenshot Tool
     gnome.nautilus # File Manager
@@ -107,6 +106,7 @@
     gnome-menus # Menu Specification
     gparted # Disk Partitioner
     kitty # Advanced Terminal Emulator
+    lxappearance # Theme Manager
     pavucontrol # Audio Mixer
     papirus-icon-theme # Icon Theme
     phinger-cursors # Cursor Theme
@@ -140,10 +140,10 @@
     monospace = [ "IBM Plex Mono" ];
     emoji = [ "Blobmoji" ];
   };
-  
+
   # Allow some outdated packages.
   nixpkgs.config.permittedInsecurePackages = [
     "electron-9.4.4"
   ];
-
+  
 }
