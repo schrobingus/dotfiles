@@ -1,12 +1,9 @@
 - clean: ['~']
 
 - link:
-    ~/.config/Code: code/
-    ~/.config/VSCodium: code/
     ~/.emacs.d: emacs/
     ~/.config/kitty/kitty.conf: kitty
     ~/.vimrc: vimrc
-    ~/.local/share/backgrounds: wallpapers/
     ~/.config/zsh/.zshrc: zshrc
     ~/.zshrc: zshrc
 

@@ -26,18 +26,13 @@
     # zsh # Minimal Shell
 
     # Python + Tools
-    (python39.withPackages
-      (pkgs: with pkgs; [
-        build # Build System
-        pip # Imperative Module Manager
-      ])
-    )
+    python39Full
+    python39Packages.build
+    python39Packages.pip
   ];
 
   # Start linking configs.
   home.file = {
-    ".config/Code".source = ../../code; # VSCode Config
-    ".config/VSCodium".source = ../../code; # ^ For OSS
     ".emacs.d/assets".source = ../../emacs/assets; # Emacs Assets
     #.".emacs.d/init.el".source = ../../emacs/init.el; # Emacs Init Script
     ".emacs.d/stages".source = ../../emacs/stages; # Emacs Staged Config

@@ -2,11 +2,9 @@
 This includes a couple of pieces of software that are being used, including:
 - My relatively packed Emacs config.
 - A quick and simple ZSH config with some helpful features, avoiding what I don't need.
-- My Emacs-binded VSCodium / VSCode configuration for my Duet.
 - A lean and catered Kitty config for my system.
 - My small Vim config as a secondary editor alongside Emacs.
 - Adapting to Mountain colorscheme.
-- Some wallpapers from [Nord Theme Wallpapers](https://nordthemewallpapers.com/), as well as some fitting Mountain themed photos taken by `marauder#1639` on Discord.
 
 Older dotfiles (including my Suckless forks) are stored in my own [dot-dump](https://github.com/BrentBoyMeBob/dot-dump) repository.
 
