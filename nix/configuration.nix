@@ -13,9 +13,10 @@
       /etc/nixos/hardware-configuration.nix
 
       # Import my Nix system configuration.
-      ./system/1-basis.nix
-      ./system/2-services.nix
-      ./system/3-software.nix
+      #./system/1-basis.nix
+      #./system/2-services.nix
+      #./system/3-software.nix
+      ./system.nix
     ];
 
   # Use the latest kernel.

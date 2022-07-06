@@ -29,14 +29,8 @@
 (setq-default window-resize-pixelwise t)
 (setq-default frame-resize-pixelwise t)
 (set-face-attribute 'vertical-border
-                    nil
+		    nil
                      :foreground "#0f0f0f")
-
-;; Install the simplistic mood-line.
-;;(straight-use-package '(mood-line :type git :host gitlab
-;;				  :repo "jessieh/mood-line"))
-;;(require 'mood-line)
-;;(mood-line-mode)
 
 ;; Install Doom Modeline and simplify the interface.
 (use-package doom-modeline

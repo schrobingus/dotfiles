@@ -48,6 +48,11 @@
   (ivy-explorer-mode 1)
   (counsel-mode 1))
 
+;; Load Mini Modeline mode.
+;;(use-package mini-modeline
+;;  :config
+;;  (mini-modeline-mode t))
+
 ;; Enable flycheck for code checking.
 ;;(use-package flycheck
 ;;  :config
