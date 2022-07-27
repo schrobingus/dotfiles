@@ -1,6 +1,14 @@
 # Load zplug.
-git clone https://github.com/zplug/zplug ~/.zplug > /dev/null 2>&1 || true
-source ~/.zplug/init.zsh
+#git clone https://github.com/zplug/zplug ~/.zplug > /dev/null 2>&1 || true
+#source ~/.zplug/init.zsh
+
+# Load zinit.
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+if ! [ -d "$ZINIT_HOME" ]; then
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME" > /dev/null 2>&1 || true
+fi
+source "${ZINIT_HOME}/zinit.zsh"
 
 # Load the home-manager PATH.
 if [ -x "$(command -v home-manager)" ]; then
@@ -8,10 +16,13 @@ if [ -x "$(command -v home-manager)" ]; then
 	export PATH=$PATH:$NIX_PATH
 fi
 
+# Load the MacPorts binaries.
+export PATH=$PATH:/opt/local/bin
+
 # Load the Nix integration plugins.
 if [ -x "$(command -v nix-shell)" ]; then
 	zplug "spwhitt/nix-zsh-completions"
-	zplug "chisui/zsh-nix-shell"
+	zinit light "chisui/zsh-nix-shell"
 fi
 
 # Configure the ZSH history.
@@ -30,29 +41,16 @@ autoload -Uz compinit && compinit
 autoload -U colors && colors
 
 # Enable syntax highlighting and checking.
-zplug "zsh-users/zsh-syntax-highlighting"
+zinit light "zsh-users/zsh-syntax-highlighting"
 
 # Add Git completion and aliases.
-zplug "plugins/git", from:oh-my-zsh
+zi snippet OMZP::git
+zi cdclear > /dev/null 2>&1
 
 # Configure the tools for history substring searching.
-zplug "zsh-users/zsh-history-substring-search" 
+zinit light "zsh-users/zsh-history-substring-search" 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
-
-# Set a custom prompt.
-#setopt PROMPT_SUBST
-#setprompt() {
-#    setpromptgit() {
-#	if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-#	    echo " %{$fg[green]%}+$(git status | grep 'new file:' | wc -l)%{$reset_color%}/%{$fg[red]%}-$(git status | grep 'modified:' | wc -l)%{$reset_color%}"
-#	fi
-#    }
-#    
-#    export PROMPT="%{$fg[cyan]%}>> %{$reset_color%}"
-#    export RPROMPT='%{$fg[blue]%}${PWD##*/}$(setpromptgit)'
-#}
-#setprompt
 
 # Load the Typewritten prompt.
 git clone https://github.com/reobin/typewritten.git "$HOME/.zsh/typewritten" > /dev/null 2>&1 || true
@@ -124,8 +122,3 @@ alias du="$SUDO dnf update"
 alias zi="$SUDO zypper in"
 alias zr="$SUDO zypper rm"
 alias zu="$SUDO zypper dup"
-
-# Instantiate zplug.
-if zplug check || zplug install; then
-    zplug load
-fi
