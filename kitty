@@ -1,11 +1,11 @@
 # Set the general colorscheme to Tomorrow Night.
-foreground            #c5c8c6
-background            #1d1f21
-selection_foreground  #c5c8c6
-selection_background  #373b41
-url_color             #c5c8c6
-cursor		      #c5c8c6
-cursor_text_color     #c5c8c6
+foreground            #e4e4e8
+background            #18181b
+selection_foreground  #e4e4e8
+selection_background  #303035
+url_color             #e4e4e8
+cursor		      #e4e4e8
+cursor_text_color     #e4e4e8
 
 # Set the font to SF Mono.
 font_family      SF Mono
@@ -23,38 +23,40 @@ cursor_shape beam
 
 # Set the extra colors also to Mountain.
 # Black
-color8   #c5c8c6
-color0   #666666
+# 222225 / 303035
+color8   #535c53
+color0 	 #535c5e
 # Red
-color1	 #cc6666
-color9   #FF3334
+color1	 #cd5c60
+color9   #cd5c60
 # Green
-color2   #b5bd68
-color10  #9ec400
+color2   #6fb593
+color10  #6fb593
 # Yellow
-color3   #de935f
-color11  #f0c674
+color3   #dbac66
+color11  #dbac66
 # Blue
-color4  #81a2be
-color12 #81a2be
+color4  #40b0f3
+color12 #40b0f3
 # Magenta
-color5   #b294bb
-color13  #b777e0
+color5   #cea2cb
+color13  #cea2cb
 # Cyan
-color6   #8abeb7
-color14	 #54ced6
+color6   #6ad9dc
+color14	 #6ad9dc
 # White
-color15   #373b41
-color7 	  #282a2e
+color15   #e4e4e8
+color7    #babac4	
+
 
 # Configure the tab bar.
 tab_bar_style slant
-tab_bar_background 	#373b41
-active_tab_foreground   #c5c8c6
-active_tab_background   #1d1f21
+tab_bar_background 	#222225
+active_tab_foreground   #6fb593
+active_tab_background   #18181b
 active_tab_font_style   bold-italic
-inactive_tab_foreground #c5c8c6
-inactive_tab_background #373b41
+inactive_tab_foreground #e4e4e8
+inactive_tab_background #222225
 inactive_tab_font_style normal
 
 # Make the scrollback infinite.

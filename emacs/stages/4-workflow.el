@@ -35,14 +35,14 @@
   (use-package counsel-projectile
     :bind ("C-x C-S-f" . projectile-switch-project)))
 (use-package ivy :demand
-      :config
-      (setq ivy-use-virtual-buffers t
-            ivy-count-format "%d/%d ")
-      (ivy-mode 1)
-      (use-package ivy-prescient
-	:config
-	(ivy-prescient-mode 1)
-	(prescient-persist-mode 1)))
+  :config
+  (setq ivy-use-virtual-buffers t
+        ivy-count-format "%d/%d ")
+  (ivy-mode 1)
+  (use-package ivy-prescient
+    :config
+    (ivy-prescient-mode 1)
+    (prescient-persist-mode 1)))
 (use-package ivy-explorer
   :config
   (ivy-explorer-mode 1)
@@ -69,12 +69,12 @@
 (use-package hl-todo
   :config
   (setq hl-todo-keyword-faces
-	'(("TODO"   . "#C6A679")
-	  ("NOTE"   . "#E7E7E7")
-	  ("FIXME"  . "#AC8A8C")
-	  ("DEBUG"  . "#8F8AAC")
-	  ("GOTCHA" . "#8AAC8B")
-	  ("STUB"   . "#9EC3C4")))
+	'(("TODO"   . "#dbac66")
+	  ("NOTE"   . "#e4e4e8")
+	  ("FIXME"  . "#cd5c60")
+	  ("DEBUG"  . "#40b0f3")
+	  ("GOTCHA" . "#6fb593")
+	  ("STUB"   . "#6ad9dc")))
   (global-hl-todo-mode))
 
 ;; Configure for precision scrolling.
@@ -92,7 +92,4 @@
 ;; Install Git Gutter Mode.
 (use-package git-gutter
   :config
-  (set-face-foreground 'git-gutter:added "#8aac8b")
-  (set-face-foreground 'git-gutter:modified "#8f8aac")
-  (set-face-foreground 'git-gutter:deleted "#ac8a8c")
   (global-git-gutter-mode +1))

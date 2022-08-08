@@ -16,8 +16,8 @@ if [ -x "$(command -v home-manager)" ]; then
 	export PATH=$PATH:$NIX_PATH
 fi
 
-# Load the MacPorts binaries.
-export PATH=$PATH:/opt/local/bin
+# Load the MacPorts binaries, as well as what's required for Android Studio.
+export PATH=$PATH:/opt/local/bin:/Users/brent/Library/Android/sdk/cmdline-tools/latest/bin:/Users/brent/Library/Android/sdk/platform-tools:/Users/brent/Sources/flutter/bin:/Users/brent/Library/Python/3.9/bin
 
 # Load the Nix integration plugins.
 if [ -x "$(command -v nix-shell)" ]; then

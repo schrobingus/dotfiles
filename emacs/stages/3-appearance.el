@@ -10,12 +10,14 @@
 (straight-use-package 'doom-themes)
 (straight-use-package 'color-theme-sanityinc-tomorrow)
 (require 'color-theme-sanityinc-tomorrow)
+(straight-use-package 'kaolin-themes)
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
 ;; Load designated theme. 
 ;;(load-theme 'doom-nord t)
 ;;(load-theme 'doom-mountain t)
-(load-theme 'sanityinc-tomorrow-night t)
+;;(load-theme 'sanityinc-tomorrow-night t)
+(load-theme 'kaolin-dark t)
 
 ;; Add padding to the sides.
 (require 'frame)
@@ -30,9 +32,9 @@
 		       '(vertical-scroll-bars  . nil))))
 (setq-default window-resize-pixelwise t)
 (setq-default frame-resize-pixelwise t)
-(set-face-attribute 'vertical-border
-		    nil
-                     :foreground "#0f0f0f")
+;;(set-face-attribute 'vertical-border
+;;		    nil
+;;                     :foreground (face-foreground 'default))
 
 ;; Recolor the fringe.
 (set-face-attribute 'fringe nil
