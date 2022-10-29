@@ -1,11 +1,10 @@
 # Set the general colorscheme to Tomorrow Night.
-foreground            #e4e4e8
-background            #18181b
-selection_foreground  #e4e4e8
-selection_background  #303035
-url_color             #e4e4e8
-cursor		      #e4e4e8
-cursor_text_color     #e4e4e8
+foreground            #EDEFF5
+background            #2E3440
+selection_foreground  #EDEFF5
+selection_background  #4C566A
+url_color             #88C0D0
+cursor                #EDEFF5
 
 # Set the font to SF Mono.
 font_family      SF Mono
@@ -23,40 +22,38 @@ cursor_shape beam
 
 # Set the extra colors also to Mountain.
 # Black
-# 222225 / 303035
-color8   #535c53
-color0 	 #535c5e
+color0   #3B4252
+color8   #4C566A
 # Red
-color1	 #cd5c60
-color9   #cd5c60
+color1   #BF616A
+color9   #BF616A
 # Green
-color2   #6fb593
-color10  #6fb593
+color2   #A3BE8C
+color10  #A3BE8C
 # Yellow
-color3   #dbac66
-color11  #dbac66
+color3   #EBCB8B
+color11  #EBCB8B
 # Blue
-color4  #40b0f3
-color12 #40b0f3
+color4  #81A1C1
+color12 #81A1C1
 # Magenta
-color5   #cea2cb
-color13  #cea2cb
+color5   #B48EAD
+color13  #B48EAD
 # Cyan
-color6   #6ad9dc
-color14	 #6ad9dc
+color6   #88C0D0
+color14  #8FBCBB
 # White
-color15   #e4e4e8
-color7    #babac4	
-
+color7   #E5E9F0
+color15  #ECEFF4
 
 # Configure the tab bar.
 tab_bar_style slant
-tab_bar_background 	#222225
-active_tab_foreground   #6fb593
-active_tab_background   #18181b
+tab_bar_background 	#292E39
+active_tab_foreground   #88C0D0
+active_tab_background   #2E3440
 active_tab_font_style   bold-italic
-inactive_tab_foreground #e4e4e8
-inactive_tab_background #222225
+inactive_tab_foreground #EDEFF5
+inactive_tab_background #292E39
 inactive_tab_font_style normal
 
 # Make the scrollback infinite.
@@ -64,6 +61,9 @@ scrollback-lines -1
 
 # Run under Xorg to use a native window decoration under Wayland.
 #linux_display_server x11
+
+# Add a binding for Kitten search.
+map ctrl+f      launch --location=hsplit --allow-remote-control kitty +kitten search.py @active-kitty-window-id
 
 # Disable the titlebar for Macs.
 hide_window_decorations titlebar-only

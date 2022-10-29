@@ -1,11 +1,16 @@
-- clean: ['~']
-
 - link:
-    ~/.emacs.d: emacs/
-    ~/.config/kitty/kitty.conf: kitty
-    ~/.vimrc: vimrc
-    ~/.config/zsh/.zshrc: zshrc
-    ~/.zshrc: zshrc
+  ~/.config/kitty/kitty.conf: kitty
+  ~/.config/kitty/scroll_mark.py: submodules/kitty-kitten-search/scroll_mark.py
+  ~/.config/kitty/search.py: submodules/kitty-kitten-search/search.py
+  ~/.vimrc: vimrc
+  ~/.config/zsh/.zshrc: zshrc
+  ~/.zshrc: zshrc
+
+- create:
+  - ~/.config/zsh
+  - ~/.config/zsh
 
 - shell:
-    - [git submodule update --init --recursive, Installing Git submodules]
+  - [git submodule update --init --recursive, Installing Git submodules]
+
+- clean: ['~']

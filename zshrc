@@ -17,7 +17,7 @@ if [ -x "$(command -v home-manager)" ]; then
 fi
 
 # Load the MacPorts binaries, as well as what's required for Android Studio.
-export PATH=$PATH:/opt/local/bin:/Users/brent/Library/Android/sdk/cmdline-tools/latest/bin:/Users/brent/Library/Android/sdk/platform-tools:/Users/brent/Sources/flutter/bin:/Users/brent/Library/Python/3.9/bin
+export PATH=/opt/local/bin:/Users/brent/Library/Android/sdk/cmdline-tools/latest/bin:/Users/brent/Library/Android/sdk/platform-tools:/Users/brent/Sources/flutter/bin:/Users/brent/Library/Python/3.9/bin:$PATH
 
 # Load the Nix integration plugins.
 if [ -x "$(command -v nix-shell)" ]; then
@@ -75,6 +75,13 @@ else
      export SUDO="su -c"
 fi
 
+# Alias specific shortcuts for MacPorts.
+alias mi="$SUDO port install"
+alias mr="$SUDO port uninstall --follow-dependencies"
+alias mu="$SUDO port selfupdate && $SUDO port upgrade outdated"
+alias mc="$SUDO port -f clean --all"
+alias mfc="$SUDO port -f clean --all all && $SUDO port -f uninstall inactive"
+
 # Alias shortcuts for Nix and Home Manager.
 alias nu="nix-channel --update && $SUDO nix-channel --update || true"
 alias nrs="$SUDO nixos-rebuild switch"
@@ -110,7 +117,7 @@ if [ -x "$(command -v nala)" ]; then
 else
     export DEBIANFRONTEND="$SUDO apt"
 fi
-alias ai="$DEBIANFRONTEND update && $DEBIANFRONTEND install"
+alias ai="$DEBIANFRONTEND --no-install-recommends install"
 alias ar="$DEBIANFRONTEND purge --auto-remove"
 alias au="$DEBIANFRONTEND update && $DEBIANFRONTEND upgrade"
 alias ac="$DEBIANFRONTEND autoclean && $DEBIANFRONTEND clean"
@@ -122,3 +129,7 @@ alias du="$SUDO dnf update"
 alias zi="$SUDO zypper in"
 alias zr="$SUDO zypper rm"
 alias zu="$SUDO zypper dup"
+
+# Install PNPM.
+export PNPM_HOME="/Users/brent/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
