@@ -82,6 +82,8 @@ alias mu="$SUDO port selfupdate && $SUDO port upgrade outdated"
 alias mc="$SUDO port -f clean --all"
 alias mfc="$SUDO port -f clean --all all && $SUDO port -f uninstall inactive"
 
+alias x86_sh="$env /usr/bin/arch -x86_64 /bin/zsh" # Rosetta shell alias.
+
 # Alias shortcuts for Nix and Home Manager.
 alias nu="nix-channel --update && $SUDO nix-channel --update || true"
 alias nrs="$SUDO nixos-rebuild switch"

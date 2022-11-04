@@ -1,6 +1,5 @@
 # My Simple Dotfiles
 This includes a couple of pieces of software that are being used, including:
-- My relatively packed Emacs config.
 - A quick and simple ZSH config with some helpful features, avoiding what I don't need.
 - A lean and catered Kitty config for my system.
 - My small Vim config as a secondary editor alongside Emacs.

@@ -11,7 +11,7 @@ endif
 " Add the packages via Vim-plug.
 call plug#begin()
 	" Themes for Vim.
-	Plug 'kaicataldo/material.vim' " Material theme.
+	Plug 'arcticicestudio/nord-vim' " Nord theme.
 	Plug 'jeffkreeftmeijer/vim-dim' " Terminal-gnostic theme.
 
 	" Sensible defaults for Vim.
@@ -22,11 +22,10 @@ call plug#begin()
 call plug#end()
 
 " Set the theme.
-colorscheme material
+colorscheme nord
 
-" These are settings specific to Material.
-let g:material_terminal_italics = 1 " Enable italics.
-let g:material_theme_style = 'darker' " Use the darker theme.
+" Remap ESC to jj.
+imap jj <Esc>
 
 " Enable the mouse.
 set mouse=a
@@ -37,6 +36,6 @@ set clipboard=unnamed
 " Disable case sensitivity.
 set ignorecase
 
-" Enable numberlines and line wrapping.
+" Enable number lines and line wrapping.
 set number
 set wrap

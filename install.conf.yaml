@@ -1,16 +1,21 @@
-- link:
-  ~/.config/kitty/kitty.conf: kitty
-  ~/.config/kitty/scroll_mark.py: submodules/kitty-kitten-search/scroll_mark.py
-  ~/.config/kitty/search.py: submodules/kitty-kitten-search/search.py
-  ~/.vimrc: vimrc
-  ~/.config/zsh/.zshrc: zshrc
-  ~/.zshrc: zshrc
+# NOTE: Every setting should start with double indentation,
+# it will not work otherwise.
 
-- create:
-  - ~/.config/zsh
-  - ~/.config/zsh
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- link:
+    ~/.config/kitty/kitty.conf: kitty
+    ~/.config/kitty/scroll_mark.py: submodules/kitty-kitten-search/scroll_mark.py
+    ~/.config/kitty/search.py: submodules/kitty-kitten-search/search.py
+    ~/.ideavimrc: ideavimrc
+    ~/.vimrc: vimrc
+    ~/.config/zsh/.zshrc: zshrc
+    ~/.zshrc: zshrc
 
 - shell:
-  - [git submodule update --init --recursive, Installing Git submodules]
+    - [git submodule update --init --recursive, Installing Git submodules]
 
 - clean: ['~']
