@@ -33,6 +33,11 @@ set mouse=a
 " Enable the clipboard.
 set clipboard=unnamed
 
+" Tabs should only be 2 spaces.
+set expandtab
+set tabstop=2
+set shiftwidth=2
+
 " Disable case sensitivity.
 set ignorecase
 

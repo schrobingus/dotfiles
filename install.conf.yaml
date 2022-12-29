@@ -1,5 +1,5 @@
-# NOTE: Every setting should start with double indentation,
-# it will not work otherwise.
+# NOTE: Every setting should start with double indentation and
+# continue with a single indentation, otherwise it won't work.
 
 - defaults:
     link:
@@ -12,8 +12,8 @@
     ~/.config/kitty/search.py: submodules/kitty-kitten-search/search.py
     ~/.ideavimrc: ideavimrc
     ~/.vimrc: vimrc
-    ~/.config/zsh/.zshrc: zshrc
-    ~/.zshrc: zshrc
+    ~/.config/zsh: zsh
+    ~/.zshrc: zsh/.zshrc
 
 - shell:
     - [git submodule update --init --recursive, Installing Git submodules]
