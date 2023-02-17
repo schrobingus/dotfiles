@@ -41,6 +41,10 @@ set shiftwidth=2
 " Disable case sensitivity.
 set ignorecase
 
+" Enable black hole register.
+nnoremap d "_d
+xnoremap d "_d
+
 " Enable number lines and line wrapping.
 set number
 set wrap

@@ -1,12 +1,16 @@
-# Load the home-manager PATH.
-if [ -x "$(command -v home-manager)" ]; then
-    export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
-    export PATH=$PATH:$NIX_PATH
+# Load the Nix PATH.
+if [ -x "$(command -v nix-env)" ]; then
+    export NIX_PATH=$HOME/.nix-channel/bin:$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
+    export PATH=$NIX_PATH:$PATH
 fi
 
-# Load the Nix integration plugins.
+if [ -x "$(command -v home-manager)" ]; then
+  . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+fi
+
+# Load the Nix Shell plugins.
 if [ -x "$(command -v nix-shell)" ]; then
-    zplug "spwhitt/nix-zsh-completions"
+    zinit light "spwhitt/nix-zsh-completions"
     zinit light "chisui/zsh-nix-shell"
 fi
 

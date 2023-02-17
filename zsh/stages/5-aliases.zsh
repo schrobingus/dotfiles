@@ -14,6 +14,7 @@ fi
 alias mi="$SUDO port install"
 alias mr="$SUDO port uninstall --follow-dependencies"
 alias mu="$SUDO port selfupdate && $SUDO port upgrade outdated"
+alias ms="$SUDO port select --set" # Default package, followed by package to be set.
 alias mc="$SUDO port -f clean --all"
 alias mfc="$SUDO port -f clean --all all && $SUDO port -f uninstall inactive"
 
@@ -23,6 +24,8 @@ alias x86_sh="$env /usr/bin/arch -x86_64 /bin/zsh" # Rosetta shell alias.
 alias nu="nix-channel --update && $SUDO nix-channel --update || true"
 alias nrs="$SUDO nixos-rebuild switch"
 alias nrb="$SUDO nixos-rebuild --upgrade boot"
+#alias ndrs="darwin-rebuild switch"
+alias ndrs="darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix"
 alias nhs="home-manager switch"
 alias nsh="nix-shell ~/.config/nixpkgs/shell.nix"
 alias nc="nix-collect-garbage -d && nix-store --gc"

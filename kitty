@@ -15,7 +15,7 @@ font_size 12.0
 adjust_line_height 120%
 
 # Add padding to the terminal.
-window_padding_width 13.0
+window_padding_width 8.0
 
 # Set the cursor to a beam instead of a block.
 cursor_shape beam

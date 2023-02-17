@@ -10,5 +10,9 @@ set incsearch
 " Remap ESC to jj.
 imap jj <Esc>
 
+" Enable black hole register.
+nnoremap d "_d
+xnoremap d "_d
+
 " Disable case sensitivity.
 set ignorecase

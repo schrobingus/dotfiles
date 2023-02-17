@@ -7,6 +7,7 @@
       relink: true
 
 - link:
+    ~/.nixpkgs: nixpkgs
     ~/.config/kitty/kitty.conf: kitty
     ~/.config/kitty/scroll_mark.py: submodules/kitty-kitten-search/scroll_mark.py
     ~/.config/kitty/search.py: submodules/kitty-kitten-search/search.py
@@ -14,6 +15,10 @@
     ~/.vimrc: vimrc
     ~/.config/zsh: zsh
     ~/.zshrc: zsh/.zshrc
+
+- create:
+    - ~/.config/kitty
+    - ~/.config/zsh
 
 - shell:
     - [git submodule update --init --recursive, Installing Git submodules]
