@@ -1,14 +1,41 @@
 { config, pkgs, ... }:
 
+let
+  # Minimal Packages for Python
+  pkgsPython = p: with p; [
+    pip           # PyPi Package Manager
+    build         # Build System
+    setuptools    # Project Setuptools
+    virtualenv    # Virtualenv Environment
+  ];
+in
 {
-  imports = [ <home-manager/nix-darwin> ];
+  imports = [ 
+    <home-manager/nix-darwin>
+  ];
 
   # Add some packages to install.
   environment.systemPackages = with pkgs; [
+    ## General Packages
+    p7zip           # 7zip CLI Tool
+    gawk            # GNU AWK
     btop            # System Monitor
+    ffmpeg          # Video Conversion 
     neofetch        # System Information
-    vim             # Simple Text Editor
     speedtest-cli   # Internet Speedtest
+    vim             # Simple Text Editor
+    youtube-dl      # YouTube Downloader
+
+    ## Development Packages
+    dotnet-sdk      # .NET SDK
+    #dotnet-runtime # .NET Runtime
+    lua luarocks    # Lua and Luarocks Package Manager
+    fennel          # Fennel
+    nodejs yarn     # JS Package Manager
+    ruby cocoapods  # Ruby, RubyGems + Cocoapods
+    
+    ## Python Packages
+    (pkgs.python3.withPackages pkgsPython)
   ];
 
   # Pair the Nix Darwin config with the rest of the Nix config.

@@ -30,12 +30,21 @@ alias nhs="home-manager switch"
 alias nsh="nix-shell ~/.config/nixpkgs/shell.nix"
 alias nc="nix-collect-garbage -d && nix-store --gc"
 
-# Alias shortcuts for Python modules and Pip.
+# Shortcut for updating OpenAsar (currently Mac only).
+update-openasar() {
+  wget -O /tmp/app.asar https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar
+  rm /Applications/Discord.app/Contents/Resources/app.asar || true
+  mv /tmp/app.asar /Applications/Discord.app/Contents/Resources/app.asar
+}
+
+# Alias shortcuts for Python modules, Pip and Virtualenv.
 alias py="python3"
 alias pym="python3 -m"
 alias pyb="python3 -m build"
-alias pyi="pip install --user"
-alias pyr="pip uninstall"
+alias pyi="python3 -m pip install"
+alias pyr="python3 -m pip uninstall"
+alias venv="python3 -m venv venv"
+alias venv_sh="zsh -c 'source venv/bin/activate'"
 
 # Alias specific shortcuts for Arch.
 if [ -x "$(command -v paru)" ]; then

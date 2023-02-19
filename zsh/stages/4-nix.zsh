@@ -1,7 +1,7 @@
 # Load the Nix PATH.
 if [ -x "$(command -v nix-env)" ]; then
     export NIX_PATH=$HOME/.nix-channel/bin:$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
-    export PATH=$NIX_PATH:$PATH
+    export PATH=/run/current-system/sw/bin:NIX_PATH:$PATH
 fi
 
 if [ -x "$(command -v home-manager)" ]; then

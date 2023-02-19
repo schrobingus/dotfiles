@@ -9,14 +9,14 @@
   home.stateVersion = "22.11";
 
   # Import some scripts for Home Manager.
-  imports = [
-    ./python.nix
-  ];
+  imports = [];
 
   # Set up ZSH in Home Manager.
   programs.zsh = {
     enable = true;
     # This mirrors what is in ~/.zshrc for stage configuration.
+    # It also references the .profile at the start, since
+    # it doesn't reference by default for aome reason.
     initExtra = ''
       if [ -e $HOME/.profile ]
 	    then                       
@@ -35,7 +35,7 @@
   };
 
   home.sessionVariables = {
-    EDITOR = "emacs"; # Set default editor to Emacs. 
+    # EDITOR = "emacs"; # Set default editor to Emacs. 
     # TERM = "kitty"; # Set default terminal to Kitty.
     # Comment out or adjust if not installed, preferred, or has issues.
   };
@@ -43,14 +43,7 @@
   # Install some packages.
   home.packages = with pkgs; [
     # dconf2nix # DConf to Nix Converter for Home Manager
-    # emacs # Advanced Editor
     pfetch # Minimal System Info
-    # vim # Minimal Editor
-    # zsh # Minimal Shell
-    youtube-dl # Video Downloader
-    
-    # General Development Tools
-    nodejs-19_x
   ];
 
   # Let Home Manager install and manage itself.
