@@ -12,6 +12,7 @@ endif
 call plug#begin()
 	" Themes for Vim.
 	Plug 'arcticicestudio/nord-vim' " Nord theme.
+  Plug 'wojciechkepka/vim-github-dark' " GitHub Dark theme.
 	Plug 'jeffkreeftmeijer/vim-dim' " Terminal-gnostic theme.
 
 	" Sensible defaults for Vim.
@@ -22,7 +23,8 @@ call plug#begin()
 call plug#end()
 
 " Set the theme.
-colorscheme nord
+" let g:gh_color = "soft"
+colorscheme dim
 
 " Remap ESC to jj.
 imap jj <Esc>
