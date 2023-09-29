@@ -1,10 +1,10 @@
 # Set the general colorscheme to Tomorrow Night.
-foreground            #EDEFF5
-background            #2E3440
-selection_foreground  #EDEFF5
-selection_background  #4C566A
-url_color             #88C0D0
-cursor                #EDEFF5
+foreground            #aebac6
+background            #1c2129
+selection_foreground  #aebac6
+selection_background  #213850
+url_color             #ec775c
+cursor                #aebac6
 
 # Set the font to SF Mono.
 font_family      Liga SFMono Nerd Font
@@ -20,40 +20,40 @@ window_padding_width 8.0
 # Set the cursor to a beam instead of a block.
 cursor_shape beam
 
-# Set the extra colors also to Mountain.
+# Set the extra colors also to GitHub Dark.
 # Black
-color0   #3B4252
-color8   #4C566A
+color0   #535d68
+color8   #636e7b
 # Red
-color1   #BF616A
-color9   #BF616A
+color1   #f47067
+color9   #ff9489
 # Green
-color2   #A3BE8C
-color10  #A3BE8C
+color2   #57ab5a
+color10  #6bc46d
 # Yellow
-color3   #EBCB8B
-color11  #EBCB8B
+color3   #c69027
+color11  #dbaa3f
 # Blue
-color4  #81A1C1
-color12 #81A1C1
+color4  #549bf5
+color12 #6cb6ff
 # Magenta
-color5   #B48EAD
-color13  #B48EAD
+color5   #b083f0
+color13  #dcbdfb
 # Cyan
-color6   #88C0D0
-color14  #8FBCBB
+color6   #39c5cf
+color14  #56d5dd
 # White
-color7   #E5E9F0
-color15  #ECEFF4
+color7   #8f9dab
+color15  #cdd9e5
 
 # Configure the tab bar.
 tab_bar_style slant
-tab_bar_background 	#292E39
-active_tab_foreground   #88C0D0
-active_tab_background   #2E3440
+tab_bar_background #1c2128
+active_tab_foreground   #ec775c
+active_tab_background   #22272f
 active_tab_font_style   bold-italic
-inactive_tab_foreground #EDEFF5
-inactive_tab_background #292E39
+inactive_tab_foreground #aebac6
+inactive_tab_background #636e7b
 inactive_tab_font_style normal
 
 # Make the scrollback infinite.

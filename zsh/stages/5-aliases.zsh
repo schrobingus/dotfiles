@@ -28,7 +28,7 @@ alias nrb="$SUDO nixos-rebuild --upgrade boot"
 alias ndrs="darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix"
 alias nhs="home-manager switch"
 alias nsh="nix-shell ~/.config/nixpkgs/shell.nix"
-alias nc="nix-collect-garbage -d && nix-store --gc"
+alias nc="nix-collect-garbage -d && sudo nix-collect-garbage -d && nix-store --gc && sudo nix-store --gc"
 
 # Shortcut for updating OpenAsar (currently Mac only).
 update-openasar() {

@@ -8,16 +8,12 @@ PS3='%K{4} %K{0}%B select %b%k '  ## select prompt
 # Git script for prompt.
 gitzsh() {
     if git status 2>&- 1> /dev/null; then
-	branch="$(git -P branch | awk '{ print $2 }')"
-	if [ "$(git -P diff)" ]; then
-	    print "%K{0}%B $branch %F{0}%K{5} ± %k%f%b"
-	else
-	    print "%K{0}%B $branch %F{0}%K{2} %k%f%b"
-	fi
-	exit 0
-    else
-	exit 1
-    fi
+		branch="$(git -P branch | awk '{ print $2 }')"
+		if [ "$(git -P diff)" ]; then
+	    	 print "%K{0}%B $branch %F{0}%K{5} ± %k%f%b"
+		else print "%K{0}%B $branch %F{0}%K{2} %k%f%b"
+		fi; exit 0
+    else exit 1; fi
 }
 
 # Sets the right prompt specifically for the Git script.
@@ -25,14 +21,3 @@ precmd() {
     RPROMPT="$(gitzsh)"
 }
 
-# Old Typewritten prompt.
-## git clone https://github.com/reobin/typewritten.git "$HOME/.zsh/typewritten" > /dev/null 2>&1 || true
-## fpath+=$HOME/.zsh/typewritten
-## autoload -U promptinit; promptinit
-## if [ "$IN_NIX_SHELL" = "" ]; then
-##     TYPEWRITTEN_SYMBOL="#"
-## else
-##     TYPEWRITTEN_SYMBOL=">"
-## fi
-## export TYPEWRITTEN_SYMBOL="#"
-## prompt typewritten
