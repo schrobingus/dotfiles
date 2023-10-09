@@ -63,7 +63,7 @@ scrollback-lines -1
 #linux_display_server x11
 
 # Add a binding for Kitten search.
-map ctrl+f      launch --location=hsplit --allow-remote-control kitty +kitten search.py @active-kitty-window-id
+# map ctrl+f      launch --location=hsplit --allow-remote-control kitty +kitten search.py @active-kitty-window-id
 
 # Disable the titlebar for Macs.
 hide_window_decorations titlebar-only

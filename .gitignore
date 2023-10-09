@@ -1,4 +1,4 @@
 .DS_Store
 */.DS_Store
 .idea
-zsh/stages/6-personal.zsh
+zsh/personal.zsh

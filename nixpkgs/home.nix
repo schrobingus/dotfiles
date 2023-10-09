@@ -13,13 +13,17 @@
     # It also references the .profile at the start, since
     # it doesn't reference by default for some reason.
     initExtra = ''
-      if [ -e $HOME/.profile ]
+      if [ -e "$HOME/.profile" ]
 	    then                       
 		    . $HOME/.profile         
 	    fi
-      for file in ~/.config/zsh/stages/*.zsh; do
-        source $file
-      done
+      
+      . $HOME/.config/zsh/main.zsh
+
+      if [ -e "$HOME/.config/zsh/personal.zsh" ]
+      then
+        . $HOME/.config/zsh/personal.zsh
+      fi
     '';
   };
 

@@ -10,6 +10,9 @@ let
 
     yt-dlp
   ];
+  pkgsRuby = r: with r; [
+    rails
+  ];
 in
 {
   imports = [ 
@@ -30,13 +33,14 @@ in
     lua luarocks fennel
     sbcl guile racket-minimal
     nodejs yarn
-    ruby cocoapods
+    (hiPrio ruby) rbenv bundler cocoapods
     rustc cargo
     go nim zig
     sassc
     swig
     
     (pkgs.python3.withPackages pkgsPython)
+    (pkgs.ruby.withPackages pkgsRuby)
   ];
 
   environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
