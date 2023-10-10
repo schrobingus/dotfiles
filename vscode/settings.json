@@ -1,0 +1,45 @@
+{
+    "telemetry.telemetryLevel": "off",
+    "python.defaultInterpreterPath": "/run/current-system/sw/bin/python3.10",
+	"window.autoDetectColorScheme": true,
+	"workbench.preferredLightColorTheme": "GitHub Light",
+	"workbench.preferredDarkColorTheme": "GitHub Dark Dimmed",
+    "workbench.iconTheme": "vs-minimal",
+    "workbench.startupEditor": "none",
+    "workbench.colorTheme": "GitHub Dark Dimmed",
+    "workbench.activityBar.visible": false,
+	"editor.fontFamily": "Liga SFMono Nerd Font, SF Mono, Menlo, Monaco, 'Courier New', monospace",
+	"editor.fontSize": 12,
+	"editor.fontLigatures": true,
+    "editor.minimap.enabled": false,
+    "editor.accessibilitySupport": "off",
+    "vim.highlightedyank.enable": true,
+	"vim.useSystemClipboard": true,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {   // Black hole register.
+            "before": ["d"],
+            "after": [ "\"", "_", "d" ]
+        }
+    ],
+    "vim.insertModeKeyBindings": [
+        {   // JJ binding for normal mode.
+            "before": ["j", "j"],
+            "after": ["<esc>"]
+        }
+    ],
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": false
+    },
+    "files.associations": {
+        "*.scm": "lisp"
+    }
+}

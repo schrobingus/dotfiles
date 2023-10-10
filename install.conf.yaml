@@ -7,12 +7,14 @@
       relink: true
 
 - link:
+    ~/.config/iterm2/com.googlecode.iterm2.plist: iterm2.plist
     ~/.nixpkgs: nixpkgs
     ~/.config/kitty/kitty.conf: kitty
-    ~/.config/kitty/scroll_mark.py: submodules/kitty-kitten-search/scroll_mark.py
-    ~/.config/kitty/search.py: submodules/kitty-kitten-search/search.py
-    ~/.ideavimrc: ideavimrc
-    ~/.vimrc: vimrc
+    # ~/.config/kitty/scroll_mark.py: submodules/kitty-kitten-search/scroll_mark.py
+    # ~/.config/kitty/search.py: submodules/kitty-kitten-search/search.py
+    ~/.ideavimrc: ideavimrc.vim
+    ~/.vimrc: vimrc.vim
+    "~/Library/Application Support/Code/User/settings.json": vscode/settings.json
     ~/.config/zsh: zsh
     ~/.zshrc: zsh/.zshrc
 

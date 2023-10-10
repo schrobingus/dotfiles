@@ -1,2 +1,5 @@
 . $HOME/.config/zsh/main.zsh
-. $HOME/.config/zsh/personal.zsh
+
+if [ -e "$HOME/.config/zsh/personal.zsh" ]; then
+    . $HOME/.config/zsh/personal.zsh
+fi

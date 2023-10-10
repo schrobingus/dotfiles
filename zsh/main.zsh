@@ -25,11 +25,18 @@ setopt interactive_comments
 
 autoload -U colors && colors
 
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 # Credit for most of the prompt to Apeiros (gh: Apeiros-46B).
-PS1='%F{0}%B%(0?.%K{4} .%K{1} )%(1j.$ .)%K{0}%f %~ %k%b '  ## Main Prompt
-PS2='%K{4} %K{0}%B + %b%k '  ## Multiline Prompt
-PS3='%K{4} %K{0}%B select %b%k '  ## Select Prompt
-gitprompt() {
+prompt_addins() {
+    if [ -v IN_NIX_SHELL ]; then
+        printf '❄ '
+    fi
+    if [ -v VIRTUAL_ENV ]; then
+        printf '⚙ '
+    fi
+}
+prompt_git() {
     if git status 2>&- 1> /dev/null; then
 		branch="$(git -P branch | awk '{ print $2 }')"
 		if [ "$(git -P diff)" ]; then
@@ -39,8 +46,11 @@ gitprompt() {
     else exit 1; fi
 }
 precmd() {
-    RPROMPT="$(gitprompt)"
+    PS1="%F{0}%B%(0?.%K{4} .%K{1} )%(1j.⚑ .)$(prompt_addins)%K{0}%f %~ %k%b "  ## Main Prompt
+    RPROMPT="$(prompt_git)" ## Git Prompt (Right)
 }
+PS2='%K{4} %K{0}%B + %b%k '  ## Multiline Prompt
+PS3='%K{4} %K{0}%B select %b%k '  ## Select Prompt
 
 if [ -x "$(command -v nix-env)" ]; then
     export NIX_PATH=$HOME/.nix-channel/bin:$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
@@ -56,7 +66,7 @@ if [ -x "$(command -v nix-shell)" ]; then
     zinit light "chisui/zsh-nix-shell"
 fi
 
-alias ls="ls --color=auto"
+alias ls="ls -lH --color=auto"
 
 if [ -x "$(command -v doas)" ]; then
     export SUDO="doas"
@@ -84,10 +94,10 @@ alias nhs="home-manager switch"
 alias nsh="nix-shell ~/.config/nixpkgs/shell.nix"
 alias nc="nix-collect-garbage -d && sudo nix-collect-garbage -d && nix-store --gc && sudo nix-store --gc"
 
-update-openasar() {
-  wget -O /tmp/app.asar https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar
-  rm /Applications/Discord.app/Contents/Resources/app.asar || true
-  mv /tmp/app.asar /Applications/Discord.app/Contents/Resources/app.asar
+update_openasar() {
+    wget -O /tmp/app.asar https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar
+    rm /Applications/Discord.app/Contents/Resources/app.asar || true
+    mv /tmp/app.asar /Applications/Discord.app/Contents/Resources/app.asar
 }
 
 alias py="python3"
@@ -96,7 +106,7 @@ alias pyb="python3 -m build"
 alias pyi="python3 -m pip install"
 alias pyr="python3 -m pip uninstall"
 alias venv="python3 -m venv venv"
-alias venv_sh="zsh -c 'source venv/bin/activate'"
+alias avenv="source venv/bin/activate"
 
 if [ -x "$(command -v paru)" ]; then
     export ARCHFRONTEND="paru"
