@@ -1,30 +1,60 @@
 {
     "telemetry.telemetryLevel": "off",
     "python.defaultInterpreterPath": "/run/current-system/sw/bin/python3.10",
-	"window.autoDetectColorScheme": true,
-	"workbench.preferredLightColorTheme": "GitHub Light",
-	"workbench.preferredDarkColorTheme": "GitHub Dark Dimmed",
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredLightColorTheme": "GitHub Light",
+    "workbench.preferredDarkColorTheme": "GitHub Dark Dimmed",
     "workbench.iconTheme": "vs-minimal",
     "workbench.startupEditor": "none",
-    "workbench.colorTheme": "GitHub Dark Dimmed",
-    "workbench.activityBar.visible": false,
-	"editor.fontFamily": "Liga SFMono Nerd Font, SF Mono, Menlo, Monaco, 'Courier New', monospace",
-	"editor.fontSize": 12,
-	"editor.fontLigatures": true,
+    "workbench.sideBar.location": "right",
+    "apc.activityBar": {
+        "position": "bottom",
+        "size": 32,
+    },
+    "editor.fontFamily": "Liga SFMono Nerd Font, SF Mono, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 12,
+    "editor.fontLigatures": true,
     "editor.minimap.enabled": false,
     "editor.accessibilitySupport": "off",
     "vim.highlightedyank.enable": true,
-	"vim.useSystemClipboard": true,
+    "vim.useSystemClipboard": true,
     "vim.normalModeKeyBindingsNonRecursive": [
         {   // Black hole register.
-            "before": ["d"],
-            "after": [ "\"", "_", "d" ]
+            "before": [
+                "d"
+            ],
+            "after": [
+                "\"",
+                "_",
+                "d"
+            ]
+        },
+        {   // Leap binding (forward).
+            "before": [
+                "s"
+            ],
+            "commands": [
+                "leap.findForward"
+            ]
+        },
+        {   // Leap binding (back).
+            "before": [
+                "S"
+            ],
+            "commands": [
+                "leap.findBackward"
+            ]
         }
     ],
     "vim.insertModeKeyBindings": [
         {   // JJ binding for normal mode.
-            "before": ["j", "j"],
-            "after": ["<esc>"]
+            "before": [
+                "j",
+                "j"
+            ],
+            "after": [
+                "<esc>"
+            ]
         }
     ],
     "[dart]": {
@@ -37,9 +67,19 @@
         "editor.suggest.snippetsPreventQuickSuggestions": false,
         "editor.suggestSelection": "first",
         "editor.tabCompletion": "onlySnippets",
-        "editor.wordBasedSuggestions": false
+        "editor.wordBasedSuggestions": "off"
     },
     "files.associations": {
         "*.scm": "lisp"
-    }
+    },
+    "workbench.colorTheme": "GitHub Dark Dimmed",
+    "jupyter.askForKernelRestart": false,
+    "jupyter.widgetScriptSources": [
+        "jsdelivr.com",
+        "unpkg.com"
+    ],
+    "ollama-autocoder.model": "phi",
+    "terminal.integrated.env.osx": {},
+    "git-assistant.checkConfigVariables": "disabled",
+    "interactiveWindow.executeWithShiftEnter": true
 }

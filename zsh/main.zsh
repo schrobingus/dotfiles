@@ -66,6 +66,8 @@ if [ -x "$(command -v nix-shell)" ]; then
     zinit light "chisui/zsh-nix-shell"
 fi
 
+export PATH=/opt/podman/bin:$PATH
+
 alias ls="ls -lH --color=auto"
 
 if [ -x "$(command -v doas)" ]; then
