@@ -1,4 +1,1 @@
-.DS_Store
-*/.DS_Store
-.idea
-zsh/personal.zsh
+rc-extra.zsh

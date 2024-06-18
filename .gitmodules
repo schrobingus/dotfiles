@@ -1,7 +1,0 @@
-[submodule "dotbot"]
-	path = dotbot
-	url = https://github.com/anishathalye/dotbot
-	ignore = dirty
-# [submodule "submodules/kitty-kitten-search"]
-# 	path = submodules/kitty-kitten-search
-# 	url = https://github.com/trygveaa/kitty-kitten-search

@@ -1,7 +1,7 @@
 {
     "telemetry.telemetryLevel": "off",
-    "python.defaultInterpreterPath": "/run/current-system/sw/bin/python3.10",
     "window.autoDetectColorScheme": true,
+    "workbench.colorTheme": "GitHub Dark Dimmed",
     "workbench.preferredLightColorTheme": "GitHub Light",
     "workbench.preferredDarkColorTheme": "GitHub Dark Dimmed",
     "workbench.iconTheme": "vs-minimal",
@@ -9,7 +9,7 @@
     "workbench.sideBar.location": "right",
     "apc.activityBar": {
         "position": "bottom",
-        "size": 32,
+        "size": 32
     },
     "editor.fontFamily": "Liga SFMono Nerd Font, SF Mono, Menlo, Monaco, 'Courier New', monospace",
     "editor.fontSize": 12,
@@ -19,50 +19,29 @@
     "vim.highlightedyank.enable": true,
     "vim.useSystemClipboard": true,
     "vim.normalModeKeyBindingsNonRecursive": [
-        {   // Black hole register.
-            "before": [
-                "d"
-            ],
-            "after": [
-                "\"",
-                "_",
-                "d"
-            ]
+        {
+            "before": ["d"],
+            "after": ["\"", "_", "d"]
         },
-        {   // Leap binding (forward).
-            "before": [
-                "s"
-            ],
-            "commands": [
-                "leap.findForward"
-            ]
+        {
+            "before": ["s"],
+            "commands": ["leap.findForward"]
         },
-        {   // Leap binding (back).
-            "before": [
-                "S"
-            ],
-            "commands": [
-                "leap.findBackward"
-            ]
+        {
+            "before": ["S"],
+            "commands": ["leap.findBackward"]
         }
     ],
     "vim.insertModeKeyBindings": [
-        {   // JJ binding for normal mode.
-            "before": [
-                "j",
-                "j"
-            ],
-            "after": [
-                "<esc>"
-            ]
+        {
+            "before": ["j", "j"],
+            "after": ["<esc>"]
         }
     ],
     "[dart]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
-        "editor.rulers": [
-            80
-        ],
+        "editor.rulers": [80],
         "editor.selectionHighlight": false,
         "editor.suggest.snippetsPreventQuickSuggestions": false,
         "editor.suggestSelection": "first",
@@ -72,7 +51,6 @@
     "files.associations": {
         "*.scm": "lisp"
     },
-    "workbench.colorTheme": "GitHub Dark Dimmed",
     "jupyter.askForKernelRestart": false,
     "jupyter.widgetScriptSources": [
         "jsdelivr.com",
@@ -83,3 +61,4 @@
     "git-assistant.checkConfigVariables": "disabled",
     "interactiveWindow.executeWithShiftEnter": true
 }
+
