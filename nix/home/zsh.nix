@@ -36,8 +36,8 @@
       pyi   = "python3 -m pip install"; # Install Pip package.
       pyr   = "python3 -m pip uninstall"; # Uninstall Pip package;
       pyir  = "python3 -m pip install -r requirements.txt"; # Install Python project requirements using Pip.
-      venv  = "python3 -m venv venv"; # Create new Virtualenv container.
-      avenv = "source venv/bin/activate"; # Activate Virtualenv container.
+      venv  = "python3 -m venv venv && sed -i '' 's/false/true/g' venv/pyvenv.cfg"; # Create new Virtualenv container; trailing command enables site packages.
+      avenv = "sh -c 'source venv/bin/activate; exec zsh -i'"; # Activate Virtualenv container in a new ZSH instance.
     };
     plugins = [
       {

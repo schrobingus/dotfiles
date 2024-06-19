@@ -7,8 +7,15 @@
   home.stateVersion = "23.11";
 
   home.packages = with pkgs; [
-    asitop btop nurl speedtest-cli
-  ];
+    btop nurl speedtest-cli
+  ] ++ (
+    if pkgs.stdenv.isLinux then [
+      # Linux Packages
+      dconf2nix
+    ] else [
+      # MacOS Packages
+      asitop
+    ]);
 
   # NOTE: Mind the potential `config.lib.file.mkOutOfStoreSymlink` prefix.
   home.file = {

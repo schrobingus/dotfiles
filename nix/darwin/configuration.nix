@@ -5,6 +5,8 @@
     neofetch ripgrep vim wget
   ];
 
+  # TODO: add brew formulae and casks
+
   programs.zsh.enable = true;
 
   services.nix-daemon.enable = true;
