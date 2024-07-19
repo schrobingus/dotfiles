@@ -23,7 +23,7 @@ prompt_git() {
     else exit 1; fi
 }
 precmd() {
-    PS1="%F{0}%B%(0?.%K{4} .%K{1} )%(1j.⚑ .)$(prompt_addins)%K{0}%f %~ %k%b "  ## Main Prompt
+    PS1="%F{0}%B%(0?.%K{4} .%K{1} )%(1j.⚑ .)$(prompt_addins)%K{0}%f %~ %k%b  "  ## Main Prompt
     RPROMPT="$(prompt_git)" ## Git Prompt (Right)
 }
 PS2='%K{4} %K{0}%B + %b%k '  ## Multiline Prompt
