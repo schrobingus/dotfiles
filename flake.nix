@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,9 +12,40 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-24.05";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
   };
 
-  outputs = { self, nix-darwin, nixpkgs, home-manager } @ inputs: let
+  outputs = { self, nixpkgs, nixpkgs-stable, nix-darwin, home-manager, nixvim } @ inputs: let
+    mkNixOSConfig = { system, extraHomeModules, extraNixOSModules ? {} }:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+        };
+      in
+        nixpkgs.lib.nixosSystem {
+          system = system;
+          specialArgs = { inherit self; };
+          modules = 
+            [
+              ./nix/nixos/system.nix
+            ]
+            ++ extraNixOSModules
+            ++ [
+              home-manager.nixosModules.home-manager {
+                home-manager.extraSpecialArgs = { inherit inputs; };
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.brent = {
+                  imports = [
+                    ./nix/home/home.nix
+                  ] ++ extraHomeModules;
+                };
+              }
+            ];
+        };
     mkDarwinConfig = { system, extraHomeModules, extraDarwinModules ? {} }:
       let
         pkgs = import nixpkgs {
@@ -60,7 +92,7 @@
   in {
     # Each configuration is segregated by hostname.
     darwinConfigurations = {
-      "chaos" = mkDarwinConfig {  # "chaos" is an M1 Macbook Air from 2020.
+      "chaos" = mkDarwinConfig {  # "chaos" is an M1 Macbook Air from 2020. (currently broken)
         system = "aarch64-darwin";
         extraDarwinModules = [];
         extraHomeModules = [ 
@@ -73,6 +105,21 @@
         system = "aarch64-linux";
         extraHomeModules = [
           ./nix/home/zsh.nix
+        ];
+      };
+    };
+    nixosConfigurations = {
+      "thonk" = mkNixOSConfig { # "thonk" is a Thinkpad X131e Chromebook running NixOS on Coreboot. It also cost only 45 dollars, what a bargain!
+        system = "x86_64-linux";
+        extraNixOSModules = [
+          # TODO: figure out a way to handle cachix
+          # /etc/nixos/cachix.nix
+          ./nix/nixos/hardware-configuration.nix
+        ];
+        extraHomeModules = [
+          ./nix/home/fonts.nix
+          ./nix/home/zsh.nix
+          ./nix/home/nvim.nix
         ];
       };
     };

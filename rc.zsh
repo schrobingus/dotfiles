@@ -17,13 +17,13 @@ prompt_git() {
     if git status 2>&- 1> /dev/null; then
 		branch="$(git -P branch | awk '{ print $2 }')"
 		if [ "$(git -P diff)" ]; then
-	    	 print "%K{0}%B $branch %F{0}%K{5} ± %k%f%b"
+	    	 print "%K{0}%B $branch %F{0}%K{5} %k%f%b"
 		else print "%K{0}%B $branch %F{0}%K{2} %k%f%b"
 		fi; exit 0
     else exit 1; fi
 }
 precmd() {
-    PS1="%F{0}%B%(0?.%K{4} .%K{1} )%(1j.⚑ .)$(prompt_addins)%K{0}%f %~ %k%b  "  ## Main Prompt
+    PS1="%F{0}%B%(0?.%K{4} .%K{1} )%(1j.⚑ .)$(prompt_addins)%K{0}%f %~ %k%b "  ## Main Prompt
     RPROMPT="$(prompt_git)" ## Git Prompt (Right)
 }
 PS2='%K{4} %K{0}%B + %b%k '  ## Multiline Prompt
