@@ -23,6 +23,7 @@
     history = {
       save = 10000;
       size = 10000;
+      ignoreDups = true;
       path = "$HOME/.zsh_history";
     };
     shellAliases = {

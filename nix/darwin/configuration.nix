@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    luarocks
+    luajit luarocks
     neofetch ripgrep vim wget
   ];
 
