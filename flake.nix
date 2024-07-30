@@ -62,6 +62,7 @@
               home-manager.darwinModules.home-manager {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = { inherit inputs; };
                 home-manager.users.brent = {
                   imports = [
                     ./nix/home/home.nix
@@ -92,11 +93,15 @@
   in {
     # Each configuration is segregated by hostname.
     darwinConfigurations = {
-      "chaos" = mkDarwinConfig {  # "chaos" is an M1 Macbook Air from 2020. (currently broken)
+      "chaos" = mkDarwinConfig {  # "chaos" is an M1 Macbook Air from 2020.
         system = "aarch64-darwin";
-        extraDarwinModules = [];
+        extraDarwinModules = [
+          ./nix/darwin/homebrew.nix
+          ./nix/darwin/settings.nix
+        ];
         extraHomeModules = [ 
           ./nix/home/zsh.nix
+          ./nix/home/nvim.nix
         ];
       };
     };

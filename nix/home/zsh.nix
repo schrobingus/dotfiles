@@ -6,9 +6,13 @@
     enable = true;
     dotDir = ".config/zsh";
     initExtra = ''
-      if [ -e "$HOME/.profile" ]; then                       
-		    source $HOME/.profile         
-	    fi
+      if [ -e "$HOME/.profile" ]; then                  
+        source $HOME/.profile         
+      fi
+
+      if [ -e "$HOME/.zprofile" ]; then                  
+        source $HOME/.zprofile         
+      fi
 
       source $HOME/.zshrc
 

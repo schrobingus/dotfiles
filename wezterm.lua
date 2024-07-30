@@ -14,14 +14,14 @@ config.tab_bar_at_bottom = true
 
 config.window_decorations = "RESIZE"
 
-config.font = wezterm.font 'Cozette'
-config.font_size = 13
+config.font = wezterm.font 'SF Mono'
+config.font_size = 11
 
 config.window_padding = {
-  left = 16,
-  right = 16,
-  top = 16,
-  bottom = 16,
+  left = 32,
+  right = 32,
+  top = 32,
+  bottom = 32,
 }
 
 config.colors = {
