@@ -29,13 +29,18 @@
     shellAliases = {
       x86_sh = "$env /usr/bin/arch -x86_64 /bin/zsh"; # Rosetta shell alias.
 
+      # TODO: define variable for flake path, variable should be in `home.nix` though
       nu  = "nix-channel --update && sudo nix-channel --update || true";  # Update Nix channels.
-      nrs = "darwin-rebuild switch --flake ~/.config/nix-darwin"; # Rebuild Nix config.
-      nhs = "home-manager switch";  # Rebuild Home Manager config.
-      nsh = "nix-shell ~/.config/nixpkgs/shell.nix";  # Run Nix Shell.
-      ncg = "nix-collect-garbage -d && sudo nix-collect-garbage -d && nix-store --gc && sudo nix-store --gc"; # Collect Nix Store garbage.
+      nrs = "sudo nixos-rebuild switch"; # Rebuild NixOS config from `configuration.nix`.
+      nrf = "sudo nixos-rebuild switch --flake ~/Sources/dotfiles/"; # Rebuild NixOS config from a Nix flake.
+      drs = "darwin-rebuild switch"; # Rebuild Nix Darwin config from `configuration.nix`.
+      drf = "darwin-rebuild switch --flake ~/Sources/dotfiles/"; # Rebuild Nix Darwin config from a Nix flake.
+      nhs = "home-manager switch";  # Rebuild Home Manager config from `configuration.nix`.
+      nhf = "home-manager switch --flake ~/Soueces/dotfiles/"; # Rebuild Home Manager config from a Nix flake.
+      ncs = "nix-store --gc && sudo nix-store --gc"; # Collect Nix Store garbage, consisting of unused entries.
+      ncg = "nix-collect-garbage -d && sudo nix-collect-garbage -d"; # Collect overall Nix garbage, including both unused store entries and config generations.
 
-      py    = "python3";  # Run Python.
+      py    = "python3"; # Run Python.
       pym   = "python3 -m"; # Run a Python module.
       pyb   = "python3 -m build"; # Run Python Build System.
       pyi   = "python3 -m pip install"; # Install Pip package.

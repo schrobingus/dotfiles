@@ -7,7 +7,7 @@
   home.stateVersion = "24.05";
 
   home.packages = with pkgs; [
-    btop fd nurl speedtest-cli
+    btop devenv fd nurl speedtest-cli
   ] ++ (
     if pkgs.stdenv.isLinux then [
       # Linux Packages
@@ -34,8 +34,8 @@
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
-    max-jobs = 1;
-    cores = 1;
+    max-jobs = 8;
+    cores = 8;
   };
 
   programs.git = {

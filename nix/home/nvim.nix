@@ -1,108 +1,106 @@
 { inputs, pkgs, ... }:
+let
+  mkLuaFile = file: ''
+    lua << EOF
+      dofile("${file}")
+    EOF
+  '';
+  mkLua = lua: ''
+    lua << EOF
+      ${lua}
+    EOF
+  '';
+in
+  {
+    imports = [
+      inputs.nixvim.homeManagerModules.nixvim
+    ];
 
-{
-  imports = [
-    inputs.nixvim.homeManagerModules.nixvim
-  ];
-
-  programs.nixvim = {
-    enable = true;
-
-    globals.mapleader = "<Space>";
-
-    plugins.lazy = {
+    programs.nixvim = {
       enable = true;
 
-      plugins = [
-        { # Treesitter plugin for Neovim.
-          # TODO: use nixpkgs for ts
-          name = "nvim-treesitter";
-          lazy = false;
-          opts = {
-            rnsure_installed = "all";
-            parser_install_dir = "$HOME/.config/nvim/treesitter";
-            highlight = {
-              enable = true;
-              additional_vim_regex_highlighting = true;
-            };
-          };
-          pkg = pkgs.vimUtils.buildVimPlugin {
-            name = "nvim-treesitter";
-            src = pkgs.fetchFromGitHub {
-              owner = "nvim-treesitter";
-              repo = "nvim-treesitter";
-              rev = "2d5133f67429f82547ea5fad33a0b1e7d4f78a1c";
-              hash = "sha256-mPNUg3jyu6TsswSl2WT13VHe7TmgNzXBFOpwSacVQ0Y=";
-            };
-          };
-        }
+      globals.mapleader = "<Space>";
 
-        { # Git tools for buffers.
-          # TODO: configure to make it not ugly
-          name = "gitsigns";
-          lazy = false;
-          pkg = pkgs.vimPlugins.gitsigns-nvim;
-        }
+      # NOTE: extraConfigLua, extraConfigLuaPre and extraConfigLuaPost are both valid options.
 
-        { # Jellybeans colorscheme.
-          name = "jellybeans";
-          lazy = false;
-          pkg = pkgs.vimPlugins.jellybeans-vim;
-        }
-        { # Dim colorscheme, terminal agnostic.
-          name = "vim-dim";
-          lazy = false;
-          pkg = pkgs.vimPlugins.vim-dim;
-        }
+      extraPlugins = with pkgs.vimPlugins; [
+        jellybeans-vim
+        vim-dim
 
-        { # Whitespace + indent guides.
-          name = "indent-blankline";
-          lazy = false;
-          pkg = pkgs.vimPlugins.indent-blankline-nvim;
-        }
-        { # Rainbow delimiters, which are parenthesis, brackets, etc.
-          name = "rainbow-delimiters";
-          lazy = false;
-          pkg = pkgs.vimPlugins.rainbow-delimiters-nvim;
-        }
-        { # Highlights color codes in text.
-          name = "nvim-colorizer";
-          lazy = false;
-          pkg = pkgs.vimPlugins.nvim-colorizer-lua;
-        }
+        true-zen-nvim
+        vim-nix
 
-        { # Smart pairing for delimiters.
-          name = "nvim-autopairs";
-          lazy = false;
-          pkg = pkgs.vimPlugins.nvim-autopairs;
+        {
+          plugin = leap-nvim;
+          config = mkLua ''
+            require('leap').create_default_mappings()
+          '';
         }
-        { # Rapid tools for quick motion involving delimiters.
-          name = "nvim-surround";
-          lazy = false;
-          pkg = pkgs.vimPlugins.nvim-surround;
-        }
-
-        { # Two-char search for Neovim. Similar to seek, sneak, snipe, etc.
-          name = "leap";
-          lazy = false;
-          pkg = pkgs.vimPlugins.leap-nvim;
-        }
-
-        { # Zen mode including Ataraxis and Focus modes.
-          name = "true-zen";
-          lazy = false;
-          pkg = pkgs.vimPlugins.true-zen-nvim;
-        }
-
-        { # Vim tools for Nix.
-          name = "vim-nix";
-          ft = [ "nix" ];
-          lazy = true;
-          pkg = pkgs.vimPlugins.vim-nix;
-        }
-
-        # TODO: try out neorg or a plain text notes system
       ];
+
+      plugins = {
+        treesitter = {
+          enable = true;
+
+          nixGrammars = true;
+          grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
+          ensureInstalled = "all";
+
+          indent = true;
+          # folding = true;
+          nixvimInjections = true;
+        };
+
+        gitsigns = {
+          enable = true;
+        };
+
+        nvim-autopairs = {
+          enable = true;
+          settings.map_c_h = false;
+        };
+
+        indent-blankline = {
+          enable = true;
+          settings = {
+            indent.char = "›";
+          # indent.char = "▸";
+          /* scope = {
+            enabled = false;
+            show_start = false;
+            show_end = false;
+            highlight = [
+              "RainbowRed"
+              "RainbowGreen"
+              "RainbowYellow"
+              "RainbowBlue"
+              "RainbowViolet"
+            ];
+          }; */
+        };
+      };
+
+      rainbow-delimiters = {
+        enable = true;
+        /* highlight = [
+          "RainbowRed"
+          "RainbowGreen"
+          "RainbowYellow"
+          "RainbowBlue"
+          "RainbowViolet"
+        ]; */
+      };
+
+      nvim-colorizer = {
+        enable = true;
+        userDefaultOptions = {
+          RGB      = true;
+          RRGGBB   = true;
+          names    = false; # Might enable for Flutter later on.
+          RRGGBBAA = true;
+          css_fn   = true;
+        };
+      };
     };
 
     opts = {
@@ -118,6 +116,13 @@
       hlsearch = true;
       ignorecase = true;
       smartcase = true;
+
+      foldcolumn = "0";
+      foldlevel = 99;
+      foldlevelstart = -1;
+      foldmethod = "expr";
+      foldexpr = "nvim_treesitter#foldexpr()";
+      foldenable = true;
 
       # autoread = true;
       # lazyredraw = true;
@@ -140,6 +145,34 @@
       backspace = "indent,eol,start";
     };
 
+    # TODO: make the colors correspomd to term colors
+    extraConfigLua = ''
+      local highlight = {
+        "RainbowRed",
+        "RainbowGreen",
+        "RainbowYellow",
+        "RainbowBlue",
+        "RainbowViolet",
+      }
+
+      local hooks = require "ibl.hooks"
+      hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+        vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#FFFFFF" })
+        vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#FFFFFF" })
+        vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#FFFFFF" })
+        vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#FFFFFF" })
+        vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#FFFFFF" })
+        vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#FFFFFF" })
+      end)
+
+      vim.g.rainbow_delimiters = { highlight = highlight }
+      require("ibl").setup { scope = { highlight = highlight } }
+
+      hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+    '';
+
+    colorscheme = "jellybeans";
+
     clipboard = {
       register = "unnamedplus";
 
@@ -147,6 +180,13 @@
     };
 
     keymaps = [
+      # Activate the command line without <Shift>, therefore using `;`.
+      {
+        mode = [ "n" "x" ];
+        key = ";";
+        action = ":";
+      }
+
       # Switch back to NORMAL from INSERT using `jj`.
       {
         mode = "i";
@@ -213,51 +253,5 @@
         options = { noremap = true; silent = true; };
       }
     ];
-
-    # colorscheme = "jellybeans";
-    extraConfigLua = ''
-      require("gitsigns").setup()
-
-      vim.cmd("colorscheme jellybeans")
-
-      require("ibl").setup({
-        indent = {
-          char = "›",
-          --char = "▸";
-        },
-        scope = {
-          show_start = false,
-          show_end = false,
-        },
-      })
-      --[[
-      local hooks = require("ibl.hooks")
-      hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
-      hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_tab_indent_level)
-      ]]--
-
-      --[[
-      local rainbow_delimiters = require 'rainbow-delimiters'
-      vim.g.rainbow_delimiters = {
-        highlight = {
-          'RainbowDelimiterRed',
-          'RainbowDelimiterYellow',
-          'RainbowDelimiterBlue',
-          'RainbowDelimiterOrange',
-          'RainbowDelimiterGreen',
-          'RainbowDelimiterViolet',
-          'RainbowDelimiterCyan',
-        },
-      }
-      ]]--
-
-      require("colorizer").setup()
-
-      require("nvim-autopairs").setup({
-        map_c_h = false
-      })
-
-      require('leap').create_default_mappings()
-    '';
   };
 }
