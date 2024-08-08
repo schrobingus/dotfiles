@@ -7,7 +7,9 @@
   home.stateVersion = "24.05";
 
   home.packages = with pkgs; [
-    btop devenv fd nurl speedtest-cli
+    btop speedtest-cli
+    devenv nurl
+    bat fd zoxide
   ] ++ (
     if pkgs.stdenv.isLinux then [
       # Linux Packages
@@ -24,12 +26,11 @@
     ".config/wezterm/wezterm.lua".source = config.lib.file.mkOutOfStoreSymlink ../../wezterm.lua;
     # FIXME: for some reason, the mkOutOfStoreSymlink flag aint doing anything here
     ".zshrc".source = config.lib.file.mkOutOfStoreSymlink ../../rc.zsh;
-
     # "Library/Application Support/Code/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink ../../vscode-settings.json; 
   };
 
   home.sessionVariables = {
-    EDITOR = "vim";
+    EDITOR = "nvim";
   };
 
   nix.settings = {
@@ -42,8 +43,10 @@
     enable = true;
     userName = "schrobingus";
     userEmail = "brent.monning.jr@gmail.com";
-    delta = {
-      enable = true;
+    delta.enable = true;
+    extraConfig = {
+      diff.tool = "nvimdiff";
+      merge.tool = "nvimdiff1";
     };
   };
 }
