@@ -2,14 +2,20 @@
 
 {
   home.username = "brent";
-  home.homeDirectory = if pkgs.stdenv.isLinux then pkgs.lib.mkForce "/home/brent" else pkgs.lib.mkForce "/Users/brent";
+  home.homeDirectory = 
+    if pkgs.stdenv.isLinux then 
+      pkgs.lib.mkForce "/home/brent" 
+    else 
+      pkgs.lib.mkForce "/Users/brent";
 
   home.stateVersion = "24.05";
 
   home.packages = with pkgs; [
     btop speedtest-cli
     devenv nurl
-    bat fd zoxide
+    bat fd ripgrep zoxide
+    fzf nap zk
+    ueberzugpp
   ] ++ (
     if pkgs.stdenv.isLinux then [
       # Linux Packages

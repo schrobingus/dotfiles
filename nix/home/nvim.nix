@@ -24,32 +24,35 @@ in
       # NOTE: extraConfigLua, extraConfigLuaPre and extraConfigLuaPost are both valid options.
 
       extraPlugins = with pkgs.vimPlugins; [
-        jellybeans-vim
-        vim-dim
+        jellybeans-vim  # Jellybeans theme.
+        vim-dim # Terminal-gnostic theme.
 
-        true-zen-nvim
-        vim-nix
+        true-zen-nvim # "Zen mode" for Vim, hides surrounding content for focus.
+        vim-nix # Nix functionality and integration.
 
-        {
+        vim-swap  # Quick delimiter swapping inputs.
+
+        fzf-lua # FZF for Neovim, fills in the role of a fuzzy finder.
+        firenvim # Embeds Neovim within web browser text areas.
+        zk-nvim # Integration for the ZK plain text notes tool.
+
+        { # Jumps to a char pair quickly. Similar to Snipe, Sneak, Seek, etc.
           plugin = leap-nvim;
           config = mkLua ''
             require('leap').create_default_mappings()
           '';
         }
 
-        {
+        { # Rapid delimiter placement and navigation.
           plugin = nvim-surround;
           config = mkLua ''
             require("nvim-surround").setup()
           '';
         }
-        {
-          plugin = vim-swap;
-          # TODO: add config
-        }
       ];
 
       plugins = {
+        # Treesitter parsing for Neovim.
         treesitter = {
           enable = true;
 
@@ -62,19 +65,19 @@ in
           nixvimInjections = true;
         };
 
-        gitsigns = {
-          enable = true;
-        };
+        gitsigns.enable = true; # Adds git signs to the gutter.
 
+        # Automatically pairs delimiters.
         nvim-autopairs = {
           enable = true;
           settings.map_c_h = false;
         };
 
         # Both of these are configured in extraConfigLua.
-        indent-blankline.enable = true;
-        rainbow-delimiters.enable = true;
+        indent-blankline.enable = true; # Whitespace / indent guides.
+        rainbow-delimiters.enable = true; # Distinguishes delimiter pairs with colors.
 
+        # Previews referenced colors within the editor.
         nvim-colorizer = {
           enable = true;
           userDefaultOptions = {
@@ -124,10 +127,12 @@ in
         scrolloff = 6;
 
         backspace = "indent,eol,start";
+
+        guifont = "SF Mono:h11";
       };
 
-      # TODO: make the colors correspond to term colors
-      extraConfigLua = ''
+      # TODO: make the rainbow colors correspond to term colors
+      extraConfigLua = /* lua */ ''
         local highlight = {
           "RainbowRed",
           "RainbowGreen",
@@ -157,6 +162,22 @@ in
         }
 
         hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+
+        require('gitsigns').setup {
+          signs = {
+            add = { text = '+' },
+            change = { text = '~' },
+            delete = { text = '_' },
+            topdelete = { text = '‾' },
+            changedelete = { text = '~' },
+          },
+          on_attach = function(bufnr)
+            vim.keymap.set('n', '[c', require('gitsigns').prev_hunk, { buffer = bufnr })
+            vim.keymap.set('n', ']c', require('gitsigns').next_hunk, { buffer = bufnr })
+          end,
+        }
+
+        vim.cmd("highlight clear SignColumn")
       '';
 
       colorscheme = "jellybeans";
