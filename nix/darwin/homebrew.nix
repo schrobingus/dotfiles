@@ -20,6 +20,7 @@
       "ollama"
       "utm"
 
+      "iina"
       "openscad@snapshot"
       "steam"
       "ultimaker-cura"

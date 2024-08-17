@@ -32,7 +32,6 @@ in
 
         vim-swap  # Quick delimiter swapping inputs.
 
-        fzf-lua # FZF for Neovim, fills in the role of a fuzzy finder.
         firenvim # Embeds Neovim within web browser text areas.
         zk-nvim # Integration for the ZK plain text notes tool.
 
@@ -49,6 +48,17 @@ in
             require("nvim-surround").setup()
           '';
         }
+      ] ++ [
+        # GPT prompt for Neovim.
+        (pkgs.vimUtils.buildVimPlugin {
+          name = "gp.nvim";
+          src = pkgs.fetchFromGitHub {
+            owner = "Robitx";
+            repo = "gp.nvim";
+            rev = "861ed5240214dc76b00edeaec15e71370a7a5046";
+            hash = "sha256-2vjPoRiT26dftA0t4hdGedN6qZyIgQUjGMRF4IND/O4=";
+          };
+        })
       ];
 
       plugins = {
@@ -73,7 +83,8 @@ in
           settings.map_c_h = false;
         };
 
-        # Both of these are configured in extraConfigLua.
+        # All of these are configured in extraConfigLua.
+        fzf-lua.enable = true;  # FZF for Neovim, fills in the role of a fuzzy finder.
         indent-blankline.enable = true; # Whitespace / indent guides.
         rainbow-delimiters.enable = true; # Distinguishes delimiter pairs with colors.
 
@@ -128,7 +139,7 @@ in
 
         backspace = "indent,eol,start";
 
-        guifont = "SF Mono:h11";
+        guifont = "SF Mono:h15";
       };
 
       # TODO: make the rainbow colors correspond to term colors
@@ -163,6 +174,77 @@ in
 
         hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 
+        require("fzf-lua").register_ui_select()
+
+        vim.g.firenvim_config = {
+          localSettings = {
+            [".*"] = {
+              priority = 0,
+              cmdline  = "neovim",
+              content  = "text",
+              selector = "textarea",
+              takeover = "always"
+            },
+
+            -- Every backslash in the URL regular expressions must have
+            -- double backslashes due to the way Lua handles strings.
+            ["https?:\\/\\/(?:www\\.)?google\\.com\\/.*"] = {
+              priority = 1,
+              takeover = "never"
+            },
+            ["https?:\\/\\/(?:www\\.)?discord\\.com\\/.*"] = {
+              priority = 1,
+              takeover = "never"
+            },
+            ["https?:\\/\\/(?:www\\.)?chatgpt\\.com\\/.*"] = {
+              priority = 1,
+              takeover = "never"
+            }
+          }
+        }
+
+        require("gp").setup {
+          providers = {
+            openai = {
+              disable = true,
+            },
+            ollama = {
+              disable = false,
+			        endpoint = "http://localhost:11434/v1/chat/completions"
+            }
+          },
+          agents = {  -- All of these agents are built off Ollama models.
+            {
+              name = "Chat-Ollama-Phi2-Orca",
+              provider = "ollama",
+              chat = true,
+              command = true,
+              model = {
+                model = "dolphin-phi",
+                temperature = 0.8,
+                top_p = 0.9,
+                min_p = 0.05
+              },
+              system_prompt = "You are a general AI assistant."
+            },
+            {
+              name = "Chat-Ollama-Phi3",
+              provider = "ollama",
+              chat = true,
+              command = true,
+              model = {
+                model = "phi3",
+                temperature = 0.8,
+                top_p = 0.9,
+                min_p = 0.05
+              },
+              system_prompt = "You are a general AI assistant."
+            }
+          }
+        }
+
+        vim.cmd("highlight clear SignColumn")
+
         require('gitsigns').setup {
           signs = {
             add = { text = '+' },
@@ -176,8 +258,6 @@ in
             vim.keymap.set('n', ']c', require('gitsigns').next_hunk, { buffer = bufnr })
           end,
         }
-
-        vim.cmd("highlight clear SignColumn")
       '';
 
       colorscheme = "jellybeans";

@@ -28,6 +28,7 @@
     };
     shellAliases = {
       x86_sh = "$env /usr/bin/arch -x86_64 /bin/zsh"; # Rosetta shell alias.
+      ls = "ls -lH --color=auto";
 
       # TODO: define variable for flake path, variable should be in `home.nix` though
       nu  = "nix-channel --update && sudo nix-channel --update || true";  # Update Nix channels.

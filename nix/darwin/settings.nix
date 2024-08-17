@@ -3,6 +3,7 @@
 {
   system.defaults = {
     NSGlobalDomain = {
+      ApplePressAndHoldEnabled = false;
       AppleShowAllExtensions = true;
       NSAutomaticCapitalizationEnabled = false;
       NSAutomaticSpellingCorrectionEnabled = false;
