@@ -10,11 +10,13 @@
       "xcodes"
 
       "podman" "podman-compose"
+      "qemu"
     ];
     casks = [
       "librewolf"
       "raycast"
       "wezterm"
+      "hammerspoon"
 
       "android-studio"
       "ollama"

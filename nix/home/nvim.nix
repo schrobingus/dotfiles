@@ -25,12 +25,13 @@ in
 
       extraPlugins = with pkgs.vimPlugins; [
         jellybeans-vim  # Jellybeans theme.
-        vim-dim # Terminal-gnostic theme.
+        # vim-dim # Terminal-gnostic theme.
 
         true-zen-nvim # "Zen mode" for Vim, hides surrounding content for focus.
         vim-nix # Nix functionality and integration.
 
         vim-swap  # Quick delimiter swapping inputs.
+        vim-table-mode  # Allows one to make Markdown formatted tables with ease.
 
         firenvim # Embeds Neovim within web browser text areas.
         zk-nvim # Integration for the ZK plain text notes tool.
@@ -75,18 +76,54 @@ in
           nixvimInjections = true;
         };
 
-        gitsigns.enable = true; # Adds git signs to the gutter.
+        # Language Server Protocol for Neovim.
+        lsp = {
+          enable = true;
+
+          keymaps = {
+            silent = true;
+
+            lspBuf = {
+              gd = "definition";
+              gD = "references";
+              gt = "type_definition";
+              gi = "implementation";
+            };
+          };
+
+          servers = {
+            nil-ls.enable = true;                 # Nix
+            lua-ls.enable = true;                 # Lua
+
+            # bashls.enable = true;               # Bash
+            clojure-lsp.enable = true;            # Clojure
+            omnisharp.enable = true;              # C#
+            cssls.enable = true;                  # CSS
+            dartls.enable = true;                 # Dart
+            denols.enable = true;                 # Deno
+            gdscript.enable = true;               # GDScript
+            html.enable = true;                   # HTML
+            java-language-server.enable = true;   # Java
+            jsonls.enable = true;                 # JSON
+            julials.enable = true;                # Julia
+            nimls.enable = true;                  # Nim
+            pylsp.enable = true;                  # Python
+            r-language-server.enable = true;      # R
+            ruby-lsp.enable = true;               # Ruby
+            # rust-analyzer.enable = true;        # Rust
+            sourcekit.enable = true;              # Swift, C, C++, Obj-C, etc
+            tsserver.enable = true;               # TypeScript
+            typst-lsp.enable = true;              # Typst
+            vala-ls.enable = true;                # Vala
+            # zls.enable = true;                  # Zig
+          };
+        };
 
         # Automatically pairs delimiters.
         nvim-autopairs = {
           enable = true;
           settings.map_c_h = false;
         };
-
-        # All of these are configured in extraConfigLua.
-        fzf-lua.enable = true;  # FZF for Neovim, fills in the role of a fuzzy finder.
-        indent-blankline.enable = true; # Whitespace / indent guides.
-        rainbow-delimiters.enable = true; # Distinguishes delimiter pairs with colors.
 
         # Previews referenced colors within the editor.
         nvim-colorizer = {
@@ -99,13 +136,25 @@ in
             css_fn   = true;
           };
         };
+
+        # All of these are configured in extraConfigLua.
+        fzf-lua.enable = true;  # FZF for Neovim, fills in the role of a fuzzy finder.
+        gitsigns.enable = true; # Adds git signs to the gutter.
+        headlines.enable = false;  # Highlight elements (like headers) in plain text.
+        indent-blankline.enable = true; # Whitespace / indent guides.
+        multicursors.enable = true; # Functionality for multiple cursors at once.
+        rainbow-delimiters.enable = true; # Distinguishes delimiter pairs with colors.
       };
 
       opts = {
+        # TODO: disable number and enable breakindent in term and plain text
+
         number = true;
 
+        cursorline = true;
         wrap = true;
         linebreak = true;
+        breakindent = false;
         list = false;
 
         ruler = true;
@@ -114,6 +163,7 @@ in
         hlsearch = true;
         ignorecase = true;
         smartcase = true;
+        cmdheight = 0;
 
         foldcolumn = "0";
         foldlevel = 99;
@@ -371,6 +421,14 @@ in
           mode = "x";
           key = "a";
           action = "<Plug>(swap-textobject-a)";
+          options = { noremap = true; silent = true; };
+        }
+
+        # Bindings for multicursors.
+        {
+          mode = [ "n" "v" ];
+          key = "<Leader>m";
+          action = "<cmd>MCstart<cr>";
           options = { noremap = true; silent = true; };
         }
       ];
