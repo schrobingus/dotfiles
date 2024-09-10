@@ -1,4 +1,6 @@
-{ inputs, pkgs, ... }:
+# TODO: make a separate flake / repository for my nixvim configuration, then reference it in this home manager config
+
+{ inputs, pkgs, ... }: 
 let
   mkLuaFile = file: ''
     lua << EOF
@@ -34,7 +36,13 @@ in
         vim-table-mode  # Allows one to make Markdown formatted tables with ease.
 
         firenvim # Embeds Neovim within web browser text areas.
-        zk-nvim # Integration for the ZK plain text notes tool.
+
+        { # Integration for the ZK plain text notes tool.
+          plugin = zk-nvim;
+          config = mkLua ''
+            require('zk').setup()
+          '';
+        }
 
         { # Jumps to a char pair quickly. Similar to Snipe, Sneak, Seek, etc.
           plugin = leap-nvim;
@@ -47,6 +55,13 @@ in
           plugin = nvim-surround;
           config = mkLua ''
             require("nvim-surround").setup()
+          '';
+        }
+
+        { # Tools for Dart and Flutter.
+          plugin = flutter-tools-nvim;
+          config = mkLua ''
+            require("flutter-tools").setup {}
           '';
         }
       ] ++ [
@@ -193,6 +208,15 @@ in
       };
 
       # TODO: make the rainbow colors correspond to term colors
+      # TODO: make a proper mf status line
+      /*
+        TODO: apply some settings to markdown specifically, such as:
+        - `breakindent`
+        - `nocursorline`
+        - `nonumber`
+        - `conceallevel=3`
+        - disable indent-blankline entirely
+      */
       extraConfigLua = /* lua */ ''
         local highlight = {
           "RainbowRed",
@@ -213,7 +237,9 @@ in
         end)
 
         vim.g.rainbow_delimiters = { highlight = highlight }
-        require("ibl").setup { 
+        -- TODO: scope acts specifically with curlies and nothing else, fix that
+        -- TODO: scope underlines statement being used, which i'm not a big fan of. disable that
+        require("ibl").setup {
           indent = { char = "›" },
           scope = {
             show_start = true,
@@ -226,6 +252,7 @@ in
 
         require("fzf-lua").register_ui_select()
 
+        -- TODO: in firenvim SPECIFICALLY, automatically save when jumping back into normal mode from insert mode
         vim.g.firenvim_config = {
           localSettings = {
             [".*"] = {
@@ -249,6 +276,10 @@ in
             ["https?:\\/\\/(?:www\\.)?chatgpt\\.com\\/.*"] = {
               priority = 1,
               takeover = "never"
+            },
+            ["https?:\\/\\/(?:www\\.)?github\\.com\\/.*\\/blob\\/.*"] = {
+              priority = 1,
+              takeover = "never"
             }
           }
         }
@@ -260,7 +291,7 @@ in
             },
             ollama = {
               disable = false,
-			        endpoint = "http://localhost:11434/v1/chat/completions"
+              endpoint = "http://localhost:11434/v1/chat/completions"
             }
           },
           agents = {  -- All of these agents are built off Ollama models.

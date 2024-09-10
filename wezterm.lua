@@ -9,8 +9,9 @@ local theme_colors = wezterm.color.get_builtin_schemes()[theme]
 config.default_cursor_style = "BlinkingBar"
 
 config.hide_tab_bar_if_only_one_tab = false
-config.use_fancy_tab_bar = true
+config.native_macos_fullscreen_mode = true;
 config.tab_bar_at_bottom = false
+config.use_fancy_tab_bar = true
 
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 

@@ -11,6 +11,7 @@
   home.stateVersion = "24.05";
 
   home.packages = with pkgs; [
+    pfetch
     btop gh speedtest-cli
     devenv nurl
     bat fd ripgrep zoxide
