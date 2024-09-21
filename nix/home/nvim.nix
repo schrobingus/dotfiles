@@ -26,13 +26,12 @@ in
       # NOTE: extraConfigLua, extraConfigLuaPre and extraConfigLuaPost are both valid options.
 
       extraPlugins = with pkgs.vimPlugins; [
-        jellybeans-vim  # Jellybeans theme.
-        # vim-dim # Terminal-gnostic theme.
+        jellybeans-vim  # Jellybeans theme. # TODO: switch to base16
 
         true-zen-nvim # "Zen mode" for Vim, hides surrounding content for focus.
         vim-nix # Nix functionality and integration.
 
-        vim-swap  # Quick delimiter swapping inputs.
+        # vim-swap  # Quick delimiter swapping inputs.  # NOTE: i don't think i need this
         vim-table-mode  # Allows one to make Markdown formatted tables with ease.
 
         firenvim # Embeds Neovim within web browser text areas.
@@ -51,30 +50,12 @@ in
           '';
         }
 
-        { # Rapid delimiter placement and navigation.
-          plugin = nvim-surround;
-          config = mkLua ''
-            require("nvim-surround").setup()
-          '';
-        }
-
         { # Tools for Dart and Flutter.
           plugin = flutter-tools-nvim;
           config = mkLua ''
             require("flutter-tools").setup {}
           '';
         }
-      ] ++ [
-        # GPT prompt for Neovim.
-        (pkgs.vimUtils.buildVimPlugin {
-          name = "gp.nvim";
-          src = pkgs.fetchFromGitHub {
-            owner = "Robitx";
-            repo = "gp.nvim";
-            rev = "861ed5240214dc76b00edeaec15e71370a7a5046";
-            hash = "sha256-2vjPoRiT26dftA0t4hdGedN6qZyIgQUjGMRF4IND/O4=";
-          };
-        })
       ];
 
       plugins = {
@@ -111,34 +92,39 @@ in
             lua-ls.enable = true;                 # Lua
 
             # bashls.enable = true;               # Bash
-            clojure-lsp.enable = true;            # Clojure
-            omnisharp.enable = true;              # C#
-            cssls.enable = true;                  # CSS
-            dartls.enable = true;                 # Dart
-            denols.enable = true;                 # Deno
-            gdscript.enable = true;               # GDScript
-            html.enable = true;                   # HTML
-            java-language-server.enable = true;   # Java
+            clojure-lsp.enable = false;           # Clojure
+            omnisharp.enable = false;             # C#
+            cssls.enable = false;                 # CSS
+            dartls.enable = false;                # Dart
+            denols.enable = false;                # Deno
+            gdscript.enable = false;              # GDScript
+            html.enable = false;                  # HTML
+            java-language-server.enable = false;  # Java
             jsonls.enable = true;                 # JSON
-            julials.enable = true;                # Julia
-            nimls.enable = true;                  # Nim
+            julials.enable = false;               # Julia
+            nimls.enable = false;                 # Nim
             pylsp.enable = true;                  # Python
-            r-language-server.enable = true;      # R
-            ruby-lsp.enable = true;               # Ruby
-            # rust-analyzer.enable = true;        # Rust
+            r-language-server.enable = false;     # R
+            ruby-lsp.enable = false;              # Ruby
+            # rust-analyzer.enable = false;       # Rust
             sourcekit.enable = true;              # Swift, C, C++, Obj-C, etc
-            tsserver.enable = true;               # TypeScript
-            typst-lsp.enable = true;              # Typst
-            vala-ls.enable = true;                # Vala
-            # zls.enable = true;                  # Zig
+            tsserver.enable = false;              # TypeScript
+            typst-lsp.enable = false;             # Typst
+            vala-ls.enable = false;               # Vala
+            # zls.enable = false;                 # Zig
           };
         };
 
-        # Automatically pairs delimiters.
-        nvim-autopairs = {
-          enable = true;
-          settings.map_c_h = false;
-        };
+        mini.enable = true; # Library of lightweight useful plugins.
+
+        # Simple statusline for Neovim.
+        mini.modules.statusline = {
+          use_icons = true;  # NOTE: might want to take a look at the icons module
+        }; 
+
+        # mini.modules.icons = {};  # Provides icons for mini.nvim. # FIXME: cooked in nixvim, either submit an issue or pr
+        mini.modules.pairs = {};  # Automatically pairs delimiters.
+        mini.modules.surround = {}; # Rapid delimiter navigation.
 
         # Previews referenced colors within the editor.
         nvim-colorizer = {
@@ -146,24 +132,21 @@ in
           userDefaultOptions = {
             RGB      = true;
             RRGGBB   = true;
-            names    = false; # Might enable for Flutter later on.
             RRGGBBAA = true;
             css_fn   = true;
+            names    = false;
           };
         };
 
         # All of these are configured in extraConfigLua.
         fzf-lua.enable = true;  # FZF for Neovim, fills in the role of a fuzzy finder.
         gitsigns.enable = true; # Adds git signs to the gutter.
-        headlines.enable = false;  # Highlight elements (like headers) in plain text.
         indent-blankline.enable = true; # Whitespace / indent guides.
         multicursors.enable = true; # Functionality for multiple cursors at once.
         rainbow-delimiters.enable = true; # Distinguishes delimiter pairs with colors.
       };
 
       opts = {
-        # TODO: disable number and enable breakindent in term and plain text
-
         number = true;
 
         cursorline = true;
@@ -208,7 +191,6 @@ in
       };
 
       # TODO: make the rainbow colors correspond to term colors
-      # TODO: make a proper mf status line
       /*
         TODO: apply some settings to markdown specifically, such as:
         - `breakindent`
@@ -240,7 +222,7 @@ in
         -- TODO: scope acts specifically with curlies and nothing else, fix that
         -- TODO: scope underlines statement being used, which i'm not a big fan of. disable that
         require("ibl").setup {
-          indent = { char = "›" },
+          indent = { char = "▏" },
           scope = {
             show_start = true,
             show_end = true,
@@ -280,46 +262,6 @@ in
             ["https?:\\/\\/(?:www\\.)?github\\.com\\/.*\\/blob\\/.*"] = {
               priority = 1,
               takeover = "never"
-            }
-          }
-        }
-
-        require("gp").setup {
-          providers = {
-            openai = {
-              disable = true,
-            },
-            ollama = {
-              disable = false,
-              endpoint = "http://localhost:11434/v1/chat/completions"
-            }
-          },
-          agents = {  -- All of these agents are built off Ollama models.
-            {
-              name = "Chat-Ollama-Phi2-Orca",
-              provider = "ollama",
-              chat = true,
-              command = true,
-              model = {
-                model = "dolphin-phi",
-                temperature = 0.8,
-                top_p = 0.9,
-                min_p = 0.05
-              },
-              system_prompt = "You are a general AI assistant."
-            },
-            {
-              name = "Chat-Ollama-Phi3",
-              provider = "ollama",
-              chat = true,
-              command = true,
-              model = {
-                model = "phi3",
-                temperature = 0.8,
-                top_p = 0.9,
-                min_p = 0.05
-              },
-              system_prompt = "You are a general AI assistant."
             }
           }
         }
@@ -424,36 +366,36 @@ in
         }
 
         # Bindings for vim-swap.
-        {
-          mode = "n";
-          key = "g<";
-          action = "<Plug>(swap-prev)";
-          options = { noremap = true; silent = true; };
-        }
-        {
-          mode = "n";
-          key = "g>";
-          action = "<Plug>(swap-next)";
-          options = { noremap = true; silent = true; };
-        }
-        {
-          mode = "n";
-          key = "gs";
-          action = "<Plug>(swap-interactive)";
-          options = { noremap = true; silent = true; };
-        }
-        {
-          mode = "x";
-          key = "i";
-          action = "<Plug>(swap-textobject-i)";
-          options = { noremap = true; silent = true; };
-        }
-        {
-          mode = "x";
-          key = "a";
-          action = "<Plug>(swap-textobject-a)";
-          options = { noremap = true; silent = true; };
-        }
+        # {
+        #   mode = "n";
+        #   key = "g<";
+        #   action = "<Plug>(swap-prev)";
+        #   options = { noremap = true; silent = true; };
+        # }
+        # {
+        #   mode = "n";
+        #   key = "g>";
+        #   action = "<Plug>(swap-next)";
+        #   options = { noremap = true; silent = true; };
+        # }
+        # {
+        #   mode = "n";
+        #   key = "gs";
+        #   action = "<Plug>(swap-interactive)";
+        #   options = { noremap = true; silent = true; };
+        # }
+        # {
+        #   mode = "x";
+        #   key = "i";
+        #   action = "<Plug>(swap-textobject-i)";
+        #   options = { noremap = true; silent = true; };
+        # }
+        # {
+        #   mode = "x";
+        #   key = "a";
+        #   action = "<Plug>(swap-textobject-a)";
+        #   options = { noremap = true; silent = true; };
+        # }
 
         # Bindings for multicursors.
         {

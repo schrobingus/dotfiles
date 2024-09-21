@@ -13,7 +13,7 @@
   home.packages = with pkgs; [
     pfetch
     btop gh speedtest-cli
-    devenv nurl
+    colmena devenv nurl
     bat fd ripgrep zoxide
     fzf nap zk
     ueberzugpp
