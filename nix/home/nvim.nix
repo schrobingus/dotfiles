@@ -21,7 +21,7 @@ in
     programs.nixvim = {
       enable = true;
 
-      globals.mapleader = "<Space>";
+      globals.mapleader = " ";
 
       # NOTE: extraConfigLua, extraConfigLuaPre and extraConfigLuaPost are both valid options.
 
@@ -120,6 +120,7 @@ in
         # Simple statusline for Neovim.
         mini.modules.statusline = {
           use_icons = true;  # NOTE: might want to take a look at the icons module
+          set_vim_settings = false;
         }; 
 
         # mini.modules.icons = {};  # Provides icons for mini.nvim. # FIXME: cooked in nixvim, either submit an issue or pr
@@ -138,12 +139,25 @@ in
           };
         };
 
-        # All of these are configured in extraConfigLua.
+        smart-splits = {
+          enable = true;
+          settings = {
+            ignored_events = [
+              "BufEnter"
+              "WinEnter"
+            ];
+            silent = true;
+            # TODO: look into resize mode. in particular, make sure it works with wezterm
+          };
+        };
+
+        # All of these are configured in extraConfigLua or do not need further configuration.
         fzf-lua.enable = true;  # FZF for Neovim, fills in the role of a fuzzy finder.
         gitsigns.enable = true; # Adds git signs to the gutter.
         indent-blankline.enable = true; # Whitespace / indent guides.
         multicursors.enable = true; # Functionality for multiple cursors at once.
         rainbow-delimiters.enable = true; # Distinguishes delimiter pairs with colors.
+        trouble.enable = true;  # A diagnostics and quickfix list.
       };
 
       opts = {
@@ -234,7 +248,21 @@ in
 
         require("fzf-lua").register_ui_select()
 
-        -- TODO: in firenvim SPECIFICALLY, automatically save when jumping back into normal mode from insert mode
+        if vim.g.started_by_firenvim then
+          vim.api.nvim_create_autocmd({'TextChanged', 'TextChangedI'}, {
+            callback = function(e)
+              if vim.g.timer_started == true then
+                return
+              end
+              vim.g.timer_started = true
+              vim.fn.timer_start(10000, function()
+                vim.g.timer_started = false
+                vim.cmd('silent write')
+              end)
+            end
+          })
+        end
+
         vim.g.firenvim_config = {
           localSettings = {
             [".*"] = {
@@ -291,6 +319,7 @@ in
         # providers.wl-copy.enable = true;
       };
 
+      # TODO: add descriptions for each keymap
       keymaps = [
         # Activate the command line without <Shift>, therefore using `;`.
         {
@@ -313,29 +342,73 @@ in
           action = ''"_d'';
         }
 
+        # Add blank line below or above in NORMAL mode.
+        {
+          mode = "n";
+          key = "<Leader>o";
+          action = "o<Esc>k";
+          options = { noremap = true; silent = true; };
+        }
+        {
+          mode = "n";
+          key = "<Leader>O";
+          action = "O<Esc>k";
+          options = { noremap = true; silent = true; };
+        }
+
         # Window switching in NORMAL mode.
         {
           mode = "n";
           key = "<C-h>";
-          action = "<C-w>h";
+          # action = "<C-w>h";
+          action = "<cmd>lua require('smart-splits').move_cursor_left()<CR>";
           options = { noremap = true; silent = true; };
         }
         {
           mode = "n";
           key = "<C-j>";
-          action = "<C-w>j";
+          # action = "<C-w>j";
+          action = "<cmd>lua require('smart-splits').move_cursor_down()<CR>";
           options = { noremap = true; silent = true; };
         }
         {
           mode = "n";
           key = "<C-k>";
-          action = "<C-w>k";
+          # action = "<C-w>k";
+          action = "<cmd>lua require('smart-splits').move_cursor_up()<CR>";
           options = { noremap = true; silent = true; };
         }
         {
           mode = "n";
           key = "<C-l>";
-          action = "<C-w>l";
+          # action = "<C-w>l";
+          action = "<cmd>lua require('smart-splits').move_cursor_right()<CR>";
+          options = { noremap = true; silent = true; };
+        }
+
+        # Window resizing in NORMAL mode.
+        {
+          mode = "n";
+          key = "<A-h>";
+          action = "<cmd>lua require('smart-splits').resize_left()<CR>";
+          options = { noremap = true; silent = true; };
+        }
+        {
+          mode = "n";
+          key = "<A-j>";
+          action = "<cmd>lua require('smart-splits').resize_down()<CR>";
+          options = { noremap = true; silent = true; };
+        }
+        {
+          mode = "n";
+          key = "<A-k>";
+          action = "<cmd>lua require('smart-splits').resize_up()<CR>";
+          options = { noremap = true; silent = true; };
+        }
+        {
+          mode = "n";
+          key = "<A-l>";
+          action = "<cmd>lua require('smart-splits').resize_right()<CR>";
           options = { noremap = true; silent = true; };
         }
 
@@ -365,43 +438,49 @@ in
           options = { noremap = true; silent = true; };
         }
 
-        # Bindings for vim-swap.
-        # {
-        #   mode = "n";
-        #   key = "g<";
-        #   action = "<Plug>(swap-prev)";
-        #   options = { noremap = true; silent = true; };
-        # }
-        # {
-        #   mode = "n";
-        #   key = "g>";
-        #   action = "<Plug>(swap-next)";
-        #   options = { noremap = true; silent = true; };
-        # }
-        # {
-        #   mode = "n";
-        #   key = "gs";
-        #   action = "<Plug>(swap-interactive)";
-        #   options = { noremap = true; silent = true; };
-        # }
-        # {
-        #   mode = "x";
-        #   key = "i";
-        #   action = "<Plug>(swap-textobject-i)";
-        #   options = { noremap = true; silent = true; };
-        # }
-        # {
-        #   mode = "x";
-        #   key = "a";
-        #   action = "<Plug>(swap-textobject-a)";
-        #   options = { noremap = true; silent = true; };
-        # }
-
         # Bindings for multicursors.
         {
           mode = [ "n" "v" ];
           key = "<Leader>m";
           action = "<cmd>MCstart<cr>";
+          options = { noremap = true; silent = true; };
+        }
+
+        # Bindings for trouble.
+        {
+          mode = "n";
+          key = "<Leader>xx";
+          action = "<cmd>Trouble diagnostics toggle<cr>";
+          options = { noremap = true; silent = true; };
+        }
+        {
+          mode = "n";
+          key = "<Leader>xX";
+          action = "<cmd>Trouble diagnostics toggle filter.buf=0<cr>";
+          options = { noremap = true; silent = true; };
+        }
+        {
+          mode = "n";
+          key = "<Leader>cs";
+          action = "<cmd>Trouble symbols toggle focus=false<cr>";
+          options = { noremap = true; silent = true; };
+        }
+        {
+          mode = "n";
+          key = "<Leader>cl";
+          action = "<cmd>Trouble lsp toggle focus=false win.position=right<cr>";
+          options = { noremap = true; silent = true; };
+        }
+        {
+          mode = "n";
+          key = "<Leader>xL";
+          action = "<cmd>Trouble loclist toggle<cr>";
+          options = { noremap = true; silent = true; };
+        }
+        {
+          mode = "n";
+          key = "<Leader>xQ";
+          action = "<cmd>Trouble qflist toggle<cr>";
           options = { noremap = true; silent = true; };
         }
       ];

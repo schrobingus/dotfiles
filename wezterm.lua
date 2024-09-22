@@ -1,24 +1,30 @@
-local wezterm = require 'wezterm'
-local config = wezterm.config_builder()
+local wt = require 'wezterm'
+local config = wt.config_builder()
 
+local smsp = wt.plugin.require('https://github.com/mrjones2014/smart-splits.nvim')
+
+-- TODO: might switch to base16
 local theme = "Jellybeans"
 
 config.color_scheme = theme
-local theme_colors = wezterm.color.get_builtin_schemes()[theme]
+local theme_colors = wt.color.get_builtin_schemes()[theme]
 
 config.default_cursor_style = "BlinkingBar"
 
 config.hide_tab_bar_if_only_one_tab = false
-config.native_macos_fullscreen_mode = true
 config.tab_bar_at_bottom = false
 config.use_fancy_tab_bar = true
 
-config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+if wt.target_triple:match("darwin") ~= nil then
+  config.native_macos_fullscreen_mode = true
+  config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+else
+  config.window_decorations = "RESIZE"
+end
 
-config.font = wezterm.font 'SF Mono'
+config.font = wt.font 'SF Mono'
 config.font_size = 13
 
--- TODO: add top padding when no tab bar, and remove when tab bar enabled
 config.window_padding = {
   left = 32,
   right = 32,
@@ -27,7 +33,7 @@ config.window_padding = {
 }
 
 config.window_frame = {
-  font = wezterm.font { family = 'SF Compact' },
+  font = wt.font { family = 'SF Compact' },
   font_size = 13,
   active_titlebar_bg = theme_colors.ansi[1],
   inactive_titlebar_bg = theme_colors.ansi[1],
@@ -59,5 +65,13 @@ config.colors = {
     },
   },
 }
+
+smsp.apply_to_config(config, {
+  direction_keys = { 'h', 'j', 'k', 'l' },
+  modifiers = {
+    move = 'CTRL',
+    resize = 'META',
+  },
+})
 
 return config
