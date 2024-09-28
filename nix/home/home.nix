@@ -17,6 +17,7 @@
     bat fd ripgrep zoxide
     fzf nap zk
     ueberzugpp
+    typst tinymist
   ] ++ (
     if pkgs.stdenv.isLinux then [
       # Linux Packages
