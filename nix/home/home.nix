@@ -14,7 +14,7 @@
     pfetch
     btop gh speedtest-cli
     colmena devenv nurl
-    bat fd ripgrep zoxide
+    bat fd ripgrep shellcheck zoxide
     fzf nap zk
     ueberzugpp
     typst tinymist

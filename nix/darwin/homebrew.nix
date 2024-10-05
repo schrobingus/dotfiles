@@ -23,6 +23,7 @@
       "utm"
 
       "iina"
+      "skim"
       "openscad@snapshot"
       "steam"
       "ultimaker-cura"
