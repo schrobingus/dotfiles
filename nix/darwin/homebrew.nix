@@ -18,6 +18,8 @@
       "wezterm"
       "hammerspoon"
 
+      "element"
+
       "android-studio"
       "ollama"
       "utm"

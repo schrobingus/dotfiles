@@ -2,7 +2,8 @@
 
 {
   environment.systemPackages = with pkgs; [
-    gdal luajit luarocks
+    # gdal 
+    luajit luarocks
     neofetch ripgrep vim wget
   ];
 

@@ -3,11 +3,14 @@ local config = wt.config_builder()
 
 local smsp = wt.plugin.require('https://github.com/mrjones2014/smart-splits.nvim')
 
--- TODO: might switch to base16
-local theme = "Jellybeans"
+-- TODO: the tt base16 scheme is different. make this work via pr or a custom function
+-- local colors, metadata = wt.color.load_base16_scheme("/Users/brent/.config/tt-schemes/base16/tomorrow-night.yaml")
+-- config.colors = colors
 
+-- TODO: change to base16
+local theme = "Tomorrow Night"
 config.color_scheme = theme
-local theme_colors = wt.color.get_builtin_schemes()[theme]
+local colors = wt.color.get_builtin_schemes()[theme]
 
 config.default_cursor_style = "BlinkingBar"
 
@@ -35,33 +38,33 @@ config.window_padding = {
 config.window_frame = {
   font = wt.font { family = 'SF Compact' },
   font_size = 13,
-  active_titlebar_bg = theme_colors.ansi[1],
-  inactive_titlebar_bg = theme_colors.ansi[1],
+  active_titlebar_bg = colors.ansi[1],
+  inactive_titlebar_bg = colors.ansi[1],
 }
 
 config.colors = {
   tab_bar = {
-    background = theme_colors.foreground,
-    inactive_tab_edge = theme_colors.ansi[1],
+    background = colors.foreground,
+    inactive_tab_edge = colors.ansi[1],
     active_tab = {
-      bg_color = theme_colors.background,
-      fg_color = theme_colors.foreground,
+      bg_color = colors.background,
+      fg_color = colors.foreground,
     },
     inactive_tab = {
-      bg_color = theme_colors.foreground,
-      fg_color = theme_colors.background,
+      bg_color = colors.foreground,
+      fg_color = colors.background,
     },
     inactive_tab_hover = {
-      bg_color = theme_colors.ansi[5],
-      fg_color = theme_colors.background,
+      bg_color = colors.ansi[5],
+      fg_color = colors.background,
     },
     new_tab = {
-      bg_color = theme_colors.ansi[1],
-      fg_color = theme_colors.background,
+      bg_color = colors.ansi[1],
+      fg_color = colors.background,
     },
     new_tab_hover = {
-      bg_color = theme_colors.ansi[5],
-      fg_color = theme_colors.background,
+      bg_color = colors.ansi[5],
+      fg_color = colors.background,
     },
   },
 }

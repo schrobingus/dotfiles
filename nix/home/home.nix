@@ -13,26 +13,38 @@
   home.packages = with pkgs; [
     pfetch
     btop gh speedtest-cli
-    colmena devenv nurl
-    bat fd ripgrep shellcheck zoxide
-    fzf nap zk
+    devenv nurl
+    bat fd pandoc ripgrep shellcheck zoxide
+    czkawka fzf nap zk
     ueberzugpp
     typst tinymist
+
+    # TeX Packages
+    (texliveSmall.withPackages (ps: with ps; [
+      latexmk # Compiler
+      changepage enumitem
+    ]))
+    # TODO: move some of these packages over another nix import
   ] ++ (
     if pkgs.stdenv.isLinux then [
       # Linux Packages
       dconf2nix
     ] else [
       # MacOS Packages
-      asitop
+      macmon
     ]);
 
   # NOTE: Mind the potential `config.lib.file.mkOutOfStoreSymlink` prefix.
   home.file = {
-    ".vimrc".source = ../../rc.vim; # TODO: overhaul vim config as nvim
-    ".config/wezterm/wezterm.lua".source = config.lib.file.mkOutOfStoreSymlink ../../wezterm.lua;
-    # FIXME: for some reason, the mkOutOfStoreSymlink flag aint doing anything here
-    ".zshrc".source = config.lib.file.mkOutOfStoreSymlink ../../rc.zsh;
+    ".vimrc".source = ../../rc.vim;
+    ".zshrc".source = ../../rc.zsh;
+
+    ".config/wezterm/wezterm.lua".source = ../../wezterm.lua;
+
+    ".config/tt-schemes".source = builtins.fetchGit {
+      url = "https://github.com/tinted-theming/schemes";
+      rev = "61058a8d2e2bd4482b53d57a68feb56cdb991f0b";
+    };
   };
 
   home.sessionVariables = {
