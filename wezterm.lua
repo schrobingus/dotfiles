@@ -1,6 +1,9 @@
 local wt = require 'wezterm'
 local config = wt.config_builder()
 
+-- TODO: rebind split keybindings that aren't addressed by smart-splits
+-- TODO: rebind most everything that is inconvenient to hit
+
 local smsp = wt.plugin.require('https://github.com/mrjones2014/smart-splits.nvim')
 
 -- TODO: the tt base16 scheme is different. make this work via pr or a custom function
@@ -9,6 +12,7 @@ local smsp = wt.plugin.require('https://github.com/mrjones2014/smart-splits.nvim
 
 -- TODO: change to base16
 local theme = "Tomorrow Night"
+-- local theme = "Solarized (dark) (terminal.sexy)"
 config.color_scheme = theme
 local colors = wt.color.get_builtin_schemes()[theme]
 

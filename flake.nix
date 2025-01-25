@@ -11,6 +11,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixvim-config.url = "github:schrobingus/nixvim-config";
   };
 
@@ -19,101 +23,95 @@
     nixpkgs, 
     nix-darwin, 
     home-manager, 
+    colmena,
     nixvim-config
-  } @ inputs: let
-    mkNixOSConfig = { 
-      system, 
-      extraHomeModules ? [], 
-      extraNixOSModules ? [] 
-    }: let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
-    in nixpkgs.lib.nixosSystem {
-        system = system;
-        specialArgs = { inherit self; };
-        modules = 
-        [
-          ./nix/nixos/system.nix
-        ]
-        ++ extraNixOSModules
-        ++ [
-          home-manager.nixosModules.home-manager {
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.brent = {
-              imports = [
-                ./nix/home/home.nix
-                {
-                  home.packages = [
-                    pkgs.home-manager
-                    inputs.nixvim-config.packages.${system}.default
-                  ];
-                }
-              ] ++ extraHomeModules;
-            };
-          }
+    } @ inputs: let
+      homeManagerConfig = { pkgs, system, extraHomeModules ? [] }: {
+        home.packages = [
+          pkgs.home-manager
+          inputs.nixvim-config.packages.${system}.default
         ];
-      };
-
-    mkDarwinConfig = { 
-      system, 
-      extraHomeModules ? [], 
-      extraDarwinModules ? [] 
-    }: let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
-    in nix-darwin.lib.darwinSystem {
-        system = system;
-        specialArgs = { inherit self; };
-        modules = 
-        [ ./nix/darwin/configuration.nix ]
-        ++ extraDarwinModules
-        ++ [
-          home-manager.darwinModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.brent = {
-              imports = [
-                ./nix/home/home.nix
-                {
-                  home.packages = [
-                    pkgs.home-manager
-                    inputs.nixvim-config.packages.${system}.default
-                  ];
-                }
-              ] ++ extraHomeModules;
-            };
-          }
-        ];
-      };
-
-    mkHomeConfig = { 
-      system, 
-      extraHomeModules ? [] 
-    }: let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
-    in home-manager.lib.homeManagerConfiguration {
-        pkgs = pkgs;
-        extraSpecialArgs = { inherit self; };
-        modules = [
-          ./nix/home/home.nix
-          {
-            nix.package = pkgs.nix;
-            home.packages = [
-              pkgs.home-manager
-              inputs.nixvim-config.packages.${system}.default
-            ];
-          }
+        home.sessionVariables = {
+          EDITOR = "nvim";
+        };
+        imports = [
+          ./nix/home/default.nix
+          ./nix/home/files.nix
         ] ++ extraHomeModules;
       };
-  in {
-      # Each configuration is segregated by hostname.
+
+      # TODO: rework this a bit, will use for home server and vms
+      mkNixOSConfig = { 
+        system, 
+        extraHomeModules ? [], 
+        extraNixOSModules ? [] 
+        }: let
+          pkgs = import nixpkgs {
+            inherit system;
+          };
+        in nixpkgs.lib.nixosSystem {
+            system = system;
+            specialArgs = { inherit self; };
+            modules = 
+              [ ./nix/nixos/default.nix ]
+              ++ extraNixOSModules
+              ++ [
+                home-manager.nixosModules.home-manager {
+                  home-manager.extraSpecialArgs = { inherit inputs; };
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.users.brent = homeManagerConfig {
+                    inherit pkgs system extraHomeModules;
+                  };
+                }
+              ];
+          };
+
+      mkDarwinConfig = { 
+        system, 
+        extraHomeModules ? [], 
+        extraDarwinModules ? [] 
+        }: let
+          pkgs = import nixpkgs {
+            inherit system;
+          };
+        in nix-darwin.lib.darwinSystem {
+            system = system;
+            specialArgs = { inherit self; };
+            modules = 
+              [ ./nix/darwin/default.nix ]
+              ++ extraDarwinModules
+              ++ [
+                home-manager.darwinModules.home-manager {
+                  home-manager.extraSpecialArgs = { inherit inputs; };
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.users.brent = homeManagerConfig {
+                    inherit pkgs system extraHomeModules;
+                  };
+                }
+              ];
+          };
+
+      mkHomeConfig = { 
+        system, 
+        extraHomeModules ? [] 
+        }: let
+          pkgs = import nixpkgs {
+            inherit system;
+          };
+        in home-manager.lib.homeManagerConfiguration {
+            pkgs = pkgs;
+            extraSpecialArgs = { inherit self; };
+            modules = [
+              homeManagerConfig {
+                inherit pkgs system extraHomeModules;
+              }
+            ];
+          };
+    in {
+
+      # Deploy targets here.
       darwinConfigurations = {
         "chaos" = mkDarwinConfig {  # "chaos" is an M1 Macbook Air from 2020.
           system = "aarch64-darwin";
@@ -121,19 +119,38 @@
             ./nix/darwin/homebrew.nix
             ./nix/darwin/settings.nix
           ];
-          extraHomeModules = [ 
+          extraHomeModules = [
+            ./nix/home/git.nix
+            ./nix/home/zsh.nix
+          ];
+        };
+      };
+      nixosConfigurations = {
+        "flaky-vm" = mkNixOSConfig {
+          system = "aarch64-linux";
+          extraNixOSModules = [ ./nix/nixos/hardware-configuration.nix ];
+          extraHomeModules = [
+            ./nix/home/git.nix
             ./nix/home/zsh.nix
           ];
         };
       };
 
-      homeConfigurations = {
-        "floppa" = mkHomeConfig { # "floppa" is a Lenovo Chromebook Duet (krane) running postmarketOS.
-          system = "aarch64-linux";
-          extraHomeModules = [
-            ./nix/home/zsh.nix
-          ];
+      colmena = {
+        meta = {
+          description = "Personal Nix Configuration, deployed with Colmena";
+          nixpkgs = import inputs.nixpkgs { system = "aarch64-linux"; };
+          nodeNixpkgs = builtins.mapAttrs (name: value: value.pkgs) self.nixosConfigurations;
+          nodeSpecialArgs = builtins.mapAttrs (name: value: value._module.specialArgs) self.nixosConfigurations;
         };
-      };
+      } // builtins.mapAttrs (name: value: { 
+          imports = value._module.args.modules; 
+          deployment = {  # TODO: make this less imperative and more dynamic
+            # targetHost = "192.168.64.4";  # QEMU
+            targetHost = "192.168.64.8";    # AVF
+            targetPort = 22;
+            targetUser = "root";
+          };
+        }) self.nixosConfigurations;
     };
 }

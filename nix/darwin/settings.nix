@@ -25,6 +25,7 @@
       };
       "~/Library/Preferences/ByHost/com.apple.controlcenter".BatteryShowPercentage = true;
       "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
+      "com.apple.finder".FXPreferredViewStyle = "clmv";
     };
   };
 }

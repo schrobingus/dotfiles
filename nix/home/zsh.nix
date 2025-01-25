@@ -34,6 +34,7 @@
 
       # TODO: define variable for flake path, variable should be in `home.nix` though
       nu  = "nix-channel --update && sudo nix-channel --update || true";  # Update Nix channels.
+      nui = "nix-channel --update -vvvvv && sudo nix-channel --update -vvvvv || true";  # Update Nix channels with instantiation (in case shit breaks).
       nrs = "sudo nixos-rebuild switch"; # Rebuild NixOS config from `configuration.nix`.
       nrf = "sudo nixos-rebuild switch --flake ~/Sources/dotfiles/"; # Rebuild NixOS config from a Nix flake.
       drs = "darwin-rebuild switch"; # Rebuild Nix Darwin config from `configuration.nix`.
