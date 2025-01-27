@@ -16,7 +16,6 @@
     devenv nurl
     bat fd pandoc ripgrep shellcheck zoxide
     czkawka fzf zk
-    ueberzugpp
     typst tinymist
 
     # TeX Packages
@@ -29,6 +28,8 @@
     if pkgs.stdenv.isLinux then [
       # Linux Packages
       dconf2nix
+      adw-gtk3 adwaita-icon-theme morewaita-icon-theme
+      papirus-icon-theme qogir-icon-theme
     ] else [
       # MacOS Packages
       macmon

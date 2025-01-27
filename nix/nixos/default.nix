@@ -62,20 +62,25 @@
   programs.zsh.enable = true;
 
   environment.systemPackages = with pkgs; [
-    firefox
-    btop git vim wget
-    koreader
-    neofetch
-
-    dunst i3lock i3status dmenu
-    hsetroot rxvt-unicode xsel lxappearance scrot
-    cmus ranger vim fish
+    librewolf
+    mpv celluloid amberol # TODO: narrow these down by one or two pkgs
+    zathura evince papers # TODO: also narrow these
+    xfce.thunar nautilus ranger # TODO: narrow these too, although you might not even need this
+    #koreader
+    gnome-font-viewer
+    btop neofetch git vim wget
+    wezterm #ghostty
+    pavucontrol 
+    dunst i3lock i3status dmenu autotiling
+    feh xsel lxappearance scrot
+    maim xclip brightnessctl
   ];
 
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji-blob-bin
+    cantarell-fonts
     liberation_ttf
     geist-font
   ];
@@ -86,8 +91,9 @@
   };
 
   # Enable on QEMU, disable on AVF.
-  services.qemuGuest.enable = false;
-  services.spice-vdagentd.enable = false;
+  services.qemuGuest.enable = true;
+  services.spice-vdagentd.enable = true;
+  services.spice-webdavd.enable = true;
 
   system.stateVersion = "unstable";
 }

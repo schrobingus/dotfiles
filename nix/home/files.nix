@@ -1,16 +1,27 @@
 { ... }:
 
 {
-  # NOTE: Mind the potential `config.lib.file.mkOutOfStoreSymlink` prefix.
+  # NOTE: Mind the potential `config.lib.file.mkOutOfStoreSymlink` prefix if you want files to be linked directly.
+
   home.file = {
-    ".vimrc".source = ../../rc.vim;
-    ".zshrc".source = ../../rc.zsh;
+    ".vimrc".source = ../../config/vimrc;
+    ".zshrc".source = ../../config/zshrc;
+  };
 
-    ".config/wezterm/wezterm.lua".source = ../../wezterm.lua;
+  xdg.configFile = {
+    "wezterm/wezterm.lua".source = ../../config/wezterm.lua;
 
-    ".config/tt-schemes".source = builtins.fetchGit {
-      url = "https://github.com/tinted-theming/schemes";
-      rev = "61058a8d2e2bd4482b53d57a68feb56cdb991f0b";
+    "wallpaper.jpg".source = ../../config/wallpaper.jpg;
+    "dunst/dunstrc".source = ../../config/dunstrc;
+    "i3/config".source = ../../config/i3-config;
+    "i3status/config".source = ../../config/i3status-config;
+
+    "tt-schemes" = {
+      recursive = true;
+      source = builtins.fetchGit {
+        url = "https://github.com/tinted-theming/schemes";
+        rev = "61058a8d2e2bd4482b53d57a68feb56cdb991f0b";
+      };
     };
   };
 }

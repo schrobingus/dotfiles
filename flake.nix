@@ -126,12 +126,22 @@
         };
       };
       nixosConfigurations = {
-        "flaky-vm" = mkNixOSConfig {
+        # "flaky-vm-avf" = mkNixOSConfig {
+        #   system = "aarch64-linux";
+        #   extraNixOSModules = [ ./nix/nixos/hardware-configuration/avf.nix ];
+        #   extraHomeModules = [
+        #     ./nix/home/git.nix
+        #     ./nix/home/zsh.nix
+        #     ./nix/home/fonts.nix
+        #   ];
+        # };
+        "flaky-vm-qemu" = mkNixOSConfig {
           system = "aarch64-linux";
-          extraNixOSModules = [ ./nix/nixos/hardware-configuration.nix ];
+          extraNixOSModules = [ ./nix/nixos/hardware-configuration/qemu.nix ];
           extraHomeModules = [
             ./nix/home/git.nix
             ./nix/home/zsh.nix
+            ./nix/home/fonts.nix
           ];
         };
       };
@@ -146,8 +156,8 @@
       } // builtins.mapAttrs (name: value: { 
           imports = value._module.args.modules; 
           deployment = {  # TODO: make this less imperative and more dynamic
-            # targetHost = "192.168.64.4";  # QEMU
-            targetHost = "192.168.64.8";    # AVF
+            targetHost = "192.168.64.4";  # QEMU
+            # targetHost = "192.168.64.8";    # AVF
             targetPort = 22;
             targetUser = "root";
           };
