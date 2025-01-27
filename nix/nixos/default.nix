@@ -1,12 +1,8 @@
 { pkgs, ... }:
 
 {
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-  };
+  # All consistent settings across your devices stay in here.
+  # If something varies, put it in a module.
 
   networking.wireless.enable = false;
   networking.networkmanager.enable = true;
@@ -27,18 +23,11 @@
   };
 
   services.xserver = {
-    enable = true;
     xkb = {
       layout = "us";
       variant = "";
     };
-    displayManager.gdm.enable = true;
-    displayManager.defaultSession = "none+i3";
-    desktopManager.gnome.enable = true;
-    desktopManager.xterm.enable = false;
-    windowManager.i3 = {
-      enable = true;
-    };
+    displayManager.lightdm.enable = false;
   };
 
   services.pulseaudio.enable = false;
@@ -61,39 +50,12 @@
   };
   programs.zsh.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    librewolf
-    mpv celluloid amberol # TODO: narrow these down by one or two pkgs
-    zathura evince papers # TODO: also narrow these
-    xfce.thunar nautilus ranger # TODO: narrow these too, although you might not even need this
-    #koreader
-    gnome-font-viewer
-    btop neofetch git vim wget
-    wezterm #ghostty
-    pavucontrol 
-    dunst i3lock i3status dmenu autotiling
-    feh xsel lxappearance scrot
-    maim xclip brightnessctl
-  ];
-
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-emoji-blob-bin
-    cantarell-fonts
-    liberation_ttf
-    geist-font
-  ];
-
   services.openssh = {
     enable = true;
     settings.PermitRootLogin = "yes";
   };
 
-  # Enable on QEMU, disable on AVF.
-  services.qemuGuest.enable = true;
-  services.spice-vdagentd.enable = true;
-  services.spice-webdavd.enable = true;
-
+  # TODO: move this to it's own declaration since you're sometimes on stable
+  # (file not required since it's a one liner)
   system.stateVersion = "unstable";
 }

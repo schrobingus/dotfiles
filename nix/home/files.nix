@@ -15,6 +15,7 @@
     "dunst/dunstrc".source = ../../config/dunstrc;
     "i3/config".source = ../../config/i3-config;
     "i3status/config".source = ../../config/i3status-config;
+    "picom.conf".source = ../../config/picom.conf;
 
     "tt-schemes" = {
       recursive = true;
