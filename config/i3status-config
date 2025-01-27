@@ -1,0 +1,53 @@
+general {
+  output_format = "i3bar"
+  colors = false
+  markup = pango
+  interval = 5
+}
+
+order += "load"
+# order += "cpu_temperature 0"
+order += "wireless wlp2s0"
+order += "volume master"
+# order += "battery 0"
+order += "time"
+
+load {
+	format = "<span background='#cc6666'>  LOAD  </span><span background='#c5c8c6'>  %5min Load  </span>"
+}
+
+cpu_temperature 0 {
+	format = "<span background='#cc6666'>  TEMP  </span><span background='#c5c8c6'>  %degrees °C  </span>"
+	path = "/sys/class/thermal/thermal_zone0/temp"
+}
+
+wireless wlp2s0 {
+	format_up = "<span background='#cc6666'>  WIFI  </span><span background='#c5c8c6'>  %essid  </span>"
+	format_down = "<span background='#cc6666'>  WIFI DOWN  </span><span background='#c5c8c6'>  Disconnected  </span>"
+}
+
+volume master {
+	format = "<span background='#cc6666'>  VOL  </span><span background='#c5c8c6'>  %volume  </span>"
+	format_muted = "<span background='#cc6666'>  MUTE  </span><span background='#c5c8c6'>  Muted  </span>"
+	device = "default"
+	mixer = "Master"
+	mixer_idx = 0
+}
+
+battery 0 {
+	last_full_capacity = true
+	format = "<span background='#cc6666'>  %status  </span><span background='#c5c8c6'>  %percentage  </span>"
+	format_down = "NO BATT"
+	status_chr = "BATT CHARGE"
+	status_bat = "BATT"
+	status_unk = "BATT UNDEF"
+	status_full = "BATT FULL"
+	path = "/sys/class/power_supply/BAT%d/uevent"
+	low_threshold = 10
+	integer_battery_capacity = true
+}
+
+time {
+	format = "<span background='#cc6666'>  TIME  </span><span background='#c5c8c6'>  %b %d at %H:%M  </span>"
+}
+

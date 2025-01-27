@@ -17,34 +17,51 @@ config.color_scheme = theme
 local colors = wt.color.get_builtin_schemes()[theme]
 
 config.default_cursor_style = "BlinkingBar"
-
-config.hide_tab_bar_if_only_one_tab = false
-config.tab_bar_at_bottom = false
-config.use_fancy_tab_bar = true
+  config.use_fancy_tab_bar = true
 
 if wt.target_triple:match("darwin") ~= nil then
   config.native_macos_fullscreen_mode = true
   config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+
+  config.hide_tab_bar_if_only_one_tab = false
+  config.tab_bar_at_bottom = false
 else
   config.window_decorations = "RESIZE"
+
+  config.hide_tab_bar_if_only_one_tab = true
+  config.tab_bar_at_bottom = true
 end
 
 config.font = wt.font 'SF Mono'
-config.font_size = 13
-
-config.window_padding = {
-  left = 32,
-  right = 32,
-  top = 32,
-  bottom = 32,
-}
 
 config.window_frame = {
-  font = wt.font { family = 'SF Compact' },
-  font_size = 13,
   active_titlebar_bg = colors.ansi[1],
   inactive_titlebar_bg = colors.ansi[1],
 }
+
+if wt.target_triple:match("darwin") ~= nil then
+  config.font = wt.font 'SF Mono'
+  config.font_size = 13
+  config.window_frame.font = wt.font { family = "SF Compact" }
+  config.window_frame.font_size = 13
+  config.window_padding = {
+    left = 32,
+    right = 32,
+    top = 32,
+    bottom = 32,
+  }
+else
+  config.font = wt.font 'Geist Mono'
+  config.font_size = 9
+  config.window_frame.font = wt.font { family = "Geist" }
+  config.window_frame.font_size = 9
+  config.window_padding = {
+    left = 16,
+    right = 16,
+    top = 16,
+    bottom = 16,
+  }
+end
 
 config.colors = {
   tab_bar = {

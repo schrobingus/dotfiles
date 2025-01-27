@@ -1,0 +1,98 @@
+
+# Mod1 = Alt, Mod4 = Super
+set $mod Mod1
+
+font pango:Font Awesome 6 Free 9, Geist 9
+# font pango:Ionicons 9, Poppins Regular 9
+
+floating_modifier $mod
+
+exec --no-startup-id "feh --bg-fill ~/.config/wallpaper.jpg"
+
+exec_always autotiling
+
+bindsym $mod+Return exec wezterm
+# bindsym $mod+Return exec i3-sensible-terminal
+
+bindsym $mod+d exec i3-dmenu-desktop --dmenu="dmenu -i -b -fn 'Geist:size=9' -nb '#000000' -nf '#c5c8c6' -sb '#cc6666' -sf '#000000'"
+
+bindsym $mod+c kill
+bindsym Mod1+F4 kill
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up 
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up 
+bindsym $mod+Shift+l move right
+
+bindsym $mod+v split h
+bindsym $mod+s split v
+
+bindsym $mod+f fullscreen toggle
+
+bindsym $mod+Shift+space focus mode_toggle
+
+bindsym $mod+Control+h workspace prev
+bindsym $mod+Control+l workspace next
+bindsym $mod+1 workspace 1:I
+bindsym $mod+2 workspace 2:II
+bindsym $mod+3 workspace 3:III
+bindsym $mod+4 workspace 4:IV
+bindsym $mod+5 workspace 5:V
+bindsym $mod+6 workspace 6:VI
+
+bindsym $mod+Shift+1 move container to workspace 1:I
+bindsym $mod+Shift+2 move container to workspace 2:II
+bindsym $mod+Shift+3 move container to workspace 3:III
+bindsym $mod+Shift+4 move container to workspace 4:IV
+bindsym $mod+Shift+5 move container to workspace 5:V
+bindsym $mod+Shift+6 move container to workspace 6:VI
+
+bindsym $mod+BackSpace exec "i3-msg restart"
+
+bindsym $mod+q exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
+
+mode "resize" {
+	bindsym h resize shrink width 5 px or 5 ppt
+	bindsym j resize grow height 5 px or 5 ppt
+	bindsym k resize shrink height 5 px or 5 ppt
+	bindsym l resize grow width 5 px or 5 ppt
+	bindsym Return mode "default"
+}
+bindsym $mod+r mode "resize"
+
+bar {
+	status_command i3status
+	position top
+	workspace_min_width 24
+	padding 2px 8px 2px 8px
+	strip_workspace_numbers yes
+
+	colors {
+    background #000000
+    statusline #000000
+    separator #000000
+
+    focused_workspace #000000 #cc6666 #c5c8c6
+    active_workspace #000000 #000000 #c5c8c6
+    inactive_workspace #000000 #000000 #c5c8c6
+    urgent_workspace #000000 #de935f #c5c8c6
+	}
+}
+
+# colour of border, background, text, indicator, and child_border
+client.focused            #cc6666 #282a2e #c5c8c6 #cc6666 #cc6666
+client.focused_inactive   #969896 #282a2e #c5c8c6 #969896 #969896
+client.unfocused          #969896 #282a2e #c5c8c6 #969896 #969896
+client.urgent             #969896 #282a2e #c5c8c6 #969896 #969896
+client.placeholder        #969896 #282a2e #c5c8c6 #969896 #969896
+client.background         #969896
+
+for_window [class=".*"] border pixel 4
+hide_edge_borders smart
+gaps inner 24
+smart_gaps on
