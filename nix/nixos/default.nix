@@ -41,6 +41,10 @@
     # media-session.enable = true;
   };
 
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
   users.users.brent = {
     isNormalUser = true;
     description = "Brent";

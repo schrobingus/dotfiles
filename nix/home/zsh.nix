@@ -5,8 +5,7 @@
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
-    initExtra = /* sh */ ''
-      if [ -e "$HOME/.profile" ]; then                  
+    initExtra = /* sh */ '' if [ -e "$HOME/.profile" ]; then                  
         source $HOME/.profile         
       fi
 
@@ -20,12 +19,12 @@
         source $HOME/.config/zsh/extra.zsh
       fi
     '';
-    history = {
-      save = 10000;
-      size = 10000;
-      ignoreDups = true;
-      path = "$HOME/.zsh_history";
-    };
+    # history = {
+    #   save = 10000;
+    #   size = 10000;
+    #   ignoreDups = true;
+    #   path = "$HOME/.zsh_history";
+    # };
     shellAliases = {
       x86_sh = "$env /usr/bin/arch -x86_64 /bin/zsh"; # Rosetta shell alias.
       ls = "ls -lH --color=auto";
@@ -72,15 +71,15 @@
           hash = "sha256-GSEvgvgWi1rrsgikTzDXokHTROoyPRlU0FVpAoEmXG4=";
         };
       }
-      {
-        name = "nix-zsh-completions";
-        src = pkgs.fetchFromGitHub {
-          owner = "nix-community";
-          repo = "nix-zsh-completions";
-          rev = "0.5.1";
-          hash = "sha256-bgbMc4HqigqgdkvUe/CWbUclwxpl17ESLzCIP8Sz+F8=";
-        };
-      }
+      # {
+      #   name = "nix-zsh-completions";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "nix-community";
+      #     repo = "nix-zsh-completions";
+      #     rev = "0.5.1";
+      #     hash = "sha256-bgbMc4HqigqgdkvUe/CWbUclwxpl17ESLzCIP8Sz+F8=";
+      #   };
+      # }
       {
         name = "zsh-nix-shell";
         src = pkgs.fetchFromGitHub {
@@ -90,6 +89,23 @@
           hash = "sha256-Z6EYQdasvpl1P78poj9efnnLj7QQg13Me8x1Ryyw+dM=";
         };
       }
+      # {
+      #   name = "zsh-syntax-highlighting";
+      #   src = pkgs.zsh-syntax-highlighting;
+      # }
+      # {
+      #   name = "zsh-history-substring-search";
+      #   src = pkgs.zsh-history-substring-search;
+      # }
+      # {
+      #   # NOTE: this used to be really slow. it's still slow on first run, but it seems to cache after the fact. keep this in mind
+      #   name = "nix-zsh-completions";
+      #   src = pkgs.nix-zsh-completions;
+      # }
+      # {
+      #   name = "zsh-nix-shell";
+      #   src = pkgs.zsh-nix-shell;
+      # }
     ];
   };
 }

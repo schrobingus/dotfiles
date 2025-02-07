@@ -1,0 +1,42 @@
+[colors.primary]
+background = "0x1d1f21"
+foreground = "0xc5c8c6"
+
+[colors.bright]
+black = "0x000000"
+blue = "0x81a2be"
+cyan = "0x8abeb7"
+green = "0xb5bd68"
+magenta = "0xb294bb"
+red = "0xcc6666"
+white = "0xc5c8c6"
+yellow = "0xf0c674"
+
+[colors.normal]
+black = "0x000000"
+blue = "0x81a2be"
+cyan = "0x8abeb7"
+green = "0xb5bd68"
+magenta = "0xb294bb"
+red = "0xcc6666"
+white = "0xc5c8c6"
+yellow = "0xf0c674"
+
+[font]
+size = 8
+
+[font.bold]
+family = "Cozette"
+style = "Regular"
+
+[font.normal]
+family = "Cozette"
+style = "Regular"
+
+[window]
+decorations = "full"
+dynamic_title = true
+
+[window.padding]
+x = 10
+y = 10

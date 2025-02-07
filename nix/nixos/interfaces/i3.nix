@@ -1,14 +1,14 @@
 { pkgs, ... }:
 
 {
-  services.xserver = {
-    enable = true;
-    displayManager = {
-      startx.enable = true;
-      defaultSession = "none+i3";
+  services = {
+    displayManager.defaultSession = "none+i3";
+    xserver = {
+      enable = true;
+      displayManager.startx.enable = true;
+      desktopManager.xterm.enable = false;
+      windowManager.i3.enable = true;
     };
-    desktopManager.xterm.enable = false;
-    windowManager.i3.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

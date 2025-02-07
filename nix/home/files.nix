@@ -9,6 +9,7 @@
   };
 
   xdg.configFile = {
+    "alacritty.toml".source = ../../config/alacritty.toml;
     "wezterm/wezterm.lua".source = ../../config/wezterm.lua;
 
     "wallpaper.jpg".source = ../../config/wallpaper.jpg;

@@ -135,6 +135,26 @@
         #     ./nix/home/fonts.nix
         #   ];
         # };
+        "thonk" = mkNixOSConfig {
+          system = "x86_64-linux";
+          extraNixOSModules = [
+            {
+              networking.hostName = "thonk";
+            }
+            ./nix/nixos/bootloaders/systemd-boot-efi.nix
+            ./nix/nixos/hardware-configuration/x131e-chromebook.nix
+            ./nix/nixos/interfaces/i3.nix
+            ./nix/nixos/programs/base-cli.nix
+            ./nix/nixos/programs/base-gui.nix
+            ./nix/nixos/programs/portable-cli.nix
+            ./nix/nixos/fonts.nix
+          ];
+          extraHomeModules = [
+            ./nix/home/git.nix
+            ./nix/home/zsh.nix
+            ./nix/home/fonts.nix
+          ];
+        };
         "flaky-vm-qemu" = mkNixOSConfig {
           system = "aarch64-linux";
           extraNixOSModules = [ 
