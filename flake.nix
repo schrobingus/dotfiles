@@ -112,6 +112,7 @@
     in {
 
       # Deploy targets here.
+      # TODO: make device specific config files for some of these
       darwinConfigurations = {
         "chaos" = mkDarwinConfig {  # "chaos" is an M1 Macbook Air from 2020.
           system = "aarch64-darwin";
@@ -135,29 +136,32 @@
         #     ./nix/home/fonts.nix
         #   ];
         # };
-        "thonk" = mkNixOSConfig {
-          system = "x86_64-linux";
-          extraNixOSModules = [
-            {
-              networking.hostName = "thonk";
-            }
-            ./nix/nixos/bootloaders/systemd-boot-efi.nix
-            ./nix/nixos/hardware-configuration/x131e-chromebook.nix
-            ./nix/nixos/interfaces/i3.nix
-            ./nix/nixos/programs/base-cli.nix
-            ./nix/nixos/programs/base-gui.nix
-            ./nix/nixos/programs/portable-cli.nix
-            ./nix/nixos/fonts.nix
-          ];
-          extraHomeModules = [
-            ./nix/home/git.nix
-            ./nix/home/zsh.nix
-            ./nix/home/fonts.nix
-          ];
-        };
+        # "thonk" = mkNixOSConfig {
+        #   system = "x86_64-linux";
+        #   extraNixOSModules = [
+        #     {
+        #       networking.hostName = "thonk";
+        #     }
+        #     ./nix/nixos/bootloaders/systemd-boot-efi.nix
+        #     ./nix/nixos/hardware-configuration/x131e-chromebook.nix
+        #     ./nix/nixos/interfaces/i3.nix
+        #     ./nix/nixos/programs/base-cli.nix
+        #     ./nix/nixos/programs/base-gui.nix
+        #     ./nix/nixos/programs/portable-cli.nix
+        #     ./nix/nixos/fonts.nix
+        #   ];
+        #   extraHomeModules = [
+        #     ./nix/home/git.nix
+        #     ./nix/home/zsh.nix
+        #     ./nix/home/fonts.nix
+        #   ];
+        # };
         "flaky-vm-qemu" = mkNixOSConfig {
           system = "aarch64-linux";
           extraNixOSModules = [ 
+            {
+              networking.hostName = "flaky-vm";
+            }
             ./nix/nixos/bootloaders/systemd-boot-efi.nix
             ./nix/nixos/hardware-configuration/qemu.nix
             ./nix/nixos/interfaces/i3.nix
@@ -171,6 +175,29 @@
             ./nix/home/git.nix
             ./nix/home/zsh.nix
             ./nix/home/fonts.nix
+            {
+              /*
+              programs.autorandr = {
+                enable = true;
+                profiles = {
+                  home = {
+                    fingerprint.Virtual-1 = "00ffffffffffff0049143412000000002a180104a520147806ee91a3544c99260f5054210800e1c0d1c0d100a940b300950081808140ea2900c051201c304026444045cb10000018000000f7000a004082002820000000000000000000fd00327d1ea0ff010a202020202020000000fc0051454d55204d6f6e69746f720a013a02030b00467d6560591f6100000010000000000000000000000000000000000010000000000000000000000000000000000010000000000000000000000000000000000010000000000000000000000000000000000010000000000000000000000000000000000010000000000000000000000000000000000000000000002f";
+                    config = {
+                      Virtual-1 = {
+                        enable = true;
+                        primary = true;
+                        mode = "2560x1600_60.00";
+                        position = "0x0";
+                        dpi = 200;
+                        # gamma = "1.0:0.909:0.833";
+                      };
+                    };
+                  };
+                };
+              };
+              services.autorandr.enable = true;
+              */
+            }
           ];
         };
       };
@@ -184,7 +211,7 @@
         };
       } // builtins.mapAttrs (name: value: { 
           imports = value._module.args.modules; 
-          deployment = {  # TODO: make this less imperative and more dynamic
+          deployment = {  # TODO: make this specific
             targetHost = "192.168.64.4";  # QEMU
             # targetHost = "192.168.64.8";    # AVF
             targetPort = 22;

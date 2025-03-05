@@ -58,8 +58,4 @@
     enable = true;
     settings.PermitRootLogin = "yes";
   };
-
-  # TODO: move this to it's own declaration since you're sometimes on stable
-  # (file not required since it's a one liner)
-  system.stateVersion = "unstable";
 }

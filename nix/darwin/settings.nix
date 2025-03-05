@@ -14,7 +14,7 @@
       autohide = true;
       autohide-delay = 0.0;
       autohide-time-modifier = 0.0;
-      orientation = "left";
+      orientation = "right";
       showhidden = true;
       show-recents = false;
     };

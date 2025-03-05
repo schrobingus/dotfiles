@@ -1,3 +1,5 @@
+# TODO: for the most part this has been yoined from addy. edit this for your own config
+
 [global]
 monitor = 0
 follow = mouse

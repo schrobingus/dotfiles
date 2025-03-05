@@ -23,14 +23,14 @@ white = "0xc5c8c6"
 yellow = "0xf0c674"
 
 [font]
-size = 8
+size = 9
 
 [font.bold]
-family = "Cozette"
+family = "Geist Mono"
 style = "Regular"
 
 [font.normal]
-family = "Cozette"
+family = "Geist Mono"
 style = "Regular"
 
 [window]

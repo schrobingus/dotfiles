@@ -11,14 +11,17 @@
 
   programs.zsh.enable = true;
 
-  services.nix-daemon.enable = true;
-  nix.package = pkgs.nix;
-
-  nix.settings = {
-    experimental-features = "nix-command flakes";
-    max-jobs = 4;
-    cores = 2;
+  nix = {
+    enable = true;
+    package = pkgs.nix;
+    settings = {
+      experimental-features = "nix-command flakes";
+      max-jobs = 4;
+      cores = 2;
+    };
   };
+
+  ids.gids.nixbld = 350;
 
   system.configurationRevision = self.rev or self.dirtyRev or null;
 

@@ -1,3 +1,4 @@
+
 # zmodload zsh/zprof
 
 # Below disables case sensitivity.
@@ -25,6 +26,7 @@ prompt_git() {
 		fi; exit 0
     else exit 1; fi
 }
+# TODO: fix up the hud icons
 precmd() {
     PS1="%F{0}%B%(0?.%K{4} .%K{1} )%(1j.⚑ .)$(prompt_addins)%k%f%S %~ %b%s "  ## Main Prompt
     RPROMPT="$(prompt_git)" ## Git Prompt (Right)
@@ -64,3 +66,4 @@ if [[ -x "$(command -v zoxide)" ]]; then
 fi
 
 # zprof
+

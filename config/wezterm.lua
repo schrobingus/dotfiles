@@ -1,38 +1,34 @@
 local wt = require 'wezterm'
 local config = wt.config_builder()
 
--- TODO: rebind split keybindings that aren't addressed by smart-splits
--- TODO: rebind most everything that is inconvenient to hit
-
 local smsp = wt.plugin.require('https://github.com/mrjones2014/smart-splits.nvim')
 
--- TODO: the tt base16 scheme is different. make this work via pr or a custom function
--- local colors, metadata = wt.color.load_base16_scheme("/Users/brent/.config/tt-schemes/base16/tomorrow-night.yaml")
--- config.colors = colors
-
--- TODO: change to base16
-local theme = "Tomorrow Night"
--- local theme = "Solarized (dark) (terminal.sexy)"
-config.color_scheme = theme
-local colors = wt.color.get_builtin_schemes()[theme]
-
-config.default_cursor_style = "BlinkingBar"
-  config.use_fancy_tab_bar = true
-
-if wt.target_triple:match("darwin") ~= nil then
-  config.native_macos_fullscreen_mode = true
-  config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
-
-  config.hide_tab_bar_if_only_one_tab = false
-  config.tab_bar_at_bottom = false
-else
-  config.window_decorations = "RESIZE"
-
-  config.hide_tab_bar_if_only_one_tab = true
-  config.tab_bar_at_bottom = true
+function get_appearance()
+  if wt.gui then
+    return wt.gui.get_appearance()
+  end
+  return 'Dark'
 end
 
-config.font = wt.font 'SF Mono'
+function scheme_for_appearance(appearance)
+  if appearance:find 'Dark' then
+    return "Tomorrow Night (Gogh)"  -- Tomorrow Night, Dark Mode
+  else
+    return "Tomorrow (Gogh)"        -- Tomorrow, Light Mode
+  end
+end
+
+scheme = scheme_for_appearance(get_appearance())
+config.color_scheme = scheme
+local colors = wt.color.get_builtin_schemes()[scheme]
+
+config.default_cursor_style = "BlinkingBar"
+config.use_fancy_tab_bar = true
+
+config.inactive_pane_hsb = {
+  saturation = 1,
+  brightness = 1,
+}
 
 config.window_frame = {
   active_titlebar_bg = colors.ansi[1],
@@ -40,6 +36,12 @@ config.window_frame = {
 }
 
 if wt.target_triple:match("darwin") ~= nil then
+  config.native_macos_fullscreen_mode = true
+  config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+
+  config.hide_tab_bar_if_only_one_tab = false
+  config.tab_bar_at_bottom = false
+
   config.font = wt.font 'SF Mono'
   config.font_size = 13
   config.window_frame.font = wt.font { family = "SF Compact" }
@@ -50,7 +52,67 @@ if wt.target_triple:match("darwin") ~= nil then
     top = 32,
     bottom = 32,
   }
+
+  -- TODO: make these binds also work on linux
+  -- derivative of https://github.com/diego-vicente/dotfiles/blob/c52583ab3c125500d88e43530fc6984b01908501/wezterm/wezterm.lua
+  config.keys = {
+    { -- Show tab navigator.
+      key = 'p',
+      mods = 'CMD',
+      action = wt.action.ShowTabNavigator
+    },
+    { -- Show launcher.
+      key = 'P',
+      mods = 'CMD|SHIFT',
+      action = wt.action.ShowLauncher
+    },
+    { -- Rename current tab.
+      key = 'E',
+      mods = 'CMD|SHIFT',
+      action = wt.action.PromptInputLine {
+        description = 'Enter new name for tab',
+        action = wt.action_callback(
+          function(window, _, line)
+            if line then
+              window:active_tab():set_title(line)
+            end
+          end
+        ),
+      },
+    },
+
+    { -- Vertical split.
+      key = '\\',
+      mods = 'CMD|SHIFT',
+      action = wt.action.SplitHorizontal {
+        domain = 'CurrentPaneDomain'
+      },
+    },
+    { -- Horizontal split.
+      key = '-',
+      mods = 'CMD|SHIFT',
+      action = wt.action.SplitVertical {
+        domain = 'CurrentPaneDomain'
+      },
+    },
+
+    {
+      key = "w",
+      mods = "CMD",
+      action = wt.action.CloseCurrentPane { confirm = true }
+    },
+    {
+      key = "w",
+      mods = "CMD|SHIFT",
+      action = wt.action.CloseCurrentTab { confirm = true }
+    }
+  }
 else
+  config.window_decorations = "RESIZE"
+
+  config.hide_tab_bar_if_only_one_tab = true
+  config.tab_bar_at_bottom = true
+
   config.font = wt.font 'Geist Mono'
   config.font_size = 9
   config.window_frame.font = wt.font { family = "Geist" }
