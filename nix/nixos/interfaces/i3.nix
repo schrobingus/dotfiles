@@ -14,4 +14,8 @@
   environment.systemPackages = with pkgs; [
     picom dunst i3lock i3status dmenu autotiling
   ];
+
+  environment.etc."X11/xinit/xinitrc".text = ''
+    exec i3
+  '';
 }

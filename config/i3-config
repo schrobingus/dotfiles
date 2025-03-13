@@ -2,7 +2,7 @@
 # Mod1 = Alt, Mod4 = Super
 set $mod Mod1
 
-font pango:Font Awesome 6 Free 9, Geist 9
+font pango:Geist 9
 # font pango:Cozette 9
 # font pango:Ionicons 9, Poppins Regular 9
 
@@ -10,10 +10,11 @@ floating_modifier $mod
 
 exec --no-startup-id "feh --bg-fill ~/.config/wallpaper.jpg"
 
+exec_always "xrdb -merge $HOME/.Xresources"
 exec_always autotiling
 exec picom
 
-bindsym $mod+Return exec "LIBGL_ALWAYS_SOFTWARE=1 alacritty"
+bindsym $mod+Return exec "urxvt"
 # bindsym $mod+Return exec i3-sensible-terminal
 
 bindsym $mod+space exec i3-dmenu-desktop --dmenu="dmenu -i -b -fn 'Geist:size=9' -nb '#000000' -nf '#c5c8c6' -sb '#cc6666' -sf '#000000'"

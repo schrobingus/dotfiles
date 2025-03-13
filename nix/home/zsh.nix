@@ -29,6 +29,7 @@
       x86_sh = "$env /usr/bin/arch -x86_64 /bin/zsh"; # Rosetta shell alias.
       ls = "ls -lH --color=auto";
       cd = "z";
+      x = "startx";
       allah = "sudo";
 
       # TODO: define variable for flake path, variable should be in `home.nix` though

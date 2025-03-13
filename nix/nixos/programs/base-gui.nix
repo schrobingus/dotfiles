@@ -4,7 +4,7 @@
   # NOTE: when you start porting to sway, you may want to split this into two files (xorg, wayland)
   environment.systemPackages = with pkgs; [
     librewolf
-    wezterm alacritty
+    wezterm rxvt-unicode # alacritty
     vesktop
     mpv celluloid amberol # TODO: narrow
     zathura sioyek evince papers # TODO: narrow

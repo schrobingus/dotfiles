@@ -22,6 +22,7 @@
     (texliveSmall.withPackages (ps: with ps; [
       latexmk # Compiler
       changepage enumitem
+      helvetic
     ]))
     # TODO: move some of these packages over another nix import
   ] ++ (

@@ -4,6 +4,8 @@
   # All consistent settings across your devices stay in here.
   # If something varies, put it in a module.
 
+  nixpkgs.config.allowUnfree = true;
+
   networking.wireless.enable = false;
   networking.networkmanager.enable = true;
 
