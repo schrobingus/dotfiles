@@ -20,15 +20,18 @@
       "kanata"
       "podman" "podman-compose"
       "qemu"
+      "scrcpy"
       "wireguard-tools"
     ];
     casks = [
       "librewolf"
       "raycast"
-      "wezterm" "ghostty" # TODO: which way, western bingus
-      "hammerspoon"
+      "wezterm"
+      "rectangle"
 
+      "discord"
       "element"
+      "slack"
 
       "android-studio"
       "obs"

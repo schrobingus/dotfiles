@@ -21,6 +21,9 @@
       cores = 2;
     };
   };
+  
+  # FIXME: this is specifically because of peazip. do a pr to nixpkgs. check home/default.nix
+  nixpkgs.config.allowUnsupportedSystem = true;
 
   ids.gids.nixbld = 350;
 

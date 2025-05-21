@@ -142,28 +142,7 @@
             ./nix/home/zsh.nix
             ./nix/home/fonts.nix
             ./nix/home/xresources.nix
-          ];
-        };
-        "flakyvm-avf" = mkNixOSConfig {
-          system = "aarch64-linux";
-          extraNixOSModules = [
-            {
-              networking.hostName = "flakyvm-avf";
-            }
-            ./nix/nixos/bootloaders/systemd-boot-efi.nix
-            ./nix/nixos/hardware-configuration/avf.nix 
-            ./nix/nixos/interfaces/i3.nix
-            ./nix/nixos/programs/base-cli.nix
-            ./nix/nixos/programs/base-gui.nix
-            ./nix/nixos/programs/portable-gui.nix
-            ./nix/nixos/services/spice-qemu.nix
-            ./nix/nixos/fonts.nix
-          ];
-          extraHomeModules = [
-            ./nix/home/git.nix
-            ./nix/home/zsh.nix
-            ./nix/home/fonts.nix
-            ./nix/home/xresources.nix
+            ./nix/home/dunst.nix
           ];
         };
         "flakyvm-qemu" = mkNixOSConfig {
@@ -178,6 +157,8 @@
             ./nix/nixos/programs/base-cli.nix
             ./nix/nixos/programs/base-gui.nix
             ./nix/nixos/programs/portable-cli.nix
+            ./nix/nixos/services/avahi.nix
+            ./nix/nixos/services/seaweedfs.nix
             ./nix/nixos/services/spice-qemu.nix
             ./nix/nixos/fonts.nix
           ];
@@ -186,6 +167,7 @@
             ./nix/home/zsh.nix
             ./nix/home/fonts.nix
             ./nix/home/xresources.nix
+            ./nix/home/dunst.nix
           ];
         };
         "tendollarhaircut" = mkNixOSConfig {
@@ -207,6 +189,7 @@
             ./nix/home/zsh.nix
             ./nix/home/fonts.nix
             ./nix/home/xresources.nix
+            ./nix/home/dunst.nix
           ];
         };
       };

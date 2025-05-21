@@ -17,6 +17,8 @@
     bat fd pandoc ripgrep shellcheck tree zoxide
     czkawka fzf zk
     typst tinymist
+    p7zip # peazip
+    # gdal
 
     # TeX Packages
     (texliveSmall.withPackages (ps: with ps; [
@@ -31,6 +33,7 @@
       dconf2nix
       adw-gtk3 adwaita-icon-theme morewaita-icon-theme
       papirus-icon-theme qogir-icon-theme
+      libnotify
     ] else [
       # macOS Packages
       macmon

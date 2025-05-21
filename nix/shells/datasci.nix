@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-  jupyter = pkgs.python312.withPackages ( ps: with ps; [
+  jupyter = pkgs.python313.withPackages ( ps: with ps; [
     jupyter
     jupyter-server
     notebook

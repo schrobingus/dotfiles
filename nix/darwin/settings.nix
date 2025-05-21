@@ -10,6 +10,7 @@
       NSAutomaticSpellingCorrectionEnabled = false;
       NSWindowShouldDragOnGesture = true;
     };
+
     dock = {
       autohide = true;
       autohide-delay = 0.0;
@@ -18,6 +19,7 @@
       showhidden = true;
       show-recents = false;
     };
+
     CustomUserPreferences = {
       "com.apple.desktopservices" = {
         DSDontWriteNetworkStores = true;
@@ -26,6 +28,27 @@
       "~/Library/Preferences/ByHost/com.apple.controlcenter".BatteryShowPercentage = true;
       "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
       "com.apple.finder".FXPreferredViewStyle = "clmv";
+      "com.knollsoft.Rectangle" = {
+        gapSize = 16;
+        screenEdgeGapTop = 32;
+        screenEdgeGapBottom = 32;
+      };
+
+      # TODO: make a boolean that calls to enable / disable stage manager
+      
+      # With Stage Manager
+      # "com.apple.WindowManager".GloballyEnabled = true;
+      # "com.knollsoft.Rectangle" = {
+      #   screenEdgeGapRight = 128;
+      #   screenEdgeGapLeft = 0; # Side gap applied by default in SM.
+      # };
+
+      # Without Stage Manager
+      "com.apple.WindowManager".GloballyEnabled = false;
+      "com.knollsoft.Rectangle" = {
+        screenEdgeGapRight = 32;
+        screenEdgeGapLeft = 32;
+      };
     };
   };
 }

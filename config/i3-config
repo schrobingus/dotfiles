@@ -97,5 +97,6 @@ client.background         #969896
 
 for_window [class=".*"] border pixel 4
 hide_edge_borders smart
-gaps inner 16
+# gaps inner 16
+gaps inner 0
 smart_gaps on

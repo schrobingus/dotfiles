@@ -2,7 +2,10 @@
 
 {
   services = {
-    displayManager.defaultSession = "none+i3";
+    displayManager = {
+      defaultSession = "none+i3";
+      ly.enable = true;
+    };
     xserver = {
       enable = true;
       displayManager.startx.enable = true;

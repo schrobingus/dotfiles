@@ -5,6 +5,8 @@
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 autoload -Uz compinit && compinit
 
+setopt HIST_IGNORE_ALL_DUPS
+
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
@@ -45,12 +47,12 @@ zle-line-init() {
     [[ $ret == 0 && $KEYS == $'\4' ]] || break
     [[ -o ignore_eof ]] || exit 0
   done
-  local saved_prompt=$PROMPT
+  # local saved_prompt=$PROMPT
   local saved_rprompt=$RPROMPT
-  PROMPT="%F{0}%B%(0?.%K{4} .%K{1} )%b%k "
+  # PROMPT="%F{0}%B%(0?.%K{4} .%K{1} )%b%k "
   RPROMPT=""
   zle .reset-prompt
-  PROMPT=$saved_prompt
+  # PROMPT=$saved_prompt
   RPROMPT=$saved_rprompt
   if (( ret )); then
     zle .send-break
