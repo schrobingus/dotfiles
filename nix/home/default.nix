@@ -17,8 +17,7 @@
     bat fd pandoc ripgrep shellcheck tree zoxide
     czkawka fzf zk
     typst tinymist
-    p7zip # peazip
-    # gdal
+    uv # gdal
 
     # TeX Packages
     (texliveSmall.withPackages (ps: with ps; [

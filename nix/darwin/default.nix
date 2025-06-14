@@ -2,17 +2,17 @@
 
 {
   environment.systemPackages = with pkgs; [
-    # gdal 
     colmena deploy-rs morph nixos-rebuild 
     nix-output-monitor
     luajit luarocks
     neofetch ripgrep vim wget
-    # xmrig p2pool # TODO: fix p2pool nixpkg for darwin. it's broken atm. xmrig is fine but you're using the brew formulae atm
+    p7zip
   ];
 
   programs.zsh.enable = true;
 
-  nix = {
+  # TODO: this is commented because of determinate nix. make a conditional that adjusts as so
+  /* nix = {
     enable = true;
     package = pkgs.nix;
     settings = {
@@ -20,7 +20,8 @@
       max-jobs = 4;
       cores = 2;
     };
-  };
+  }; */
+  nix.enable = false;
   
   # FIXME: this is specifically because of peazip. do a pr to nixpkgs. check home/default.nix
   nixpkgs.config.allowUnsupportedSystem = true;
@@ -30,6 +31,9 @@
   system.configurationRevision = self.rev or self.dirtyRev or null;
 
   system.stateVersion = 4;
+
+  # TODO: this is specifically because of the new darwin changes. make this argumentative
+  system.primaryUser = "brent";
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 }

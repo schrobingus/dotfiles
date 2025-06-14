@@ -25,13 +25,12 @@
         DSDontWriteNetworkStores = true;
         DSDontWriteUSBStores = true;
       };
-      "~/Library/Preferences/ByHost/com.apple.controlcenter".BatteryShowPercentage = true;
       "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
       "com.apple.finder".FXPreferredViewStyle = "clmv";
       "com.knollsoft.Rectangle" = {
         gapSize = 16;
-        screenEdgeGapTop = 32;
-        screenEdgeGapBottom = 32;
+        screenEdgeGapTop = 24;
+        screenEdgeGapBottom = 24;
       };
 
       # TODO: make a boolean that calls to enable / disable stage manager
@@ -46,8 +45,8 @@
       # Without Stage Manager
       "com.apple.WindowManager".GloballyEnabled = false;
       "com.knollsoft.Rectangle" = {
-        screenEdgeGapRight = 32;
-        screenEdgeGapLeft = 32;
+        screenEdgeGapRight = 24;
+        screenEdgeGapLeft = 24;
       };
     };
   };

@@ -11,10 +11,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    colmena = {
+    # TODO: figure out if i am using colmena or not.
+    /* colmena = {
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
+    }; */
     nixvim-config.url = "github:schrobingus/nixvim-config";
   };
 
@@ -23,7 +24,7 @@
     nixpkgs, 
     nix-darwin, 
     home-manager, 
-    colmena,
+    # colmena,
     nixvim-config
     } @ inputs: let
       homeManagerConfig = { pkgs, system, extraHomeModules ? [] }: {
@@ -113,8 +114,9 @@
         "chaos" = mkDarwinConfig {  # "chaos" is an M1 Macbook Air from 2020.
           system = "aarch64-darwin";
           extraDarwinModules = [
+            # TODO: because nix-darwin is now root oriented, this got fucked. fix later on
             ./nix/darwin/homebrew.nix
-            ./nix/darwin/settings.nix
+            ./nix/darwin/settings.nix 
           ];
           extraHomeModules = [
             ./nix/home/git.nix

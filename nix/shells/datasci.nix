@@ -1,3 +1,5 @@
+# TODO: try uv instead
+
 { pkgs ? import <nixpkgs> {} }:
 
 let
