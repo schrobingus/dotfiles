@@ -11,11 +11,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # TODO: figure out if i am using colmena or not.
-    /* colmena = {
-      url = "github:zhaofengli/colmena";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
-    }; */
+    };
+    agenix.url = "github:ryantm/agenix";
     nixvim-config.url = "github:schrobingus/nixvim-config";
   };
 
@@ -24,7 +24,8 @@
     nixpkgs, 
     nix-darwin, 
     home-manager, 
-    # colmena,
+    nix-index-database,
+    agenix,
     nixvim-config
     } @ inputs: let
       homeManagerConfig = { pkgs, system, extraHomeModules ? [] }: {
@@ -53,10 +54,11 @@
             system = system;
             specialArgs = { inherit self; };
             modules = 
-              [ ./nix/nixos/default.nix ]
-              ++ extraNixOSModules
-              ++ [
+              [ 
+                ./nix/nixos/default.nix
+                agenix.nixosModules.default
                 home-manager.nixosModules.home-manager {
+                  home-manager.backupFileExtension = "backup";
                   home-manager.extraSpecialArgs = { inherit inputs; };
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
@@ -64,7 +66,7 @@
                     inherit pkgs system extraHomeModules;
                   };
                 }
-              ];
+              ] ++ extraNixOSModules;
           };
       mkDarwinConfig = { 
         system, 
@@ -82,6 +84,7 @@
               ++ extraDarwinModules
               ++ [
                 home-manager.darwinModules.home-manager {
+                  home-manager.backupFileExtension = "backup";
                   home-manager.extraSpecialArgs = { inherit inputs; };
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
@@ -120,11 +123,35 @@
           ];
           extraHomeModules = [
             ./nix/home/git.nix
+            ./nix/home/nix-index-db.nix
             ./nix/home/zsh.nix
           ];
         };
       };
       nixosConfigurations = {
+        "order" = mkNixOSConfig {  # "order" is a ThinkCentre M92p Tiny repurposed as a homelab.
+          system = "x86_64-linux";
+          extraNixOSModules = [
+            {
+              networking.hostName = "order";
+              system.stateVersion = "25.05";
+              security.pam.sshAgentAuth.enable = true;
+              security.sudo.wheelNeedsPassword = false;
+            }
+            ./nix/nixos/bootloaders/grub-efi.nix
+            ./nix/nixos/hardware-configuration/order.nix  # If the `bcache` partition causes issues, just comment it in the file.
+            ./nix/nixos/programs/base-cli.nix
+            ./nix/nixos/programs/portable-cli.nix
+            ./nix/nixos/services/avahi.nix
+            ./nix/nixos/services/bcache.nix
+            ./nix/nixos/services/glances.nix
+          ];
+          extraHomeModules = [
+            ./nix/home/git.nix
+            ./nix/home/zsh.nix
+            ./nix/home/nix-index-db.nix
+          ];
+        };
         "thonk" = mkNixOSConfig {
           system = "x86_64-linux";
           extraNixOSModules = [
@@ -160,6 +187,9 @@
             ./nix/nixos/programs/base-gui.nix
             ./nix/nixos/programs/portable-cli.nix
             ./nix/nixos/services/avahi.nix
+            ./nix/nixos/services/cockpit.nix
+            ./nix/nixos/services/guacamole/default.nix
+            ./nix/nixos/services/nextcloud.nix
             ./nix/nixos/services/seaweedfs.nix
             ./nix/nixos/services/spice-qemu.nix
             ./nix/nixos/fonts.nix

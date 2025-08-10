@@ -1,0 +1,25 @@
+
+foreground = #100F0F
+background = #FFFCF0
+cursor-color = #100F0F
+cursor-text = #FFFCF0
+selection-foreground = #100F0F
+selection-background = #F2F0E5
+split-divider-color = #DAD8CE
+palette = 0=#FFFCF0
+palette = 1=#D04D41
+palette = 2=#869B39
+palette = 3=#D0A215
+palette = 4=#4285BF
+palette = 5=#CE5C97
+palette = 6=#3CA89F
+palette = 7=#6F6E6A
+palette = 8=#B7B5AC
+palette = 9=#AF3029
+palette = 10=#66810B
+palette = 11=#AC8200
+palette = 12=#205EA5
+palette = 13=#A02F6F
+palette = 14=#24837B
+palette = 15=#100F0F
+

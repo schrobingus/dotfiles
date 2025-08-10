@@ -5,12 +5,17 @@
     enable = true;
 
     taps = [
+      "d12frosted/emacs-plus"
       "smudge/smudge"
     ];
     brews = [
       "cocoapods"
       "xcodes"
       "nightlight"
+
+      # NOTE: this is just here to try some editors. pull when decided
+      "kakoune"
+      "helix"
 
       # TODO: remove these when p2pool on nix is fixed
       "monero"
@@ -38,7 +43,8 @@
       "ollama"
       "utm"
 
-      "iina"
+      # "iina"  # disabled for manually compiled `macos-tahoe` branch
+      "cog-app"
       "skim"
       "openscad@snapshot"
       "steam"

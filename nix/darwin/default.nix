@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    colmena deploy-rs morph nixos-rebuild 
+    colmena deploy-rs morph nixos-rebuild nixos-rebuild-ng
     nix-output-monitor
     luajit luarocks
     neofetch ripgrep vim wget

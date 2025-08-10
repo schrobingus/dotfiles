@@ -1,22 +1,24 @@
-{ ... }:
+{ config, ... }:
 
 {
-  # NOTE: Mind the potential `config.lib.file.mkOutOfStoreSymlink` prefix if you want files to be linked directly.
+  # TODO: Mind the below. Make a helper that does an out of store symlink, and automatically assigns the full path.
+  # NOTE: Mind the potential `config.lib.file.mkOutOfStoreSymlink` prefix if you want files to be linked directly. In order for this to work, the path must be both a string AND absolute.
 
   home.file = {
-    ".vimrc".source = ../../config/vimrc;
-    ".zshrc".source = ../../config/zshrc;
+    ".vimrc".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/vimrc";
+    ".zshrc".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/zshrc";
   };
 
   xdg.configFile = {
-    "alacritty.toml".source = ../../config/alacritty.toml;
-    "wezterm/wezterm.lua".source = ../../config/wezterm.lua;
+    # "alacritty.toml".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/alacritty.toml";
+    "wezterm/wezterm.lua".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/wezterm.lua";
+    "ghostty".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/ghostty";
 
-    "wallpaper.jpg".source = ../../config/wallpaper.jpg;
-    "dunst/dunstrc".source = ../../config/dunstrc;
-    "i3/config".source = ../../config/i3-config;
-    "i3status/config".source = ../../config/i3status-config;
-    "picom.conf".source = ../../config/picom.conf;
+    "wallpaper.jpg".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/wallpaper.jpg";
+    "dunst/dunstrc".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/dunstrc";
+    "i3/config".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/i3-config";
+    "i3status/config".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/i3status-config";
+    "picom.conf".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/picom.conf";
 
     "tt-schemes" = {
       recursive = true;

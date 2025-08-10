@@ -4,6 +4,8 @@
   # All consistent settings across your devices stay in here.
   # If something varies, put it in a module.
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   nixpkgs.config.allowUnfree = true;
 
   networking.wireless.enable = false;
@@ -60,4 +62,7 @@
     enable = true;
     settings.PermitRootLogin = "yes";
   };
+
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 80 443 9090 61208 ];
 }

@@ -1,3 +1,4 @@
+
 local wt = require 'wezterm'
 local config = wt.config_builder()
 
@@ -193,14 +194,14 @@ if wt.target_triple:match("darwin") ~= nil then
     },
 
     { -- Vertical split.
-      key = '\\',
-      mods = 'CMD|SHIFT',
+      key = 'd',
+      mods = 'CMD',
       action = wt.action.SplitHorizontal {
         domain = 'CurrentPaneDomain'
       },
     },
     { -- Horizontal split.
-      key = '-',
+      key = 'D',
       mods = 'CMD|SHIFT',
       action = wt.action.SplitVertical {
         domain = 'CurrentPaneDomain'
@@ -245,3 +246,4 @@ smsp.apply_to_config(config, {
 })
 
 return config
+

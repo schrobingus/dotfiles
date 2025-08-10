@@ -23,8 +23,14 @@
     (texliveSmall.withPackages (ps: with ps; [
       latexmk # Compiler
       changepage enumitem
+      titlesec
       helvetic
     ]))
+
+    # Haskell Packages
+    haskell.compiler.ghc9102
+    stack cabal-install zlib
+
     # TODO: move some of these packages over another nix import
   ] ++ (
     if pkgs.stdenv.isLinux then [

@@ -1,0 +1,30 @@
+
+theme = dark:flexoki-dark-bingus,light:flexoki-light-bingus
+
+unfocused-split-opacity = 1
+
+font-family = "SF Mono"
+font-family-bold = "SF Mono"
+font-family-italic = "SF Mono"
+font-family-bold-italic = "SF Mono"
+
+font-style = "Medium"
+font-style-bold = "Bold"
+font-style-italic = "Medium Italic"
+font-style-bold-italic = "Bold Italic"
+
+font-size = 13
+
+window-padding-x = 16
+window-padding-y = 8
+
+adjust-cell-width = -5%
+
+macos-option-as-alt = true
+macos-titlebar-style = "tabs"
+
+keybind = alt+h=goto_split:left
+keybind = alt+l=goto_split:right
+keybind = alt+j=goto_split:bottom
+keybind = alt+k=goto_split:top
+
