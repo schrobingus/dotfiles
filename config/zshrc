@@ -1,6 +1,8 @@
 
 # zmodload zsh/zprof
 
+export DOTDIR="/Users/brent/Sources/dotfiles"
+
 # Below disables case sensitivity.
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 autoload -Uz compinit && compinit
@@ -18,7 +20,9 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Credit for most of the prompt to Apeiros.
 # (GitHub username: Apeiros-46B).
+
 alias prompt_addins='printf "%s%s" "${IN_NIX_SHELL+❄ }" "${VIRTUAL_ENV+⚙ }"'
+
 prompt_git() {
     if git status 2>&- 1> /dev/null; then
 		branch="$(git -P branch | awk '{ print $2 }')"
@@ -28,6 +32,7 @@ prompt_git() {
 		fi; exit 0
     else exit 1; fi
 }
+
 # TODO: fix up the hud icons
 precmd() {
     PS1="%F{0}%B%(0?.%K{4} .%K{1} )%(1j.⚑ .)$(prompt_addins)%k%f%S %~ %b%s "  ## Main Prompt
@@ -63,9 +68,55 @@ zle-line-init() {
 }
 zle -N zle-line-init
 
+if [[ -x "nix" ]]; then
+  alias nd="nix develop" # NOTE: consider using `nom` if present?
+  alias nsh="nix-shell"
+  alias ncs="nix-store --gc && sudo nix-store --gc"
+  alias ncg="nix-collect-garbage -d && sudo nix-collect-garbage -d"
+fi
+
+if [[ -x "nix-channel" ]]; then
+  alias ncu="nix-channel --update && sudo nix-channel --update"
+  alias ncui="nix-channel --update -vvvvv && sudo nix-channel --update -vvvvv"
+fi
+
+if [[ -x "nixos-rebuild-ng" ]]; then
+  alias nrs="sudo nixos-rebuild-ng switch"
+  alias nrf="sudo nixos-rebuild-ng switch --flake $DOTDIR"
+elif [[ -x "nixos-rebuild" ]]; then
+  alias nrs="sudo nixos-rebuild switch"
+  alias nrf="sudo nixos-rebuild switch --flake $DOTDIR"
+fi
+
+if [[ -x "darwin-rebuild" ]]; then
+  alias drs="sudo darwin-rebuild switch"
+  alias drf="sudo darwin-rebuild switch --flake $DOTDIR"
+elif [[ "$(uname)" -eq "Darwin" && -x "nix" ]]; then
+  alias drs="echo 'darwin-rebuild binary not found, pulling from github...' && sudo nix run nix-darwin/master#darwin-rebuild -- switch"
+  alias drf="echo 'darwin-rebuild binary not found, pulling from github...' && sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake $DOTDIR"
+fi
+
+if [[ -x "home-manager" ]]; then
+  alias nhs="home-manager switch"
+  alias nhf="home-manager switch --flake $DOTDIR"
+fi
+
 if [[ -x "$(command -v zoxide)" ]]; then
   eval "$(zoxide init zsh)"
+  alias cd=z
 fi
+
+if [[ -f "/usr/bin/arch" ]]; then
+  alias x86_sh="/usr/bin/arch -x86_64 /bin/zsh"
+fi
+
+if [[ -x "doas" && !( -x "sudo" ) ]]; then
+  alias sudo="doas"
+fi
+
+alias ls="ls -lH --color=auto"
+alias x="startx"
+alias allah="sudo"
 
 # zprof
 

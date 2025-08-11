@@ -25,9 +25,13 @@ The plan first is to get my regular Vim configuration off the ground as a regula
 
 - It might be an idea to move away from Nixvim and just rewrite my configuration in Lua. Sure, Nixvim is great, and it makes managing my Neovim configuration very easy, and it integrates with the rest of my system perfectly, but the hard dependency on Nix that it creates can be a roadblock in many cases.
 
+  - [ ] **I also have the option to blend both Lua and Nix without a hard dependency on the latter. Take a look at [nixCats](https://github.com/BirdeeHub/nixCats-nvim).** It utilizes Nix as a package manager for Neovim, but keeps configuration bound to Lua. Neovim also comes with a built in minimal package manager now, which may also be quite helpful as a fallback.
+
 - Another option is to potentially bite the bullet and move to another editor. 
 
   - Emacs is the one I have been majorly reconsidering, as it was what I used prior to switching to Neovim, and it can be used as a swiss army knife for effectively any traditional computer, both regarding editing and other tasks to be done. Whilst it replaces many essential functions in workflow, Emacs doesn't necessarily replace any functions on the system level. This makes it a perfect option to just drop onto any system where I have the capability to run portable executables, regardless of user level.
+
+    - On top of this, a specific peer will be entering and will likely be wanting to do academic research pretty early. Sure, VimTeX is nice, but Emacs' TeX support is unmatched, so this makes it even more of a considerable option. It would also teach you how to make software that is tailored to specific users.
 
     - Org mode is great, and I would like to use it's functions, but I want it to be compatible with Markdown. This is not because I don't know how to use Org Mode or the Org language (I do), it's primarily because I want my notes to be accessible from anywhere, such as Nextcloud Notes, and still have the benefits (such as Org Agenda) on my Emacs configuration.
 
@@ -35,7 +39,9 @@ The plan first is to get my regular Vim configuration off the ground as a regula
 
 ## What Needs Reimplementation
 
-**First of all, what the fuck is going on with `darwin-rebuild` in the path? Fix that as soon as possible, so you don't have to keep using `nix run`.**
+- [x] **First of all, what the fuck is going on with `darwin-rebuild` in the path? Fix that as soon as possible, so you don't have to keep using `nix run`.**
+
+  - [x] [This is a Nix Darwin issue with Determinate Nix.](https://github.com/nix-darwin/nix-darwin/issues/1544) **The best course of action to do here is to make the alias conditional, and revert to an alias relying on `nix run` if `darwin-rebuild` is not in the `PATH`.**
 
 This is a list of the relation of each file in this repository to the goals I am trying to achieve:
 
@@ -49,6 +55,10 @@ This is a list of the relation of each file in this repository to the goals I am
 
     - This is a standalone dotfile, albeit I think this needs work in general. Test using the virtual machine.
 
+  - `ghostty/`
+
+    - This is a standalone set of dotfiles, which includes the Ghostty configuration, as well as a modified version of the Flexoki theme to my preferences in light and dark mode. The whole directory is linked to it's respective configuration directory, which I would like to eventually apply to the rest of these dotfiles automatically. Does not need editing.
+
   - `i3-config`
 
     - This is a standalone dotfile that needs not much editing.
@@ -61,7 +71,7 @@ This is a list of the relation of each file in this repository to the goals I am
 
     - This is a standalone dotfile.
 
-  - `vimrc`
+   `vimrc`
 
     - This is a standalone dotfile. However, I do want to have an option that either pulls from Vim packages out of scope (such as Home Manager) or optionally uses Plug.vim.
 
@@ -75,11 +85,11 @@ This is a list of the relation of each file in this repository to the goals I am
 
   - `Xresources`
 
-    - **An insane mess.** Standalone, it does work as a standalone dotfile, but certain settings are bolstered by Home Manager. Also, much is out of date.
+    - [x] **An insane mess.** Standalone, it does work as a standalone dotfile, but certain settings are bolstered by Home Manager. Also, much is out of date.
 
   - `zshrc`
 
-    - **Currently dependent on Nix, but should not be.** This entire thing needs to be overdone to make more agnostic.
+    - [x] **Currently dependent on Nix, but should not be.** This entire thing needs to be overdone to make more agnostic.
 
 - `flake.nix`, `flake.lock`
 
@@ -103,9 +113,11 @@ This is a list of the relation of each file in this repository to the goals I am
 
     - `files.nix`
 
-      - **This is the file that binds all standalone dotfiles on my Nix configuration.**
+      - This is the file that binds all standalone dotfiles on my Nix configuration.
 
-      - Runs under Nix. I do want to make it so the sorted dotfiles are linked outside of the store, however.
+      - [x] **Runs under Nix. I do want to make it so the sorted dotfiles are linked outside of the store, however.**
+
+        - [ ] **This has been fixed, but I want to make this more dynamic and link back to the user. The whole path is needed in order to provide a symlink directly.**
 
     - `fonts.nix`
 
@@ -121,11 +133,11 @@ This is a list of the relation of each file in this repository to the goals I am
 
     - `xresources.nix`
 
-      - **Get rid of this.** This is muddying the waters between Nix and the standalone Nix dotfiles, and there is little to no advantage setting Xresources this way.
+      - [x] **Get rid of this.** This is muddying the waters between Nix and the standalone Nix dotfiles, and there is little to no advantage setting Xresources this way.
 
     - `zsh.nix`
 
-      - **Strip this to just managing packages and instantiating Nix path, and move the configuration itself to zshrc.** This should not be needed to run the Zsh configuration properly.
+      - [x] **Strip this to just managing packages and instantiating Nix path, and move the configuration itself to zshrc.** This should not be needed to run the Zsh configuration properly.
 
   - `nixos/`
 
@@ -140,4 +152,6 @@ This is a list of the relation of each file in this repository to the goals I am
     - Runs under Nix. 
 
     - Right now, there is only one shell, which is meant for Data Science, and isn't really needed anymore since I either write a flake or use UV for this kind of setup. This also isn't really needed, because I now use Nix Comma (which is under the Nix Index Database module in my Home Manager configuration).
+
+    - This has been removed. Eventually though, I might make a shell that is directly referencable from the flake using `nix develop`.
 

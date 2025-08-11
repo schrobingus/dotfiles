@@ -6,7 +6,7 @@
 
   home.file = {
     ".vimrc".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/vimrc";
-    ".zshrc".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/zshrc";
+    # ".zshrc".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/zshrc";
   };
 
   xdg.configFile = {
@@ -19,6 +19,7 @@
     "i3/config".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/i3-config";
     "i3status/config".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/i3status-config";
     "picom.conf".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/picom.conf";
+    "zsh/rc.zsh".source = config.lib.file.mkOutOfStoreSymlink "/Users/brent/Sources/dotfiles/config/zshrc";
 
     "tt-schemes" = {
       recursive = true;

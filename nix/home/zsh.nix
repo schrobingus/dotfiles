@@ -1,49 +1,31 @@
 { pkgs, ... }:
 
 {
-  # NOTE: Aliases for NixOS are not set up.
   programs.zsh = {
     enable = true;
-    dotDir = ".config/zsh";
-    initContent = /* sh */ '' if [ -e "$HOME/.profile" ]; then                  
-        source $HOME/.profile         
-      fi
+    # dotDir = ".config/zsh";
 
-      if [ -e "$HOME/.zprofile" ]; then                  
-        source $HOME/.zprofile         
-      fi
+    # This is used to initialize the `zshrc`, which often doesn't load due to conflicts.
+    initContent = /* sh */ '' 
+    if [ -e "$HOME/.zprofile" ]; then                  
+      source $HOME/.zprofile         
+    fi
 
+    if [ -e "$HOME/.profile" ]; then                  
+      source $HOME/.profile         
+    fi
+
+    if [ -e "$HOME/.config/zsh/rc.zsh" ]; then
+      source $HOME/.config/zsh/rc.zsh
+    else
       source $HOME/.zshrc
+    fi
 
-      if [ -e "$HOME/.config/zsh/extra.zsh" ]; then
-        source $HOME/.config/zsh/extra.zsh
-      fi
+    if [ -e "$HOME/.config/zsh/extra.zsh" ]; then
+      source $HOME/.config/zsh/extra.zsh
+    fi
     '';
-    # history = {
-    #   save = 10000;
-    #   size = 10000;
-    #   ignoreDups = true;
-    #   path = "$HOME/.zsh_history";
-    # };
-    shellAliases = {
-      x86_sh = "$env /usr/bin/arch -x86_64 /bin/zsh"; # Rosetta shell alias.
-      ls = "ls -lH --color=auto";
-      cd = "z";
-      x = "startx";
-      allah = "sudo";
 
-      # TODO: define variable for flake path, variable should be in `home.nix` though
-      nu  = "nix-channel --update && sudo nix-channel --update || true";  # Update Nix channels.
-      nui = "nix-channel --update -vvvvv && sudo nix-channel --update -vvvvv || true";  # Update Nix channels with instantiation (in case shit breaks).
-      nrs = "sudo nixos-rebuild switch"; # Rebuild NixOS config from `configuration.nix`.
-      nrf = "sudo nixos-rebuild switch --flake ~/Sources/dotfiles/"; # Rebuild NixOS config from a Nix flake.
-      drs = "sudo darwin-rebuild switch"; # Rebuild Nix Darwin config from `configuration.nix`.
-      drf = "sudo darwin-rebuild switch --flake ~/Sources/dotfiles/"; # Rebuild Nix Darwin config from a Nix flake.
-      nhs = "home-manager switch";  # Rebuild Home Manager config from `configuration.nix`.
-      nhf = "home-manager switch --flake ~/Soueces/dotfiles/"; # Rebuild Home Manager config from a Nix flake.
-      ncs = "nix-store --gc && sudo nix-store --gc"; # Collect Nix Store garbage, consisting of unused entries.
-      ncg = "nix-collect-garbage -d && sudo nix-collect-garbage -d"; # Collect overall Nix garbage, including both unused store entries and config generations.
-    };
     plugins = [
       {
         name = "zsh-syntax-highlighting";
@@ -88,11 +70,6 @@
       # {
       #   name = "zsh-history-substring-search";
       #   src = pkgs.zsh-history-substring-search;
-      # }
-      # {
-      #   # NOTE: this used to be really slow. it's still slow on first run, but it seems to cache after the fact. keep this in mind
-      #   name = "nix-zsh-completions";
-      #   src = pkgs.nix-zsh-completions;
       # }
       # {
       #   name = "zsh-nix-shell";

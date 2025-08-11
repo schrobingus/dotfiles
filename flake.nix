@@ -182,24 +182,29 @@
             }
             ./nix/nixos/bootloaders/systemd-boot-efi.nix
             ./nix/nixos/hardware-configuration/qemu.nix
-            ./nix/nixos/interfaces/i3.nix
+            # ./nix/nixos/interfaces/i3.nix
+            # ./nix/nixos/programs/base-cli.nix
+            # ./nix/nixos/programs/base-gui.nix
+            # ./nix/nixos/programs/portable-cli.nix
+            # ./nix/nixos/services/avahi.nix
+            # ./nix/nixos/services/cockpit.nix
+            # ./nix/nixos/services/guacamole/default.nix
+            # ./nix/nixos/services/nextcloud.nix
+            # ./nix/nixos/services/seaweedfs.nix
+            # ./nix/nixos/services/spice-qemu.nix
+            # ./nix/nixos/fonts.nix
             ./nix/nixos/programs/base-cli.nix
-            ./nix/nixos/programs/base-gui.nix
             ./nix/nixos/programs/portable-cli.nix
             ./nix/nixos/services/avahi.nix
-            ./nix/nixos/services/cockpit.nix
-            ./nix/nixos/services/guacamole/default.nix
-            ./nix/nixos/services/nextcloud.nix
-            ./nix/nixos/services/seaweedfs.nix
-            ./nix/nixos/services/spice-qemu.nix
-            ./nix/nixos/fonts.nix
+            ./nix/nixos/services/glances.nix
           ];
           extraHomeModules = [
             ./nix/home/git.nix
             ./nix/home/zsh.nix
-            ./nix/home/fonts.nix
-            ./nix/home/xresources.nix
-            ./nix/home/dunst.nix
+            # ./nix/home/fonts.nix
+            # ./nix/home/xresources.nix
+            # ./nix/home/dunst.nix
+            ./nix/home/nix-index-db.nix
           ];
         };
         "tendollarhaircut" = mkNixOSConfig {
