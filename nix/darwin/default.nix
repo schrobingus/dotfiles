@@ -32,7 +32,7 @@
 
   system.stateVersion = 4;
 
-  # TODO: this is specifically because of the new darwin changes. make this argumentative
+  # TODO: change to pass from flake
   system.primaryUser = "brent";
 
   nixpkgs.hostPlatform = "aarch64-darwin";

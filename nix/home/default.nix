@@ -1,12 +1,9 @@
-{ pkgs, ... }: 
+{ lib, pkgs, username, homeDir, dotDir, ... }: 
 
 {
-  home.username = "brent";
-  home.homeDirectory = 
-    if pkgs.stdenv.isLinux then 
-      pkgs.lib.mkForce "/home/brent" 
-    else 
-      pkgs.lib.mkForce "/Users/brent";
+  home.username = username;
+  home.homeDirectory = lib.mkForce homeDir;
+  home.sessionVariables.DOTDIR = dotDir;
 
   home.stateVersion = "24.05";
 

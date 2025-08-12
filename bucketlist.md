@@ -117,7 +117,7 @@ This is a list of the relation of each file in this repository to the goals I am
 
       - [x] **Runs under Nix. I do want to make it so the sorted dotfiles are linked outside of the store, however.**
 
-        - [ ] **This has been fixed, but I want to make this more dynamic and link back to the user. The whole path is needed in order to provide a symlink directly.**
+        - [x] **This has been fixed, but I want to make this more dynamic and link back to the user. The whole path is needed in order to provide a symlink directly.**
 
     - `fonts.nix`
 

@@ -49,6 +49,7 @@
     experimental-features = nix-command flakes
   '';
 
+  # TODO: pass user from flake
   users.users.brent = {
     isNormalUser = true;
     description = "Brent";

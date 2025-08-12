@@ -1,8 +1,6 @@
 
 # zmodload zsh/zprof
 
-export DOTDIR="/Users/brent/Sources/dotfiles"
-
 # Below disables case sensitivity.
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 autoload -Uz compinit && compinit

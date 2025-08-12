@@ -1,6 +1,7 @@
 { ... }:
 
 {
+  # TODO: figure out how to integrate this with users? or just scrap
   programs.git = {
     enable = true;
     userName = "schrobingus";
