@@ -1,5 +1,6 @@
 
-{ config, lib, dotDir, ... }:
+{ config, lib, dotDir, dotfilesOutOfStore ? true, ... }:
+# TODO: make dotfilesOutOfStore true by default
 
 let
 
@@ -8,7 +9,10 @@ let
   mkLinks = paths:
     lib.attrsets.mergeAttrsList (map (relPath: {
       "${relPath}".source =
-        config.lib.file.mkOutOfStoreSymlink "${dotDir}/togohome/${relPath}";
+        if dotfilesOutOfStore then
+          config.lib.file.mkOutOfStoreSymlink "${dotDir}/togohome/${relPath}"
+        else
+          "${dotDir}/togohome/${relPath}";
     }) paths);
 
   topLevel = builtins.attrNames (builtins.readDir "${dotDir}/togohome");

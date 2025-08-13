@@ -58,7 +58,10 @@
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager {
             home-manager.backupFileExtension = "backup";
-            home-manager.extraSpecialArgs = { inherit inputs; } // info system;
+            home-manager.extraSpecialArgs = { 
+              inherit inputs; 
+              dotfilesOutOfStore = true;
+            } // info system;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.brent = homeManagerConfig {
@@ -78,7 +81,10 @@
         ] ++ extraDarwinModules ++ [
             home-manager.darwinModules.home-manager {
               home-manager.backupFileExtension = "backup";
-              home-manager.extraSpecialArgs = { inherit inputs; } // info system;
+              home-manager.extraSpecialArgs = { 
+                inherit inputs; 
+                dotfilesOutOfStore = true;
+              } // info system;
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.brent = homeManagerConfig {
@@ -92,7 +98,10 @@
       pkgs = import nixpkgs { inherit system; };
     in home-manager.lib.homeManagerConfiguration {
         pkgs = pkgs;
-        extraSpecialArgs = { inherit self; } // info system;
+        extraSpecialArgs = { 
+          inherit self; 
+            dotfilesOutOfStore = true;
+        } // info system;
         modules = [
           homeManagerConfig { inherit pkgs system extraHomeModules; }
         ];
@@ -152,6 +161,7 @@
         extraNixOSModules = [
           {
             networking.hostName = "flakyvm-qemu";
+            home-manager.extraSpecialArgs.dotfilesOutOfStore = false; # Links dotfiles in the store, so remote deployments will not have missing files.
           }
           ./nix/nixos/bootloaders/systemd-boot-efi.nix
           ./nix/nixos/hardware-configuration/qemu.nix
