@@ -1,9 +1,9 @@
-{ lib, pkgs, username, homeDir, dotDir, ... }: 
+{ lib, pkgs, username, homeDir, dotfilesDir, ... }: 
 
 {
   home.username = username;
   home.homeDirectory = lib.mkForce homeDir;
-  home.sessionVariables.DOTDIR = dotDir;
+  home.sessionVariables.DOTDIR = dotfilesDir;
 
   home.stateVersion = "24.05";
 

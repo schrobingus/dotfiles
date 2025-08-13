@@ -3,7 +3,6 @@
 {
   programs.zsh = {
     enable = true;
-    # dotDir = ".config/zsh";
 
     # This is used to initialize the `zshrc`, which often doesn't load due to conflicts.
     initContent = /* sh */ '' 

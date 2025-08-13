@@ -1,22 +1,25 @@
 
-{ config, lib, dotDir, dotfilesOutOfStore ? true, ... }:
-# TODO: make dotfilesOutOfStore true by default
+# This `files.nix` script will:
+# - symlink the dotfiles directly from the flake instance, and
+# - use absolute paths to link.
+
+# This is the script that is intended to be used on machines, where the 
+# flake is locally deployed (aka most intances). With this script, changes can be
+# made to the dotfiles without having to rebuild the flake.
+
+# If you are deploying remotely, it is optimal to use `files-store.nix` instead.
+
+{ config, lib, dotfilesDir, ... }:
 
 let
 
-  # FIXME: this function works well, but because it symlinks directories, it often catches junk files in the crossfire. for now, just throw the junk files in gitignore, but consider linking the individual files
+  topLevel = builtins.attrNames (builtins.readDir "${dotfilesDir}/togohome");
+  configLevel = builtins.attrNames (builtins.readDir "${dotfilesDir}/togohome/.config");
 
   mkLinks = paths:
     lib.attrsets.mergeAttrsList (map (relPath: {
-      "${relPath}".source =
-        if dotfilesOutOfStore then
-          config.lib.file.mkOutOfStoreSymlink "${dotDir}/togohome/${relPath}"
-        else
-          "${dotDir}/togohome/${relPath}";
+      "${relPath}".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/togohome/${relPath}";
     }) paths);
-
-  topLevel = builtins.attrNames (builtins.readDir "${dotDir}/togohome");
-  configLevel = builtins.attrNames (builtins.readDir "${dotDir}/togohome/.config");
 
   homeFiles = builtins.filter (name: name != ".config") topLevel;
   configFiles = map (name: ".config/${name}") configLevel;

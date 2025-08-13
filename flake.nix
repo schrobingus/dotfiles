@@ -30,10 +30,10 @@
         if builtins.match ".*-darwin" system != null
           then "/Users/${username}"
         else "/home/${username}";
-      dotDir = "${homeDir}/Sources/dotfiles";
-    in { inherit username homeDir dotDir; };
+      dotfilesDir = "${homeDir}/Sources/dotfiles";
+    in { inherit username homeDir dotfilesDir; };
 
-    homeManagerConfig = { pkgs, system, extraHomeModules ? [] }: {
+    homeManagerConfig = { pkgs, system, extraHomeModules ? [], dotfilesUseStore ? false }: {
       # TODO: move the nvim stuff into it's own home module for organization
       home.packages = [
         pkgs.home-manager
@@ -44,11 +44,13 @@
       };
       imports = [
         ./nix/home/default.nix
-        ./nix/home/files.nix
+        (if dotfilesUseStore 
+          then ./nix/home/files-store.nix 
+          else ./nix/home/files.nix)
       ] ++ extraHomeModules;
     };
 
-    mkNixOSConfig = { system, extraHomeModules ? [], extraNixOSModules ? [] }: let
+    mkNixOSConfig = { system, extraHomeModules ? [], extraNixOSModules ? [], dotfilesUseStore ? false }: let
       pkgs = import nixpkgs { inherit system; };
     in nixpkgs.lib.nixosSystem {
         system = system;
@@ -58,20 +60,18 @@
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager {
             home-manager.backupFileExtension = "backup";
-            home-manager.extraSpecialArgs = { 
-              inherit inputs; 
-              dotfilesOutOfStore = true;
-            } // info system;
+            home-manager.extraSpecialArgs = { inherit inputs; } // info system;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.brent = homeManagerConfig {
               inherit pkgs system extraHomeModules;
+              dotfilesUseStore = dotfilesUseStore;
             };
           }
         ] ++ extraNixOSModules;
       };
 
-    mkDarwinConfig = { system, extraHomeModules ? [], extraDarwinModules ? [] }: let
+    mkDarwinConfig = { system, extraHomeModules ? [], extraDarwinModules ? [], dotfilesUseStore ? false }: let
       pkgs = import nixpkgs { inherit system; };
     in nix-darwin.lib.darwinSystem {
         system = system;
@@ -81,29 +81,27 @@
         ] ++ extraDarwinModules ++ [
             home-manager.darwinModules.home-manager {
               home-manager.backupFileExtension = "backup";
-              home-manager.extraSpecialArgs = { 
-                inherit inputs; 
-                dotfilesOutOfStore = true;
-              } // info system;
+              home-manager.extraSpecialArgs = { inherit inputs; } // info system;
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.brent = homeManagerConfig {
                 inherit pkgs system extraHomeModules;
+                dotfilesUseStore = dotfilesUseStore;
               };
             }
           ];
       };
 
-    mkHomeConfig = { system, extraHomeModules ? [] }: let
+    mkHomeConfig = { system, extraHomeModules ? [], dotfilesUseStore ? false }: let
       pkgs = import nixpkgs { inherit system; };
     in home-manager.lib.homeManagerConfiguration {
         pkgs = pkgs;
-        extraSpecialArgs = { 
-          inherit self; 
-            dotfilesOutOfStore = true;
-        } // info system;
+        extraSpecialArgs = { inherit self; } // info system;
         modules = [
-          homeManagerConfig { inherit pkgs system extraHomeModules; }
+          homeManagerConfig { 
+            inherit pkgs system extraHomeModules; 
+            dotfilesUseStore = dotfilesUseStore;
+          }
         ];
       };
 
@@ -161,7 +159,6 @@
         extraNixOSModules = [
           {
             networking.hostName = "flakyvm-qemu";
-            home-manager.extraSpecialArgs.dotfilesOutOfStore = false; # Links dotfiles in the store, so remote deployments will not have missing files.
           }
           ./nix/nixos/bootloaders/systemd-boot-efi.nix
           ./nix/nixos/hardware-configuration/qemu.nix
@@ -173,6 +170,7 @@
         extraHomeModules = commonHomeModules ++ [
           ./nix/home/nix-index-db.nix
         ];
+        dotfilesUseStore = true;
       };
 
       tendollarhaircut = {
@@ -212,28 +210,30 @@
 
   in {
 
-    darwinConfigurations = lib.genAttrs (builtins.attrNames darwinTargets) (name:
-      let cfg = darwinTargets.${name};
-      in mkDarwinConfig {
-          system = cfg.system;
-          extraDarwinModules = cfg.extraDarwinModules or [];
-          extraHomeModules = cfg.extraHomeModules or [];
-        });
-
     nixosConfigurations = lib.genAttrs (builtins.attrNames nixosTargets) (name:
       let cfg = nixosTargets.${name};
       in mkNixOSConfig {
           system = cfg.system;
           extraNixOSModules = cfg.extraNixOSModules or [];
           extraHomeModules = cfg.extraHomeModules or [];
+          dotfilesUseStore = cfg.dotfilesUseStore or false;
+        });
+
+    darwinConfigurations = lib.genAttrs (builtins.attrNames darwinTargets) (name:
+      let cfg = darwinTargets.${name};
+      in mkDarwinConfig {
+          system = cfg.system;
+          extraDarwinModules = cfg.extraDarwinModules or [];
+          extraHomeModules = cfg.extraHomeModules or [];
+          dotfilesUseStore = cfg.dotfilesUseStore or false;
         });
 
     homeConfigurations = lib.genAttrs (builtins.attrNames nixosTargets ++ builtins.attrNames darwinTargets) (name:
-      let
-        cfg = nixosTargets.${name} or darwinTargets.${name};
+      let cfg = nixosTargets.${name} or darwinTargets.${name};
       in mkHomeConfig {
           system = cfg.system;
           extraHomeModules = cfg.extraHomeModules or [];
+          dotfilesUseStore = cfg.dotfilesUseStore or false;
         });
 
   };
